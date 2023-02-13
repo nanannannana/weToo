@@ -1,10 +1,10 @@
-import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import Main from "./pages/Main";
-import Challenge from "./pages/Challenge";
-import Mate from "./pages/Mate";
-import Recommendation from "./pages/Recommendation";
-import Mypage from "./pages/Mypage";
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Main from './pages/Main.jsx';
+import Challenge from './pages/Challenge.jsx';
+import Mate from './pages/Mate.jsx';
+import Recommendation from './pages/Recommendation.jsx';
+import Mypage from './pages/Mypage.jsx';
 
 function App() {
   return (
