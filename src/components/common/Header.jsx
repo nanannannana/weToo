@@ -18,6 +18,7 @@ font-style: normal;
 font-weight: 400;
 font-size: 60px;
 line-height: 64px;
+cursor: pointer;
 `;
 
 const List1 = styled.li`
@@ -29,6 +30,7 @@ margin-right:15px;
 
 font-family: 'Port Lligat Slab';
 font-size: 20px;
+cursor: pointer;
 `;
 const List2 = styled.li`
 position: relative;
@@ -39,6 +41,7 @@ margin-right:15px;
 
 font-family: 'Port Lligat Slab';
 font-size: 15px;
+cursor: pointer;
 `;
 
 const Vline = styled.div`
@@ -52,13 +55,13 @@ left: 65%;
 export default function Header() {
   return <>
     <Nav1>
-      <Logo>WeTo</Logo>
+      <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
       <List1>MAIN</List1>
       <List1>COMMUNITY</List1>
       <List1>GEAR</List1>
       <Vline />
-      <List2>LOGIN</List2>
-      <List2>JOIN</List2>
+      <List2 onClick={() => window.open('/Login', '_self')}>LOGIN</List2>
+      <List2 onClick={() => window.open('/Join', '_self')}>JOIN</List2>
     </Nav1>
 
   </>;
