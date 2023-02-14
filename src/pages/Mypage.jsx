@@ -1,5 +1,12 @@
-import React from "react";
+import React from 'react';
+import MyInfo from '../components/mypage/MyInfo';
+import MyNav from '../components/mypage/MyNav';
 
 export default function Mypage() {
-  return <div>Mypage</div>;
+  return (
+    <>
+      <MyNav />
+      <MyInfo />
+    </>
+  );
 }
