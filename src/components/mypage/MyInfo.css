@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-around;
+  margin: 300px 0;
+}
+.my_info_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.my_info {
+  border: 1px solid black;
+  width: 80px;
+  height: 80px;
+}
+.info_pic {
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 30%;
+  height: 30%;
+  margin: 10px auto;
+}
+.crew_container {
+  display: flex;
+  flex-direction: column;
+}
+.crew_card {
+  border: 1px solid black;
+  text-align: center;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+li {
+  list-style: none;
+}
+.challenge_container {
+  display: flex;
+  flex-direction: column;
+}
+.challenge_card {
+  border: 1px solid black;
+  text-align: center;
+}
