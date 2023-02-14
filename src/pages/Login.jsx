@@ -51,6 +51,7 @@ width: 70%;
 height: 8%;
 border: 1px solid #D8D8D8;
 cursor: pointer;
+font-family: 'Port Lligat Slab';
 `;
 
 export default function Login() {
