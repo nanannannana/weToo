@@ -58,6 +58,7 @@ height: 8%;
 margin: 50px;
 border: 1px solid #D8D8D8;
 cursor: pointer;
+font-family: 'Port Lligat Slab';
 `;
 
 export default function JoinBox() {
