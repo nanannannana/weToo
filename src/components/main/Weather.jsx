@@ -17,7 +17,7 @@ const WeatherBox = styled.div`
   display: inline-block;
   position: relative;
   width: 55%;
-  padding-bottom: 10%;
+  padding-bottom: 13%;
   top: 10px;
   border: 1px solid #D8D8D8;
   margin-bottom: 10%;
@@ -31,7 +31,7 @@ const City = styled.p`
   margin-bottom: 0%;
 `;
 const State = styled.img`
-  width: 30%;
+  width: 60px;
 `;
 
 export default function Weather() {
