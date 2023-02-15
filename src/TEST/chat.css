@@ -1,0 +1,140 @@
+.room {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.room::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.room {
+  width: 400px;
+  height: 700px;
+  overflow-y: scroll;
+  background: #94b1c5;
+  border-radius: 15px;
+  padding: 60px 20px 40px 20px;
+}
+ul {
+  padding-bottom: 30px;
+}
+li.yourMessage {
+  list-style: none;
+  /* margin-bottom: 50px; */
+}
+.yourProfile {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.yourMessage img {
+  background: #5776cd;
+  border-radius: 50px;
+}
+
+.yourProfile + p {
+  padding: 5px;
+  background: #eff0ea;
+  word-break: break-all;
+  display: inline-block;
+  border-radius: 20px;
+  padding: 5px 20px;
+  margin-top: 10px;
+  /* margin-bottom: 50px; */
+  max-width: 70%;
+}
+.yourMessage p:nth-child(1) {
+  padding: 5px;
+  background: #eff0ea;
+  word-break: break-all;
+  display: inline-block;
+  border-radius: 20px;
+  padding: 5px 20px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  max-width: 70%;
+}
+.yourMessage h3 {
+  font-size: 15px;
+  color: rgb(23, 93, 179);
+  padding: 10px;
+}
+
+.myMessage p {
+  padding: 5px;
+  text-align: left;
+  background: #fff157;
+  word-break: break-all;
+  display: inline-block;
+  border-radius: 20px;
+  padding: 5px 20px;
+  margin-top: 10px;
+  max-width: 70%;
+}
+li.myMessage {
+  list-style: none;
+  margin-bottom: 5px;
+}
+.myMessage {
+  text-align: right;
+}
+/* .myMessage p {
+        text-align: left;
+        background: #fff157;
+      } */
+
+.relative {
+  position: relative;
+  width: 400px;
+}
+form {
+  position: absolute;
+  bottom: 0;
+  border-radius: 0 0 15px 15px;
+  width: 100%;
+  left: 0;
+  background: #95b6d5;
+  padding: 5px 5px 20px 15px;
+  display: flex;
+  align-items: center;
+}
+input {
+  width: 80%;
+  padding: 5px;
+  border: none;
+}
+form button {
+  padding: 4px 10px;
+  background: #546fd1;
+  border: 1px solid #546fd1;
+  border-radius: 0 50px 50px 0;
+  color: #fff;
+}
+ul > p {
+  text-align: center;
+  background: #00000057;
+  padding: 3px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 12px;
+  margin: 10px 0;
+}
+
+.exit {
+  position: relative;
+  z-index: 1;
+}
+
+.roomTitle {
+  background: #fff7f7;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  position: fixed;
+  border-radius: 10px;
+  width: 350px;
+}

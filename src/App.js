@@ -7,6 +7,7 @@ import Recommendation from './pages/Recommendation.jsx';
 import Mypage from './pages/Mypage.jsx';
 import Login from './pages/Login.jsx';
 import Join from './pages/Join.jsx';
+import ChatPage from './TEST/ChatPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/crew" element={<Crew />} />
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/chat" element={<ChatPage />} />
       </Routes>
     </div>
   );
