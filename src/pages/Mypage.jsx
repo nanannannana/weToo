@@ -1,12 +1,12 @@
 import React from 'react';
-import MyInfo from '../components/mypage/MyInfo';
-import MyNav from '../components/mypage/MyNav';
+import Info from '../components/mypage/Info';
+import NavBar from '../components/mypage/NavBar';
 
 export default function Mypage() {
   return (
     <>
-      <MyNav />
-      <MyInfo />
+      <NavBar />
+      <Info />
     </>
   );
 }
