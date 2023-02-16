@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { join } from '../store/modules/register';
@@ -65,6 +65,7 @@ const Joinbtn = styled.button`
   color: white;
 `;
 export default function JoinBox() {
+  const inputRef = useRef();
   const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
@@ -84,13 +85,26 @@ export default function JoinBox() {
     <>
       <Div>
         <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-        <ID placeholder="ID" value={id} onChange={registerId} />
+        <ID placeholder="ID" value={id} onChange={registerId} ref={inputRef} />
         <br />
-        <PW placeholder="Password" value={pwd} onChange={registerPwd} />
+        <PW
+          placeholder="Password"
+          value={pwd}
+          onChange={registerPwd}
+          ref={inputRef}
+        />
         <br />
-        <City placeholder="City" value={city} onChange={registerCity} />
+        <City
+          placeholder="City"
+          value={city}
+          onChange={registerCity}
+          ref={inputRef}
+        />
         <br />
-        <Joinbtn type="submit" onClick={() => dispatch(join())}>
+        <Joinbtn
+          type="submit"
+          onClick={() => dispatch(join({ register: inputRef.current.value }))}
+        >
           Create an Account
         </Joinbtn>
       </Div>
