@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -43,32 +43,82 @@ border: 1px solid #D8D8D8;
   font-size: 3px;
 }
 `;
-const Line = styled.span`
-  color: #D8D8D8;
+const ErrorMSG = styled.div`
+width:62%;
+margin:auto;
+color:red;
+font-size:10%;
+text-align:left;
 `;
-const Btn = styled.button`
+const Line = styled.span`
+color: #D8D8D8;
+`;
+const LoginBtn = styled.button`
 width: 70%;
 height: 8%;
 border: 1px solid #D8D8D8;
 cursor: pointer;
 font-family: 'Port Lligat Slab';
+background-color : black;
+color:white;
+&:disabled {
+  background-color: unset;
+  color:black;
+}
+`;
+const JoinBtn = styled.button`
+width: 70%;
+height: 8%;
+border: 1px solid #D8D8D8;
+cursor: pointer;
+font-family: 'Port Lligat Slab';
+background-color : black;
+color:white;
 `;
 
 export default function Login() {
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+  const [idValid, setIdValid] = useState(false);
+  const [pwValid, setPwValid] = useState(false);
+  const [valid, setValid] = useState(true);
+
+  const idValue = (e) => {
+    setId(e.target.value);
+    if (id.length > 5) {
+      setValid(false);
+    } else {
+      setValid(true);
+    }
+  };
+  const pwValue = (e) => {
+    setPw(e.target.value);
+    if (pw.length > 5) {
+      setPwValid(true);
+    } else {
+      setPwValid(true);
+    }
+  };
+
+  const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
+
   return (
     <>
     <Div>
       <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-      <ID placeholder='ID' />
+      <ID placeholder='ID' value={id}
+      onChange={idValue}/>
       <br />
-      <PW placeholder='Password' />
+      <PW placeholder='Password' value={pw}
+      onChange={pwValue}/>
       <br />
+      <ErrorMSG></ErrorMSG>
       <br />
-      <Btn>Log In</Btn>
+      <LoginBtn disabled={valid}>Log In</LoginBtn>
       <br />
       <Line>--------------------------------------</Line>
       <br />
-      <Btn>Create an Account</Btn>
+      <JoinBtn onClick={Loginstart}>Create an Account</JoinBtn>
     </Div>
     </>
   );

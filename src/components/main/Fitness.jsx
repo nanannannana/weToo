@@ -12,7 +12,7 @@ const Title = styled.div`
   line-height: 26px;
   `;
 
-const FitnessBox = styled.div`
+const FitnessBox = styled.img`
 display: inline-block;
 position: relative;
 width: 55%;
@@ -21,7 +21,8 @@ top: 10px;
 background-color: #D8D8D8;
 `;
 
-export default function Weather() {
+export default function Weather(props) {
+  console.log(props.src);
   return <>
     <Title>Today Fitness</Title>
     <FitnessBox>
