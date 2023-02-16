@@ -1,13 +1,14 @@
-import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
+import React from 'react'; // eslint-disable-line no-unused-vars
 import './MyInfo.css';
 import Modal from './Modal';
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const BTN1 = styled.button`
   z-index: 1;
 `;
 
-export default function test() {
+export default function MyInfo() {
   const [modalOpen, setModalOpen] = useState(false);
 
   // 모달창 노출
