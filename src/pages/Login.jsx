@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -107,18 +108,29 @@ export default function Login() {
     <Div>
       <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
       <ID placeholder='ID' value={id}
-      onChange={idValue}/>
+      onChange={idValue} required/>
       <br />
       <PW placeholder='Password' value={pw}
-      onChange={pwValue}/>
+      onChange={pwValue} type={'password'} required/>
       <br />
       <ErrorMSG></ErrorMSG>
       <br />
-      <LoginBtn disabled={valid}>Log In</LoginBtn>
+      <LoginBtn disabled={valid}
+      onClick={async () => {
+          const data = await axios({
+            method: 'post',
+            url: 'http://localhost:8000/auth/login',
+            data: {
+              id: 'asd',
+              pw: '123',
+            },
+          });
+          console.log(data);
+        }}>Log In</LoginBtn>
       <br />
       <Line>--------------------------------------</Line>
       <br />
-      <JoinBtn onClick={Loginstart}>Create an Account</JoinBtn>
+      <JoinBtn>Create an Account</JoinBtn>
     </Div>
     </>
   );
