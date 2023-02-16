@@ -7,9 +7,11 @@ export function join(payload) {
   };
 }
 
-export default function todo(action) {
+export default function register(state = {}, action) {
   switch (action.type) {
     case JOIN:
-      return console.log('join');
+      return console.log('회원가입');
+    default:
+      return state;
   }
 }

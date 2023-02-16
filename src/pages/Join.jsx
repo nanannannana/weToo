@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { join } from '../store/modules/register';
 
 const Div = styled.div`
   position: absolute;
@@ -63,6 +65,7 @@ const Joinbtn = styled.button`
   color: white;
 `;
 export default function JoinBox() {
+  const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
   const [city, setCity] = useState('');
@@ -76,12 +79,7 @@ export default function JoinBox() {
   const registerCity = (e) => {
     setCity(e.target.value);
   };
-  let body = {
-    id: id,
-    pwd: pwd,
-    city: city,
-  };
-  dispatch(body).then((response) => {});
+
   return (
     <>
       <Div>
@@ -92,7 +90,9 @@ export default function JoinBox() {
         <br />
         <City placeholder="City" value={city} onChange={registerCity} />
         <br />
-        <Joinbtn type="submit">Create an Account</Joinbtn>
+        <Joinbtn type="submit" onClick={() => dispatch(join())}>
+          Create an Account
+        </Joinbtn>
       </Div>
     </>
   );
