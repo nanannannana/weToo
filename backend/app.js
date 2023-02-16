@@ -22,17 +22,17 @@ io.on('connection', (socket) => {
   // 채팅방 입장
 
   socket.on('notice', (data) => {
-    console.log('notice', data.currentRoom.id);
+    console.log('notice', data.currentCrew.id);
     users[socket.id] = data.nickName;
-    io.to(data.currentRoom.id).emit('notice', {
+    io.to(data.currentCrew.id).emit('notice', {
       type: 'notice',
       msg: data.nickName + '님이 입장하였습니다.',
     });
   });
   socket.on('join', (data) => {
-    console.log(data.currentRoom);
-    room[socket.id] = data.currentRoom;
-    socket.join(data.currentRoom);
+    console.log(data.currentCrew);
+    room[socket.id] = data.currentCrew;
+    socket.join(data.currentCrew);
   });
 
   console.log('server open ' + socket.id);
@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
     data['from'] = socket.id;
     data['nickName'] = data.nickName;
     data['isDm'] = false;
-    io.to(data.currentRoom.id).emit('newMsg', data);
+    io.to(data.currentCrew.id).emit('newMsg', data);
   });
   // 채팅방 퇴장
   socket.on('roomOut', () => {
@@ -86,9 +86,11 @@ app.use(
 
 const authRouter = require('./routes/auth');
 const chatRouter = require('./routes/chat');
+const mateRouter = require('./routes/mate');
 
 app.use('/auth', authRouter);
 app.use('/chat', chatRouter);
+app.use('/mate', mateRouter);
 // 서버 실행
 // app.listen(app.get("port"), () => {
 //   console.log(app.get("port"), "번 포트에서 대기 중");

@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 class Challenge extends Sequelize.Model {
   // 스태틱 메소드
@@ -28,12 +28,12 @@ class Challenge extends Sequelize.Model {
         sequelize,
         timestamps: false,
         underscored: false,
-        modelName: "Challenge",
-        tableName: "challenge",
+        modelName: 'Challenge',
+        tableName: 'challenge',
         freezeTableName: true,
         paranoid: false,
-        charset: "utf8",
-        collate: "utf8_general_ci",
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
       }
     );
   }
@@ -41,10 +41,17 @@ class Challenge extends Sequelize.Model {
   // 다른 모델과의 관계
   static associate(db) {
     db.Challenge.belongsToMany(db.User, {
-      foreignKey: "Challenge_id",
-      through: "challenge_user_join",
-      onDelete: "cascade",
-      onUpdate: "cascade",
+      foreignKey: 'Challenge_id',
+      through: 'challenge_user_join',
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
+
+    db.Challenge.belongsTo(db.User, {
+      foreignKey: 'User_nickName',
+      sourceKey: 'nickName',
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
     });
   }
 }
