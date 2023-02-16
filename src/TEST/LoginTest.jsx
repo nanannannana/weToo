@@ -7,7 +7,7 @@ function LoginTest() {
      <button onClick={async () => {
        const data = await axios({
         method: 'post',
-        url: 'http://localhost:5000/auth/login',
+        url: 'http://localhost:8000/auth/login',
         data: {
           id: 'asd',
           pw: '123',
@@ -18,7 +18,7 @@ function LoginTest() {
      <button onClick={async () => {
        const data = await axios({
         method: 'post',
-        url: 'http://localhost:5000/auth/userinfo',
+        url: 'http://localhost:8000/auth/userinfo',
       });
       console.log(data)
      }}>버튼</button>
