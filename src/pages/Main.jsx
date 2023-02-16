@@ -18,7 +18,6 @@ export default function Main() {
     <Header />
     <Div>
       <Weather />
-      <Fitness />
     </Div>
   </>;
 }
