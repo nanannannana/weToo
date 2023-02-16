@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 class Chat extends Sequelize.Model {
   // 스태틱 메소드
@@ -16,27 +16,27 @@ class Chat extends Sequelize.Model {
         sequelize,
         timestamps: false,
         underscored: false,
-        modelName: "Chat",
-        tableName: "chat",
+        modelName: 'Chat',
+        tableName: 'chat',
         freezeTableName: true,
         paranoid: false,
-        charset: "utf8",
-        collate: "utf8_general_ci",
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
       }
     );
   }
   static associate(db) {
     db.Chat.belongsTo(db.User, {
-      foreignKey: "User_id",
-      targetKey: "id",
-      onDelete: "cascade",
-      onUpdate: "cascade",
+      foreignKey: 'User_nickName',
+      targetKey: 'nickName',
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
     });
     db.Chat.belongsTo(db.MatePost, {
-      foreignKey: "MatePost_id",
-      targetKey: "id",
-      onDelete: "cascade",
-      onUpdate: "cascade",
+      foreignKey: 'MatePost_id',
+      targetKey: 'id',
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
     });
   }
 }

@@ -1,4 +1,4 @@
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 class MatePost extends Sequelize.Model {
   // 스태틱 메소드
@@ -15,12 +15,8 @@ class MatePost extends Sequelize.Model {
           type: Sequelize.TEXT,
           allowNull: false,
         },
-        startDate: {
-          type: Sequelize.TEXT,
-          allowNull: false,
-        },
-        endDate: {
-          type: Sequelize.TEXT,
+        max: {
+          type: Sequelize.INTEGER,
           allowNull: false,
         },
       },
@@ -28,28 +24,35 @@ class MatePost extends Sequelize.Model {
         sequelize,
         timestamps: false,
         underscored: false,
-        modelName: "MatePost",
-        tableName: "matePost",
+        modelName: 'MatePost',
+        tableName: 'matePost',
         freezeTableName: true,
         paranoid: false,
-        charset: "utf8",
-        collate: "utf8_general_ci",
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
       }
     );
   }
 
   static associate(db) {
     db.MatePost.belongsToMany(db.User, {
-      foreignKey: "MatePost_id",
-      through: "matePost_user_join",
-      onDelete: "cascade",
-      onUpdate: "cascade",
+      foreignKey: 'MatePost_id',
+      as: 'users',
+      through: 'matePost_user_join',
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
     });
     db.MatePost.hasMany(db.Chat, {
-      foreignKey: "MatePost_id",
-      sourceKey: "id",
-      onDelete: "cascade",
-      onUpdate: "cascade",
+      foreignKey: 'MatePost_id',
+      sourceKey: 'id',
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
+    db.MatePost.belongsTo(db.User, {
+      foreignKey: 'User_nickName',
+      sourceKey: 'nickName',
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
     });
   }
 }
