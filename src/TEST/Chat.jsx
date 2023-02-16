@@ -1,8 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import "./chat.css";
-import { io } from 'socket.io-client';
-
-
 
 
 export default function Chat({setGo, currentRoom, socket }) {
@@ -12,6 +10,7 @@ export default function Chat({setGo, currentRoom, socket }) {
   const [chatting, setChatting] = useState([]);
   const inputValue = useRef(null);
   const [nickName, setnick] = useState(`user${Math.round(Math.random()*10)}`);
+  const [id, setId] = useState(String(Math.ceil(Math.random()*3)));
   const room = useRef();
   
 
@@ -19,8 +18,6 @@ export default function Chat({setGo, currentRoom, socket }) {
     console.log('notice useEffet')
     socket.emit("notice", { nickName, currentRoom });
     socket.on("notice", (data) => {
-      console.log(data.msg)
-      console.log(data.msg.split('님')[0])
       if(data.msg.split('님')[0] != 'undefined'){
         data["nickName"] = nickName
         setChatting((chatting) => [...chatting, data]);
@@ -64,8 +61,17 @@ export default function Chat({setGo, currentRoom, socket }) {
   
   
 
-  const onClick = () => {
+  const sendMessage = async () => {
     socket.emit("sendMsg", { msg: inputValue.current.value, nickName, currentRoom }); //게시물 id도 같이 보내야한다.
+    const data = await axios({
+      method: 'post',
+      url: 'http://localhost:8000/chat/message',
+      data: {
+        chat: inputValue.current.value,
+        id,
+        room : currentRoom.id 
+      },
+    });
     inputValue.current.value = "";
   };
   // const SelectOnChange = (e) => setTo(e.target.value);
@@ -110,7 +116,7 @@ export default function Chat({setGo, currentRoom, socket }) {
             id="msg_box"
             // onkeyDown="enter()"
           />
-          <button type="button" onClick={() => onClick()}>
+          <button type="button" onClick={() => sendMessage()}>
             입력
           </button>
         </form>
