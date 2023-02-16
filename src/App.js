@@ -1,4 +1,5 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 import Main from './pages/Main.jsx';
 import Challenge from './pages/Challenge.jsx';
