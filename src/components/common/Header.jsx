@@ -47,7 +47,7 @@ cursor: pointer;
 const Vline = styled.div`
 border-left: thin solid black;
 width: 5%;
-height: 90%;
+height: 95%;
 position:relative;
 left: 65%;
 `;
@@ -56,13 +56,11 @@ export default function Header() {
   return <>
     <Nav1>
       <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-      <List1>MAIN</List1>
+      <List1>CREW</List1>
       <List1>COMMUNITY</List1>
-      <List1>GEAR</List1>
       <Vline />
       <List2 onClick={() => window.open('/Login', '_self')}>LOGIN</List2>
       <List2 onClick={() => window.open('/Join', '_self')}>JOIN</List2>
     </Nav1>
-
   </>;
 }
