@@ -5,34 +5,8 @@ import NavBar from '../components/mypage/NavBar';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-let Div = styled.div`
-  position: absolute;
-  width: 28%;
-  height: 80%;
-  right: 7%;
-  top: 150px;
-  text-align: center;
-  background-color: #eaeaea;
-`;
-const AppBlock = styled.div`
-  width: 512px;
-  margin: 0 auto;
-  margin-top: 13rem;
-  border: 1px black;
-  padding: 1rem;
-`;
-
-const BoxDiv = styled.div`
-  width: 512px;
-  margin: 0 auto;
-  margin-top: 13rem;
-  border: 1px black;
-  padding: 1rem;
-`;
-
 export default function Crew() {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
@@ -49,14 +23,11 @@ export default function Crew() {
         </Modal.Footer>
       </Modal>
       <NavBar />
-      <AppBlock>
-        <Button variant="light" onClick={handleShow} className="crew">
-          +CREW
-        </Button>
-      </AppBlock>
-      <BoxDiv>
-        <CrewBox />
-      </BoxDiv>
+
+      <Button variant="light" onClick={handleShow} className="crew">
+        +CREW
+      </Button>
+      <CrewBox />
     </div>
   );
 }
