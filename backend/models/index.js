@@ -1,12 +1,12 @@
-const Sequelize = require("sequelize");
-const env = process.env.NODE_ENV || "development";
+const Sequelize = require('sequelize');
+const env = process.env.NODE_ENV || 'development';
 
-const Challenge = require("./Challenge");
-const Chat = require("./Chat");
-const MatePost = require("./MatePost");
-const User = require("./User");
+const Challenge = require('./Challenge');
+const Chat = require('./Chat');
+const MatePost = require('./MatePost');
+const User = require('./User');
 
-const config = require("../config/config.json")[env];
+const config = require('../config/config.json')[env];
 
 const db = {};
 
