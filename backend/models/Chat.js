@@ -14,7 +14,7 @@ class Chat extends Sequelize.Model {
       },
       {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         underscored: false,
         modelName: 'Chat',
         tableName: 'chat',

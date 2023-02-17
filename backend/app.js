@@ -22,11 +22,11 @@ io.on('connection', (socket) => {
   // 채팅방 입장
 
   socket.on('notice', (data) => {
-    console.log('notice', data.currentCrew.id);
+    console.log('notice', data);
     users[socket.id] = data.nickName;
     io.to(data.currentCrew.id).emit('notice', {
       type: 'notice',
-      msg: data.nickName + '님이 입장하였습니다.',
+      chat: data.nickName + '님이 입장하였습니다.',
     });
   });
   socket.on('join', (data) => {
@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
   socket.emit('socketID', socket.id);
   socket.on('sendMsg', (data) => {
     data['from'] = socket.id;
-    data['nickName'] = data.nickName;
+    data['User_nickName'] = data.nickName;
     data['isDm'] = false;
     io.to(data.currentCrew.id).emit('newMsg', data);
   });
@@ -49,14 +49,14 @@ io.on('connection', (socket) => {
     socket.leave(room[socket.id]);
     io.to(room[socket.id]).emit('notice', {
       type: 'notice',
-      msg: users[socket.id] + '님이 대화창을 나갔습니다.',
+      chat: users[socket.id] + '님이 대화창을 나갔습니다.',
     });
   });
   socket.on('disconnect', () => {
     console.log('disconnect');
     io.emit('notice', {
       type: 'notice',
-      msg: users[socket.id] + '님이 대화창을 나갔습니다.',
+      chat: users[socket.id] + '님이 대화창을 나갔습니다.',
     });
     // delete users[socket.id];
     // io.emit('users', users);
