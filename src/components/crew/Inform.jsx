@@ -1,6 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import './Inform.css';
 
 export default function test() {
-  return <div>test</div>;
+  return <div className="chatBox">test</div>;
 }
