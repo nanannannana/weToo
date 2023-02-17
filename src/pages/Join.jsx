@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-import { join } from '../store/modules/register';
+import axios from 'axios';
 
 const Div = styled.div`
   position: absolute;
@@ -65,8 +64,6 @@ const Joinbtn = styled.button`
   color: white;
 `;
 export default function JoinBox() {
-  const inputRef = useRef();
-  const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
   const [city, setCity] = useState('');
@@ -81,30 +78,36 @@ export default function JoinBox() {
     setCity(e.target.value);
   };
 
+  const join = () => {
+    axios
+      .post('', {
+        id: registerId,
+        pwd: registerPwd,
+        city: registerCity,
+      })
+      .then((response) => {
+        console.log(response);
+        alert('회원가입 성공');
+      });
+  };
+
   return (
     <>
       <Div>
         <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-        <ID placeholder="ID" value={id} onChange={registerId} ref={inputRef} />
+        <ID placeholder="ID" value={id} onChange={registerId} required />
         <br />
         <PW
           placeholder="Password"
           value={pwd}
+          type={'password'}
           onChange={registerPwd}
-          ref={inputRef}
+          required
         />
         <br />
-        <City
-          placeholder="City"
-          value={city}
-          onChange={registerCity}
-          ref={inputRef}
-        />
+        <City placeholder="City" value={city} onChange={registerCity} />
         <br />
-        <Joinbtn
-          type="submit"
-          onClick={() => dispatch(join({ register: inputRef.current.value }))}
-        >
+        <Joinbtn type="submit" onClick={join}>
           Create an Account
         </Joinbtn>
       </Div>
