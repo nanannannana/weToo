@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 10%;
+}
+.containerBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 20px;
+}
+.crewBox {
+  position: relative;
+  flex-direction: row;
+}
+
+img {
+  position: relative;
+  flex-direction: row;
+  width: 260px;
+  height: 260px;
+}
+.crewBtn {
+  width: 40%;
+}
