@@ -13,7 +13,7 @@ import swim from '../../static/images/swim.png';
 const Title = styled.div`
   position: relative;
   height: 31.86px;
-  top: 10px;
+  top: 1px;
   font-family: 'Port Lligat Slab';
   font-style: normal;
   font-weight: 400;
@@ -25,10 +25,11 @@ const WeatherBox = styled.div`
   display: inline-block;
   position: relative;
   width: 55%;
-  padding-bottom: 10%;
-  top: 10px;
+  height: 55%;
+  padding-bottom: 5%;
+  top: 1px;
   border: 1px solid #D8D8D8;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
   background-color: #FAF9F9;
   
   font-family: 'Poppins';
@@ -36,11 +37,12 @@ const WeatherBox = styled.div`
   `;
 
 const City = styled.p`
-  margin-top: 10%;
+  margin-top: 5%;
   margin-bottom: 0%;
   `;
 const State = styled.img`
-  width: 60px;
+  width: 30%;
+  height: 30%;
   `;
 const FitTitle = styled.div`
 position: relative;
@@ -57,14 +59,16 @@ const FitnessBox = styled.div`
 display: inline-block;
 position: relative;
 width: 55%;
-top: 10px;
-padding-bottom: 8%;
+height: 55%;
+top: 1px;
+padding-bottom: 5%;
+margin-bottom: 5%;
 border: 1px solid #D8D8D8;
 background-color: #FAF9F9;
 
 font-family: 'Poppins';
 font-weight: 700;
-font-size: 13px;
+font-size: 12px;
 `;
 
 const Fitimg = styled.img`

@@ -101,7 +101,19 @@ export default function Login() {
     }
   };
 
-  const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
+  // const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
+  const LoginTry = async () => {
+      const data = await axios({
+        method: 'post',
+        url: 'http://localhost:8000/auth/login',
+        data: {
+          id : id,
+          pw : pw,
+        },
+      });
+      console.log(data);
+      alert('hi');
+    };
 
   return (
     <>
@@ -116,21 +128,11 @@ export default function Login() {
       <ErrorMSG></ErrorMSG>
       <br />
       <LoginBtn disabled={valid}
-      onClick={async () => {
-          const data = await axios({
-            method: 'post',
-            url: 'http://localhost:8000/auth/login',
-            data: {
-              id: 'asd',
-              pw: '123',
-            },
-          });
-          console.log(data);
-        }}>Log In</LoginBtn>
+      onClick={LoginTry}>Log In</LoginBtn>
       <br />
       <Line>--------------------------------------</Line>
       <br />
-      <JoinBtn>Create an Account</JoinBtn>
+      <JoinBtn onClick={() => window.open('/Join', '_self')}>Create an Account</JoinBtn>
     </Div>
     </>
   );
