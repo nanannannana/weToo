@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { userInfoCreate } from '../store/modules/user';
 import { useNavigate } from 'react-router-dom';
-import { change } from '../store/modules/user';
+// import { change } from '../store/modules/user';
 
 
 const Div = styled.div`
@@ -98,7 +98,7 @@ export default function Login() {
   // 2.useSelecter: user.jsx에 있는 initState 값을 가져오는 메서드
   const name = useSelector((state) => state.user.user_name);
   // 3.dispatch: user.jsx에 설정한 액션함수를 가져오는 메서드
-  const changeName = () => dispatch(change(user_name));
+  // const changeName = () => dispatch(change(user_name));
   // 4.콘솔 확인(user_name)
   console.log('name: ', name);
 
@@ -158,7 +158,7 @@ export default function Login() {
         <JoinBtn onClick={() => window.open('/Join', '_self')}>Create an Account</JoinBtn>
         {/* 삭제하세욤 */}
         <br />
-        <button onClick={changeName}>fkfkf</button>
+        {/* <button onClick={changeName}>fkfkf</button> */}
       </Div>
     </>
   );
