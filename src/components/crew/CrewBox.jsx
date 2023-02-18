@@ -1,6 +1,4 @@
 import React from 'react';
-import Inform from '../crew/Inform';
-import styled, { css } from 'styled-components';
 import crewdata from '../../crewdata.js';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
@@ -35,11 +33,11 @@ const CrewBox = () => {
   // ];
 
   return (
-    <div className={classes.container}>
+    <div className={classes.crewBoxContainer}>
       {crews.map((data, i) => {
         return (
           <>
-            <div className={classes.containerBox}>
+            <div className={classes.crewBox}>
               <Card crews={crews[i]} i={i} />
               <Button
                 className={classes.crewBtn}
@@ -54,7 +52,9 @@ const CrewBox = () => {
         );
       })}
 
-      {content && <div>{selectComponent[content]}</div>}
+      {content && (
+        <div className={classes.CrewContentBox}>{selectComponent[content]}</div>
+      )}
     </div>
   );
 };
@@ -66,7 +66,7 @@ function Card(props) {
   return (
     <div>
       <div>
-        <img alt="img" src={props.crews.img} width="80%" />
+        <img alt="img" src={props.crews.img} className={classes.crewImg} />
       </div>
     </div>
   );

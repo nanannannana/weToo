@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
 import CrewBox from '../components/crew/CrewBox.jsx';
 import NavBar from '../components/mypage/NavBar';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import classes from './Crew.module.css';
 
 export default function Crew() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   return (
-    <div>
+    <div className={classes.crewContainer}>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>크루 생성하기</Modal.Title>
@@ -24,7 +24,7 @@ export default function Crew() {
       </Modal>
       <NavBar />
 
-      <Button variant="light" onClick={handleShow} className="crew">
+      <Button variant="light" onClick={handleShow} className={classes.crewBtn}>
         +CREW
       </Button>
       <CrewBox />
