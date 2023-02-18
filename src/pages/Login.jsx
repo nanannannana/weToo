@@ -1,6 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { userInfoCreate } from '../store/modules/user';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Div = styled.div`
 position: absolute;
@@ -83,6 +86,8 @@ export default function Login() {
   const [idValid, setIdValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
   const [valid, setValid] = useState(true);
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const idValue = (e) => {
     setId(e.target.value);
@@ -101,6 +106,23 @@ export default function Login() {
     }
   };
 
+  const login = async () => {
+    const data = await axios({
+      method: 'post',
+      url: 'http://localhost:8000/auth/login',
+      data: {
+        id,
+        pw
+      },
+    });
+    console.log(data);
+    if(data.data.message == '로그인 성공!'){
+      dispatch(userInfoCreate(data.data.data))
+      alert('로그인 성공')
+      navigate('/')
+    }
+  }
+
   const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
 
   return (
@@ -116,17 +138,7 @@ export default function Login() {
       <ErrorMSG></ErrorMSG>
       <br />
       <LoginBtn disabled={valid}
-      onClick={async () => {
-          const data = await axios({
-            method: 'post',
-            url: 'http://localhost:8000/auth/login',
-            data: {
-              id: 'asd',
-              pw: '123',
-            },
-          });
-          console.log(data);
-        }}>Log In</LoginBtn>
+      onClick={() => login()}>Log In</LoginBtn>
       <br />
       <Line>--------------------------------------</Line>
       <br />

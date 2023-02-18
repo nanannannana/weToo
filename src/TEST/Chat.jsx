@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './chat.css';
 
 export default function Chat({user, setDisplay, currentCrew, socket }) {
+  console.log('user', user)
   console.log('ChatComponent');
   console.log(socket, socket.id); //왜 소켓아이디는 안뜨냐
   const socketId = socket.id;
@@ -22,6 +23,7 @@ export default function Chat({user, setDisplay, currentCrew, socket }) {
 
 
   async function ChattingListLoad() {
+    console.log('ChattingListLoad', user.id)
     const data = await axios({
       method: 'post',
       url: `http://localhost:8000/chat/load`,
