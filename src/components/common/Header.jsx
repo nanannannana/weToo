@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Nav1 = styled.ul`
@@ -56,11 +57,11 @@ export default function Header() {
   return <>
     <Nav1>
       <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-      <List1>CREW</List1>
-      <List1>COMMUNITY</List1>
+      <List1><Link to="crew" style={{textDecoration:"none", color:'#000'}}>CREW</Link></List1>
+      <List1><Link to="chat" style={{textDecoration:"none", color:'#000'}}>COMMUNITY</Link></List1>
       <Vline />
-      <List2 onClick={() => window.open('/Login', '_self')}>LOGIN</List2>
-      <List2 onClick={() => window.open('/Join', '_self')}>JOIN</List2>
+      <List2><Link to="Login" style={{textDecoration:"none", color:'#000'}}>LOGIN</Link></List2>
+      <List2><Link to="JOIN" style={{textDecoration:"none", color:'#000'}}>JOIN</Link></List2>
     </Nav1>
   </>;
 }

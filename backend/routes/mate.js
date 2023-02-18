@@ -36,13 +36,14 @@ router.get('/', async (req, res, next) => {
   }
 });
 router.post('/addcrew', async (req, res, next) => {
-  const { nickName, id } = req.body;
+  const { User_id, Crew_id } = req.body;
+  console.log(req.body);
   try {
-    const matePost = await MatePost.findOne({ where: { id } });
+    const matePost = await MatePost.findOne({ where: { id: Crew_id } });
     if (!matePost) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
-    await matePost.addUsers(nickName);
+    await matePost.addUsers(User_id);
     res.send('가입성공.');
   } catch (error) {
     console.error(error);
@@ -51,14 +52,14 @@ router.post('/addcrew', async (req, res, next) => {
 });
 
 router.delete('/outcrew', async (req, res, next) => {
-  const { nickName, id } = req.body;
+  const { User_id, Crew_id } = req.body;
 
   try {
-    const matePost = await MatePost.findOne({ where: { id } });
+    const matePost = await MatePost.findOne({ where: { id: Crew_id } });
     if (!matePost) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
-    await matePost.removeUsers(nickName);
+    await matePost.removeUsers(User_id);
     res.send('탈퇴성공.');
   } catch (error) {
     console.error(error);

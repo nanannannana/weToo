@@ -2,7 +2,12 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+
+import { userInfoCreate } from '../store/modules/user';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { change } from '../store/modules/user';
+
 
 const Div = styled.div`
   position: absolute;
@@ -85,6 +90,8 @@ export default function Login() {
   const [idValid, setIdValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
   const [valid, setValid] = useState(true);
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   // user_name을 변경하는 작업
   // 1.임시 user_name 설정
@@ -114,52 +121,49 @@ export default function Login() {
     }
   };
 
-  const Loginstart = () => {
-    if (id == '') {
-      alert('아이디를 입력해주세요.');
+
+  const login = async () => {
+    const data = await axios({
+      method: 'post',
+      url: 'http://localhost:8000/auth/login',
+      data: {
+        id,
+        pw
+      },
+    });
+    console.log(data);
+    if(data.data.message == '로그인 성공!'){
+      dispatch(userInfoCreate(data.data.data))
+      alert('로그인 성공')
+      navigate('/')
     }
-  };
+  }
+
+  const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
 
   return (
     <>
-      <Div>
-        <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-        <ID placeholder="ID" value={id} onChange={idValue} required />
-        <br />
-        <PW
-          placeholder="Password"
-          value={pw}
-          onChange={pwValue}
-          type={'password'}
-          required
-        />
-        <br />
-        <ErrorMSG></ErrorMSG>
-        <br />
-        <LoginBtn
-          disabled={valid}
-          onClick={async () => {
-            const data = await axios({
-              method: 'post',
-              url: 'http://localhost:8000/auth/login',
-              data: {
-                id: 'asd',
-                pw: '123',
-              },
-            });
-            console.log(data);
-          }}
-        >
-          Log In
-        </LoginBtn>
-        <br />
-        <Line>--------------------------------------</Line>
-        <br />
+    <Div>
+      <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
+      <ID placeholder='ID' value={id}
+      onChange={idValue} required/>
+      <br />
+      <PW placeholder='Password' value={pw}
+      onChange={pwValue} type={'password'} required/>
+      <br />
+      <ErrorMSG></ErrorMSG>
+      <br />
+      <LoginBtn disabled={valid}
+      onClick={() => login()}>Log In</LoginBtn>
+      <br />
+      <Line>--------------------------------------</Line>
+     <br />
         <JoinBtn>Create an Account</JoinBtn>
         {/* 삭제하세욤 */}
         <br />
         <button onClick={changeName}>fkfkf</button>
       </Div>
+
     </>
   );
 }

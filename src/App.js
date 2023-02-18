@@ -9,6 +9,9 @@ import Mypage from './pages/Mypage.jsx';
 import Login from './pages/Login.jsx';
 import Join from './pages/Join.jsx';
 import ChatPage from './TEST/ChatPage';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 function App() {
   return (

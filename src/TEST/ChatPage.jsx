@@ -2,25 +2,25 @@ import React, { useEffect, useState } from 'react';
 import Chat from './Chat';
 import { io } from 'socket.io-client';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 export default function ChatPage() {
   console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
   let socket = io.connect('http://localhost:8000');
-  const [nickName, setnick] = useState(`user${Math.round(Math.random() * 2)}`);
-  const [id, setId] = useState(nickName);
-  const [user, setUser] = useState({
-    id: id,
-    nickName: nickName
-  })
+  // const [nickName, setnick] = useState(`user${Math.round(Math.random() * 2)}`);
+  // const [id, setId] = useState(nickName);
+  // const [user, setUser] = useState({
+  //   id: id,
+  //   nickName: nickName
+  // })
+  const user = useSelector((state) => state.user.userInfo)
+  console.log(user)
   const [crew, setCrew] = useState([
-    { title: '용산역 일 등 러닝 크루!!', id: 1, max: 4, member: [] },
-    { id: 2, max: 3 },
-    { id: 3, max: 5 },
+
   ]);
   const [display, setDisplay] = useState(true);
   const [currentCrew, currentCrewSet] = useState('');
-  console.log(user)
   console.log(currentCrew)
 
 
@@ -41,12 +41,13 @@ export default function ChatPage() {
   }
 
   async function joinCrew() {
+
     if (currentCrew.users.find((e) => e.nickName == user.nickName)) {
       //데미더이터
       //내 유저 아이디와 같은게 있다면
       //입장
       setDisplay((state) => !state);
-      alert('웰컴')
+      alert('입장')
     } else if (currentCrew.max <= currentCrew.users.length) {
       alert('인원이 초과되었습니다.');
     } else {
@@ -54,11 +55,20 @@ export default function ChatPage() {
         method: 'post',
         url: 'http://localhost:8000/mate/addcrew',
         data: {
-          nickName: user.nickName, //더미데이터
-          id: currentCrew.id,
+          User_id: user.id, //더미데이터
+          Crew_id: currentCrew.id,
         },
       });
       console.log(data);
+      alert('가입을 축하드립니다.')
+      console.log('crew', crew)
+      const crewAdded = crew.map(e => {
+        if(e.id == currentCrew.id){
+          e.users.push({nickName: user.nickName})
+        }
+        return e 
+      })
+      setCrew(crewAdded)
       setDisplay((state) => !state);
     }
   }
