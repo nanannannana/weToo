@@ -22,17 +22,24 @@ io.on('connection', (socket) => {
   // 채팅방 입장
 
   socket.on('notice', (data) => {
-    console.log('notice', data);
+    console.log('notice1', data);
     users[socket.id] = data.nickName;
     io.to(data.currentCrew.id).emit('notice', {
       type: 'notice',
       chat: data.nickName + '님이 입장하였습니다.',
     });
   });
+
   socket.on('join', (data) => {
     console.log(data.currentCrew);
     room[socket.id] = data.currentCrew;
     socket.join(data.currentCrew);
+  });
+
+  socket.on('joinCrew', (data) => {
+    console.log('joinCrew', data);
+
+    io.emit('joinCrew', data);
   });
 
   console.log('server open ' + socket.id);
@@ -54,7 +61,7 @@ io.on('connection', (socket) => {
   });
   socket.on('disconnect', () => {
     console.log('disconnect');
-    io.emit('notice', {
+    io.to(room[socket.id]).emit('notice', {
       type: 'notice',
       chat: users[socket.id] + '님이 대화창을 나갔습니다.',
     });

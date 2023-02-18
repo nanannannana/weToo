@@ -81,15 +81,18 @@ export default function Chat({user, setDisplay, currentCrew, socket }) {
 
   useEffect(() => {
     console.log('notice useEffet');
-    socket.emit('notice', { nickName: user.nickName, currentCrew });
+    
+    
+    socket.emit('notice', { nickName: user.nickName, currentCrew })
     socket.on('notice', (data) => {
+      console.log('notice')
       if (data.chat.split('님')[0] != 'undefined') {
         // data['User_nickName'] = user.nickName;
         setChatting((chatting) => [...chatting, data]);
       }
       //chat페이지에서 새로고침시에 disconnect가 발생하는데 화면에 그리지 않기 위해 조건사용
     });
-    socket.emit('join', { currentCrew: currentCrew.id });
+    socket.emit('join', { currentCrew: currentCrew.id})
     socket.on('newMsg', (data) => {
       if (socketId == data.from) {
         data['liClassName'] = 'myMessage';

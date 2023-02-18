@@ -8,28 +8,15 @@ import { useSelector } from 'react-redux';
 export default function ChatPage() {
   console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
   let socket = io.connect('http://localhost:8000');
-  // const [nickName, setnick] = useState(`user${Math.round(Math.random() * 2)}`);
-  // const [id, setId] = useState(nickName);
-  // const [user, setUser] = useState({
-  //   id: id,
-  //   nickName: nickName
-  // })
   const user = useSelector((state) => state.user.userInfo)
   console.log(user)
   const [crew, setCrew] = useState([
 
   ]);
+  console.log(crew)
   const [display, setDisplay] = useState(true);
   const [currentCrew, currentCrewSet] = useState('');
   console.log(currentCrew)
-
-
-
-
-
-  useEffect(() => {
-    AllmatePostLoad();
-  }, []);
 
   async function AllmatePostLoad() {
     const data = await axios({
@@ -40,6 +27,36 @@ export default function ChatPage() {
     setCrew(data.data);
   }
 
+
+
+  useEffect(() => {
+    AllmatePostLoad();
+    socket.on("joinCrew", (data) => { //인원 제한시 실시간으로 반영하기 위해 사용
+      console.log("socket join crew")
+      console.log(crew)
+      
+      setCrew((state) => {
+        return state.map(e => {
+          console.log(e.id, currentCrew.id)
+          if(e.id == currentCrew.id){
+             e.users = [...e.users, {nickName: data.nickName}]
+          }
+          return e
+        })
+      })
+      // const currentCrew = crew.filter(e => e.id == currentCrew.id)
+      // console.log(currentCrew.users)
+      // currentCrew.users = [...currentCrew.users, {nickName: data.nickName}]
+      // console.log(crewAdded)
+      // setCrew((state => ({...state, currentCrew})))
+    })
+
+    return () => {
+      socket.off('joinCrew');
+    };
+  }, [currentCrew]);
+
+ 
   async function joinCrew() {
 
     if (currentCrew.users.find((e) => e.nickName == user.nickName)) {
@@ -62,13 +79,8 @@ export default function ChatPage() {
       console.log(data);
       alert('가입을 축하드립니다.')
       console.log('crew', crew)
-      const crewAdded = crew.map(e => {
-        if(e.id == currentCrew.id){
-          e.users.push({nickName: user.nickName})
-        }
-        return e 
-      })
-      setCrew(crewAdded)
+      console.log("socekt", socket)
+      socket.emit('joinCrew', { nickName: user.nickName, currentCrew })
       setDisplay((state) => !state);
     }
   }
@@ -80,8 +92,8 @@ export default function ChatPage() {
         method: 'delete',
         url: 'http://localhost:8000/mate/outcrew',
         data: {
-          nickName: user.nickName, //더미데이터
-          id: currentCrew.id,
+          User_id: user.id, //더미데이터
+          Crew_id: currentCrew.id,
         },
       });
       console.log(data);

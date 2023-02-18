@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { userInfoCreate } from '../store/modules/user';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { change } from '../store/modules/user';
 
@@ -90,7 +89,6 @@ export default function Login() {
   const [idValid, setIdValid] = useState(false);
   const [pwValid, setPwValid] = useState(false);
   const [valid, setValid] = useState(true);
-  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   // user_name을 변경하는 작업

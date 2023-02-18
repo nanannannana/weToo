@@ -41,6 +41,7 @@ router.post('/load', async (req, res, next) => {
   const chatList = await Chat.findAll({
     where: {
       createdAt: { [Op.gt]: userCrewJoinTime },
+      MatePost_id: currentCrew,
     },
     order: [['id', 'DESC']],
     offset,
