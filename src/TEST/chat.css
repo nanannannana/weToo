@@ -43,7 +43,7 @@ li.yourMessage {
   border-radius: 20px;
   padding: 5px 20px;
   margin-top: 10px;
-  /* margin-bottom: 50px; */
+  margin-bottom: 5px !important;
   max-width: 70%;
 }
 .yourMessage p:nth-child(1) {
@@ -64,14 +64,13 @@ li.yourMessage {
 }
 
 .myMessage p {
-  padding: 5px;
   text-align: left;
   background: #fff157;
   word-break: break-all;
   display: inline-block;
   border-radius: 20px;
   padding: 5px 20px;
-  margin-top: 10px;
+  margin-bottom: 10px !important;
   max-width: 70%;
 }
 li.myMessage {
