@@ -1,6 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { join } from '../store/modules/register';
 
 const Div = styled.div`
   position: absolute;
@@ -26,6 +27,24 @@ const Logo = styled.p`
   cursor: pointer;
 `;
 const ID = styled.input`
+  width: 62%;
+  height: 3%;
+  padding: 10px;
+  border: 1px solid #d8d8d8;
+  ::placeholder {
+    font-size: 3px;
+  }
+`;
+const Name = styled.input`
+  width: 62%;
+  height: 3%;
+  padding: 10px;
+  border: 1px solid #d8d8d8;
+  ::placeholder {
+    font-size: 3px;
+  }
+`;
+const Nickname = styled.input`
   width: 62%;
   height: 3%;
   padding: 10px;
@@ -64,9 +83,13 @@ const Joinbtn = styled.button`
   color: white;
 `;
 export default function JoinBox() {
+  const dispatch = useDispatch();
+
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
   const [city, setCity] = useState('');
+  const [name, setName] = useState('');
+  const [nickname, setNickname] = useState('');
   const registerId = (e) => {
     console.log(e.target.value);
     setId(e.target.value);
@@ -77,24 +100,39 @@ export default function JoinBox() {
   const registerCity = (e) => {
     setCity(e.target.value);
   };
+  const registerName = (e) => {
+    setName(e.target.value);
+  };
+  const registerNickname = (e) => {
+    setNickname(e.target.value);
+  };
 
-  const join = () => {
-    axios
-      .post('', {
-        id: registerId,
-        pwd: registerPwd,
-        city: registerCity,
-      })
-      .then((response) => {
-        console.log(response);
-        alert('회원가입 성공');
-      });
+  let body = {
+    id: id,
+    pwd: pwd,
+    city: city,
+    name: name,
+    nickname: nickname,
   };
 
   return (
     <>
       <Div>
         <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
+        <Name
+          placeholder="Name"
+          value={name}
+          onChange={registerName}
+          required
+        ></Name>
+        <br />
+        <Nickname
+          placeholder="Nickname"
+          value={nickname}
+          onChange={registerNickname}
+          required
+        ></Nickname>
+        <br />
         <ID placeholder="ID" value={id} onChange={registerId} required />
         <br />
         <PW
@@ -107,7 +145,12 @@ export default function JoinBox() {
         <br />
         <City placeholder="City" value={city} onChange={registerCity} />
         <br />
-        <Joinbtn type="submit" onClick={join}>
+        <Joinbtn
+          type="submit"
+          onClick={() => {
+            dispatch(join(body));
+          }}
+        >
           Create an Account
         </Joinbtn>
       </Div>
