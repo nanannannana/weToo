@@ -38,22 +38,22 @@ const ChallengeDivTitle = styled.p`
 
 const AttendBtn = styled(Button)`
   margin-right: 7px;
-  border: 1px solid #bb9595;
+  /* border: 1px solid #bb9595;
   background-color: #bb9595;
   &:hover,
   &:active {
     background-color: #9d5c5c !important;
     border: 1px solid #9d5c5c !important;
-  }
+  } */
 `;
 const ProofBtn = styled(Button)`
-  border: 1px solid #bb9595;
+  /* border: 1px solid #bb9595;
   background-color: #bb9595;
   &:hover,
   &:active {
     background-color: #9d5c5c !important;
     border: 1px solid #9d5c5c !important;
-  }
+  } */
 `;
 
 const ExIcon = styled.img`
@@ -77,6 +77,7 @@ export default function Challenge() {
   const show = useSelector((state) => state.challenge.modal);
   const infoShow = useSelector((state) => state.challenge.infoShow);
   const [infoTitle, setInfoTitle] = useState(null);
+  const [btnDisabled, setBtnDisabled] = useState(true);
 
   useEffect(() => {
     // portOne 실행을 위한 설정
@@ -90,9 +91,8 @@ export default function Challenge() {
     dispatch(modal(false));
     dispatch(infoshow(false));
 
-    // const sendData = async () => {
-    // }
-    // sendData();
+    //user_id가 있으면 '참여하기'버튼 active
+    if (user_id !== '') setBtnDisabled(false);
   }, []);
 
   const AttendClick = (v) => {
@@ -148,13 +148,21 @@ export default function Challenge() {
           <ChallengeDiv key={i}>
             <ChallengeDivTitle>{v.name}</ChallengeDivTitle>
             <div>
-              <AttendBtn onClick={() => AttendClick(v)}>참여하기</AttendBtn>
-              <ProofBtn onClick={() => ProofClick(v.name)}>인증하기</ProofBtn>
+              <AttendBtn
+                disabled={btnDisabled}
+                variant="dark"
+                onClick={() => AttendClick(v)}
+              >
+                참여하기
+              </AttendBtn>
+              <ProofBtn variant="dark" onClick={() => ProofClick(v.name)}>
+                인증하기
+              </ProofBtn>
             </div>
           </ChallengeDiv>
         ))}
       </LeftBox>
-      {infoShow && <Info title={infoTitle} />}
+      {infoShow && <Info title={infoTitle} user_id={user_id} />}
       {!infoShow && <ExIcon src="/img/exercise_icon.png" />}
     </>
   );
