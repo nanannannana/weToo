@@ -131,22 +131,27 @@ export default function Weather() {
   const [weather, setWeather] = useState();
   const [icon, setIcon] = useState();
 
-  const API_KEY = 'ab9fd86fdb0d2bd4968a55bfa83cf03c';
+  const API_KEY = 'c8fffee56b961e5df0d6af641bd1a6e3';
   // ab9fd86fdb0d2bd4968a55bfa83cf03c
   // c8fffee56b961e5df0d6af641bd1a6e3
   // 242b309a31182dc5c37381b6642b796c
   // 4281729cba61323b40e791c6036334ed
   // const weatherRendering = () => {
   const iconurl = `http://openweathermap.org/img/w/${icon}.png`;
-  const Region = 'bangkok';
+  const Region = 'seoul';
   // }
   useEffect(() => {
     const weatherShow = async () => {
       const data = await axios({
         method: 'get',
         url: `https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`,
+        beforeSend: function(xhr){
+        xhr.withCredentials = true;
+       }
       });
       setResult(data);
+      data.setHeader('Access-Control-Allow-origin', '*');
+      console.log(data);
       setWeather(data.data.weather[0].main);
       setIcon(data.data.weather[0].icon);
     };
