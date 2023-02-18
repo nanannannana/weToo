@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import crewdata from '../../crewdata.js';
+import classes from './Crew1.module.css';
 
 export default function Crew1() {
   let [crews] = useState(crewdata);
@@ -8,12 +9,12 @@ export default function Crew1() {
     <>
       <div>
         <div>Weto</div>
-        <div>
-          <div class="crewName">{crews.title}</div>
-          <div>{crews.info}</div>
-          <button>채팅방입장</button>
+        <div className={classes.crewName}>YOGACREW</div>
+        <div className={classes.crewInfoBox}>
+          오늘 하루도 요가와 함께해요~😊
         </div>
       </div>
+      <button>채팅방입장</button>
     </>
   );
 }

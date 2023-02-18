@@ -52,7 +52,9 @@ const CrewBox = () => {
         );
       })}
 
-      {content && <div>{selectComponent[content]}</div>}
+      {content && (
+        <div className={classes.CrewContentBox}>{selectComponent[content]}</div>
+      )}
     </div>
   );
 };
