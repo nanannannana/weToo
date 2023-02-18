@@ -4,6 +4,35 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { tokenCheck } = require('../middleware/tokenCheck');
 
+router.post('/signup', async (req, res, next) => {
+  const { id, nickname, password, phone, name } = req.body;
+  console.log(req.body);
+
+  try {
+    const exUser = await User.findOne({ where: { id: id } });
+    const exnickName = await User.findOne({ where: { nickName: nickname } });
+
+    if (exUser) {
+      return res.send('존재하는 ID입니다.');
+    }
+    if (exnickName) {
+      return res.send('존재하는 닉네임입니다.');
+    }
+    //const hash = await bcrypt.hash(pw, 12);
+    await User.create({
+      id: id,
+      nickName: nickname,
+      pw: password,
+      phone,
+      name,
+    });
+    return res.send(true);
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+});
+
 router.post('/login', async (req, res, next) => {
   const { id, pw } = req.body;
   console.log(req.body);
