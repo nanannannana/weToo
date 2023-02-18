@@ -66,16 +66,22 @@ class User extends Sequelize.Model {
       onDelete: 'cascade',
       onUpdate: 'cascade',
     });
-    db.User.hasMany(db.Challenge, {
+    // db.User.hasMany(db.Challenge, {
+    //   foreignKey: 'User_nickName',
+    //   sourceKey: 'nickName',
+    //   onDelete: 'cascade',
+    //   onUpdate: 'cascade',
+    // });
+
+    db.User.hasMany(db.Chat, {
       foreignKey: 'User_nickName',
       sourceKey: 'nickName',
       onDelete: 'cascade',
       onUpdate: 'cascade',
     });
-
-    db.User.hasMany(db.Chat, {
-      foreignKey: 'User_nickName',
-      sourceKey: 'nickName',
+    db.User.hasMany(db.Proof, {
+      foreignKey: 'user_id',
+      targetKey: 'id',
       onDelete: 'cascade',
       onUpdate: 'cascade',
     });

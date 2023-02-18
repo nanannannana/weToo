@@ -25,6 +25,7 @@ router.post('/message', async (req, res, next) => {
 router.post('/load', async (req, res, next) => {
   // console.log(req.body);
   const { currentCrew, id, nickName } = req.body;
+  console.log('id', id);
   const userCrewJoinTime = await db.sequelize.models.matePost_user_join.findOne(
     {
       where: {

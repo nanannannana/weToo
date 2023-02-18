@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Info.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function BodyShorthandExample() {
+function BodyShorthandExample(crews) {
+  const { title, location, members } = crews;
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {});
 
   return (
     <>
@@ -24,6 +27,10 @@ function BodyShorthandExample() {
             <label>비밀번호</label>
             <br />
             <input type="password" className="password" />
+            <br />
+            <label>도시</label>
+            <br />
+            <input type="text" className="city" />
           </Modal.Body>
           <Modal.Footer className="modal_footer">
             <Button variant="light" onClick={handleClose}>
@@ -48,9 +55,9 @@ function BodyShorthandExample() {
           CREW
           <div className="crew_card">
             <ul>
-              <li>서울걷기</li>
-              <li>서울시 용산구</li>
-              <li>멤버수 : 4명</li>
+              <li>{title}</li>
+              <li>{location}</li>
+              <li>{members}</li>
             </ul>
           </div>
         </div>
@@ -59,7 +66,7 @@ function BodyShorthandExample() {
           참여중인 챌린지
           <div className="challenge_card">
             <ul>
-              <li>요가교실</li>
+              <li>요가교실-현재 모금 금액 : </li>
             </ul>
           </div>
         </div>

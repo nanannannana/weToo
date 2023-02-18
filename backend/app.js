@@ -87,10 +87,12 @@ app.use(
 const authRouter = require('./routes/auth');
 const chatRouter = require('./routes/chat');
 const mateRouter = require('./routes/mate');
+const challengeRouter = require('./routes/challenge');
 
 app.use('/auth', authRouter);
 app.use('/chat', chatRouter);
 app.use('/mate', mateRouter);
+app.use('/challenge', challengeRouter);
 // 서버 실행
 // app.listen(app.get("port"), () => {
 //   console.log(app.get("port"), "번 포트에서 대기 중");

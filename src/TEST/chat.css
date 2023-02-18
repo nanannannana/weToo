@@ -18,7 +18,7 @@
   border-radius: 15px;
   padding: 60px 20px 40px 20px;
 }
-ul {
+.room ul {
   padding-bottom: 30px;
 }
 li.yourMessage {
@@ -43,7 +43,7 @@ li.yourMessage {
   border-radius: 20px;
   padding: 5px 20px;
   margin-top: 10px;
-  /* margin-bottom: 50px; */
+  margin-bottom: 5px !important;
   max-width: 70%;
 }
 .yourMessage p:nth-child(1) {
@@ -64,14 +64,13 @@ li.yourMessage {
 }
 
 .myMessage p {
-  padding: 5px;
   text-align: left;
   background: #fff157;
   word-break: break-all;
   display: inline-block;
   border-radius: 20px;
   padding: 5px 20px;
-  margin-top: 10px;
+  margin-bottom: 10px !important;
   max-width: 70%;
 }
 li.myMessage {
@@ -90,7 +89,7 @@ li.myMessage {
   position: relative;
   width: 400px;
 }
-form {
+.room form {
   position: absolute;
   bottom: 0;
   border-radius: 0 0 15px 15px;
@@ -101,7 +100,7 @@ form {
   display: flex;
   align-items: center;
 }
-input {
+.room input {
   width: 80%;
   padding: 5px;
   border: none;
@@ -113,7 +112,7 @@ form button {
   border-radius: 0 50px 50px 0;
   color: #fff;
 }
-ul > p {
+.room ul > p {
   text-align: center;
   background: #00000057;
   padding: 3px;

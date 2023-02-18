@@ -7,20 +7,36 @@ class Challenge extends Sequelize.Model {
     return super.init(
       {
         // 첫번째 객체 인수는 테이블 필드에 대한 설정
-        title: {
-          type: Sequelize.STRING(100),
+        // title: {
+        //   type: Sequelize.STRING(100),
+        //   allowNull: false,
+        // },
+        // info: {
+        //   type: Sequelize.TEXT,
+        //   allowNull: false,
+        // },
+        // startDate: {
+        //   type: Sequelize.TEXT,
+        //   allowNull: false,
+        // },
+        // endDate: {
+        //   type: Sequelize.TEXT,
+        //   allowNull: false,
+        // },
+        challenge_name: {
+          type: Sequelize.STRING(50),
           allowNull: false,
         },
-        info: {
-          type: Sequelize.TEXT,
+        user_id: {
+          type: Sequelize.STRING(50),
           allowNull: false,
         },
-        startDate: {
-          type: Sequelize.TEXT,
+        user_phone: {
+          type: Sequelize.STRING(11),
           allowNull: false,
         },
-        endDate: {
-          type: Sequelize.TEXT,
+        amount: {
+          type: Sequelize.INTEGER,
           allowNull: false,
         },
       },
@@ -39,21 +55,21 @@ class Challenge extends Sequelize.Model {
   }
 
   // 다른 모델과의 관계
-  static associate(db) {
-    db.Challenge.belongsToMany(db.User, {
-      foreignKey: 'Challenge_id',
-      through: 'challenge_user_join',
-      onDelete: 'cascade',
-      onUpdate: 'cascade',
-    });
+  // static associate(db) {
+  //   db.Challenge.belongsToMany(db.User, {
+  //     foreignKey: 'Challenge_id',
+  //     through: 'challenge_user_join',
+  //     onDelete: 'cascade',
+  //     onUpdate: 'cascade',
+  //   });
 
-    db.Challenge.belongsTo(db.User, {
-      foreignKey: 'User_nickName',
-      sourceKey: 'nickName',
-      onDelete: 'cascade',
-      onUpdate: 'cascade',
-    });
-  }
+  //   db.Challenge.belongsTo(db.User, {
+  //     foreignKey: 'user_nickName',
+  //     sourceKey: 'nickName',
+  //     onDelete: 'cascade',
+  //     onUpdate: 'cascade',
+  //   });
+  // }
 }
 
 module.exports = Challenge;
