@@ -17,7 +17,8 @@
   margin: 10px;
 }
 .my_info {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  box-shadow: 10px 5px 5px grey;
   border-radius: 10px;
   width: 200px;
   height: 200px;
@@ -34,7 +35,8 @@
   flex-direction: column;
 }
 .crew_card {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  box-shadow: 10px 5px 5px grey;
   border-radius: 10px;
   width: 300px;
   text-align: center;
@@ -52,7 +54,8 @@ li {
   flex-direction: column;
 }
 .challenge_card {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  box-shadow: 10px 5px 5px grey;
   border-radius: 10px;
   width: 300px;
   text-align: center;
@@ -65,5 +68,8 @@ li {
   border: 1px solid black;
 }
 .password {
+  border: 1px solid black;
+}
+.city {
   border: 1px solid black;
 }
