@@ -148,7 +148,7 @@ export default function JoinBox() {
         <Joinbtn
           type="submit"
           onClick={() => {
-            dispatch(join(body));
+            dispatch(join({ register: body }));
           }}
         >
           Create an Account
