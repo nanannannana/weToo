@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Nav1 = styled.ul`
 position: absolute;
 width: 80%;
-height:100%;
+height:90%;
 left: 5%;
 top: 50px;
 list-style:none;
@@ -48,7 +48,7 @@ cursor: pointer;
 const Vline = styled.div`
 border-left: thin solid black;
 width: 5%;
-height: 95%;
+height: 98%;
 position:relative;
 left: 65%;
 `;

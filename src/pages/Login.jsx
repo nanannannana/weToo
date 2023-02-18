@@ -121,7 +121,6 @@ export default function Login() {
     }
   };
 
-
   const login = async () => {
     const data = await axios({
       method: 'post',
@@ -140,7 +139,6 @@ export default function Login() {
   }
 
   const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
-
   return (
     <>
     <Div>
@@ -159,11 +157,11 @@ export default function Login() {
       <Line>--------------------------------------</Line>
      <br />
         <JoinBtn>Create an Account</JoinBtn>
+        <JoinBtn onClick={() => window.open('/Join', '_self')}>Create an Account</JoinBtn>
         {/* 삭제하세욤 */}
         <br />
         <button onClick={changeName}>fkfkf</button>
       </Div>
-
     </>
   );
 }
