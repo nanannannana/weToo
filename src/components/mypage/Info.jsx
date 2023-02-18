@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './Info.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import dummyInfo from './dummyInfo';
 
 function BodyShorthandExample(crews) {
   const { title, location, members } = crews;
