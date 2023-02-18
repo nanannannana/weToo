@@ -79,6 +79,12 @@ class User extends Sequelize.Model {
       onDelete: 'cascade',
       onUpdate: 'cascade',
     });
+    db.User.hasMany(db.Proof, {
+      foreignKey: 'user_id',
+      targetKey: 'id',
+      onDelete: 'cascade',
+      onUpdate: 'cascade',
+    });
   }
 }
 
