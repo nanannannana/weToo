@@ -1,12 +1,16 @@
 .crewBoxContainer {
   max-width: 1800px;
-  margin: 0 auto;
+  margin-left: 15%;
   display: flex;
   flex-direction: row;
 }
 
 .crewImg {
   display: flex;
+  width: 90%;
+  height: 90%;
+}
+.CrewContentBox {
   width: 90%;
   height: 90%;
 }

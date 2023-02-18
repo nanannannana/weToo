@@ -1,0 +1,14 @@
+Crew1Box {
+  margin: 0 auto;
+  display: flex;
+}
+
+.crewName {
+  width: 90%;
+  height: 90%;
+}
+
+.crewInfoBox {
+  width: 90%;
+  height: 90%;
+}
