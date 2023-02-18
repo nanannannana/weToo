@@ -14,8 +14,8 @@ const JOIN = 'register/JOIN';
 //액션 함수
 export function join(payload) {
   const request = axios
-    .post('/login', payload)
-    .then((response) => response.data);
+    .post('/join', payload)
+    .then((response) => console.log(response));
 
   return {
     type: JOIN,
