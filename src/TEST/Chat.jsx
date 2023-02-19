@@ -8,18 +8,19 @@ export default function Chat({user, setDisplay, currentCrew, socket }) {
   console.log(socket, socket.id); //왜 소켓아이디는 안뜨냐
   const socketId = socket.id;
   const [chatting, setChatting] = useState([]);
+  console.log(chatting)
   const inputValue = useRef(null);
- 
+
   const room = useRef();
+  // const [more, setMore] = useState(true)
 
-
-  
+  const [firstLoad, setFirstLoad] = useState(false)
   const [top, setTop] = useState(true);
   useEffect(() => {
     if(top){
       room.current.scrollTop = room.current.scrollHeight
     }
-  },[chatting, top])
+  },[firstLoad, top])
 
 
   async function ChattingListLoad() {
@@ -44,37 +45,63 @@ export default function Chat({user, setDisplay, currentCrew, socket }) {
     }).reverse()
     console.log(chatlist);
     setChatting(chatlist)
+    setFirstLoad(true)
   }
 
 
 
   let one = useRef(true)
   async function moreChattinglist() {
-    // console.log(one)
-    // setTop(false)
-    // if(one && room.current.scrollTop + room.current.clientHeight < room.current.scrollHeight - 150){
-    //   one = false
-    //   console.log(12312312321)
-    //   setTimeout(() => {one = true;},1000)
-    //   const data = await axios({
-    //     method: 'post',
-    //     url: `http://localhost:8000/chat/load`,
-    //     data: chatting[chatting.length -1]
-    //   });
-    //   console.log(data);
-    //   setChatting((state)=> [...state, data.data]);
-    // }
+    if(!one.current && room.current.scrollTop == 0){
+      
+      return alert("더 이상 대화내용이 없습니다!")
+    }
+    // console.log("scrolling")
+    // console.log(room.current.scrollTop)
+    // console.dir(room.current)
+    // console.log(room.current.clientHeight)
+    // console.log(room.current.scrollHeight)
+    console.log(room.current.scrollTop + room.current.clientHeight)
+    console.log(room.current.scrollHeight - (room.current.scrollHeight - room.current.clientHeight)*0.9)
+    if(one.current && room.current.scrollTop + room.current.clientHeight < room.current.scrollHeight - (room.current.scrollHeight - room.current.clientHeight)*0.9){
+      one.current = false;
+      console.log(chatting[0])
+
+      const data = await axios({
+        method: 'post',
+        url: `http://localhost:8000/chat/load`,
+        data:{
+          currentCrew : currentCrew.id,
+          id : user.id, //닉네임을 하고 싶었지만 중간테이블이여서 자동 id값으로 들어간다.
+          nickName: user.nickName,
+          offset: chatting[0].id,
+        }
+      });
+      console.log(data)
+      if(data.data.length < 20){
+        one.current = false
+      } else {
+        one.current = true
+      }
+      setChatting(state => {
+        return [...data.data.reverse(), ...state,]
+      })
+    }
+
+   
     
   }
 
   useEffect(() => {
     ChattingListLoad();
-    room.current.addEventListener('scroll', moreChattinglist);
-    // return () => {
-    //   room.current.removeEventListener('scroll', moreChattinglist);
-    // };
-    //왜 안되지
   }, [])
+  useEffect(() => {
+    room.current.addEventListener('scroll', moreChattinglist);
+    return () => {
+      room.current?.removeEventListener('scroll', moreChattinglist);
+    };
+    //왜 안되지
+  }, [chatting])
 
 
 

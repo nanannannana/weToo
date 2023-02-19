@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 
 export default function ChatPage() {
-  console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
+  // console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
   let socket = io.connect('http://localhost:8000');
   const user = useSelector((state) => state.user.userInfo)
   console.log(user)
