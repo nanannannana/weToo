@@ -10,6 +10,8 @@ import Login from './pages/Login.jsx';
 import Join from './pages/Join.jsx';
 import ChatPage from './TEST/ChatPage';
 import axios from 'axios';
+import Challenge2 from './pages/Challenge2';
+import 'antd/dist/reset.css';
 
 axios.defaults.withCredentials = true;
 
@@ -20,7 +22,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Join" element={<Join />} />
-        <Route path="/challenge" element={<Challenge />} />
+        <Route path="/challenge" element={<Challenge2 />} />
         <Route path="/crew" element={<Crew />} />
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/mypage" element={<Mypage />} />

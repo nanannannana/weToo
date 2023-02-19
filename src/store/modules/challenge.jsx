@@ -21,17 +21,23 @@ const initState = {
       buyer_tel: '010-0000-0000',
     },
   ],
+  infoObj: {},
   modal: false,
   infoShow: false,
+  goUpload: false,
 };
 
 const INFO = 'challenge/INFO';
 const MODAL = 'challenge/MODAL';
 const INFOSHOW = 'challenge/INFOSHOW';
+const INFOCHANGE = 'challenge/INFOCHANGE';
+const GOUPLOAD = 'challenge/GOUPLOAD';
 
 export const info = () => ({ type: INFO });
 export const modal = (show) => ({ type: MODAL, payload: show });
 export const infoshow = (show) => ({ type: INFOSHOW, payload: show });
+export const infochange = (data) => ({ type: INFOCHANGE, payload: data });
+export const goupload = (show) => ({ type: GOUPLOAD, payload: show });
 
 export default function challenge(state = initState, action) {
   switch (action.type) {
@@ -46,6 +52,16 @@ export default function challenge(state = initState, action) {
       return {
         ...state,
         infoShow: action.payload,
+      };
+    case INFOCHANGE:
+      return {
+        ...state,
+        infoObj: action.payload,
+      };
+    case GOUPLOAD:
+      return {
+        ...state,
+        goUpload: action.payload,
       };
     default:
       return state;

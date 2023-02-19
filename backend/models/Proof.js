@@ -14,8 +14,8 @@ class Proof extends Sequelize.Model {
           type: Sequelize.STRING(50),
           allowNull: false,
         },
-        content: {
-          type: Sequelize.TEXT('medium'),
+        img: {
+          type: Sequelize.STRING(30),
           allowNull: false,
         },
       },
