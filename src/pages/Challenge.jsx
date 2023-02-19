@@ -150,12 +150,15 @@ export default function Challenge() {
             <div>
               <AttendBtn
                 disabled={btnDisabled}
-                variant="dark"
+                variant="outline-dark"
                 onClick={() => AttendClick(v)}
               >
                 참여하기
               </AttendBtn>
-              <ProofBtn variant="dark" onClick={() => ProofClick(v.name)}>
+              <ProofBtn
+                variant="outline-dark"
+                onClick={() => ProofClick(v.name)}
+              >
                 인증하기
               </ProofBtn>
             </div>
