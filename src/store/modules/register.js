@@ -1,22 +1,12 @@
 import axios from 'axios';
-//초기값
-const initState = {
-  id: '',
-  pwd: '',
-  city: '',
-  name: '',
-  nickname: '',
-};
-
 //액션 타입 정의
 const JOIN = 'register/JOIN';
 
 //액션 함수
-export function join(payload) {
+export function registerUser(submitData) {
   const request = axios
-    .post('/join', payload)
-    .then((response) => console.log(response));
-
+    .post('http://localhost:8000/auth/signup', submitData)
+    .then((response) => response.data);
   return {
     type: JOIN,
     payload: request,
@@ -24,9 +14,10 @@ export function join(payload) {
 }
 
 //리듀서
-export default function register(state = { initState }, action) {
+export default function register(state = {}, action) {
   switch (action.type) {
     case JOIN:
+      console.log('회원가입');
       return { ...state, register: action.payload };
     default:
       return state;
