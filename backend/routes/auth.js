@@ -26,7 +26,7 @@ router.post('/signup', async (req, res, next) => {
       phone,
       name,
     });
-    return res.send(true);
+    return res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
     return next(error);

@@ -24,8 +24,8 @@ router.post('/message', async (req, res, next) => {
 
 router.post('/load', async (req, res, next) => {
   // console.log(req.body);
-  const { currentCrew, id, nickName } = req.body;
-  console.log('id', id);
+  const { currentCrew, id, nickName, offset } = req.body;
+  console.log('id', id, offset);
   const userCrewJoinTime = await db.sequelize.models.matePost_user_join.findOne(
     {
       where: {
@@ -35,19 +35,19 @@ router.post('/load', async (req, res, next) => {
       attributes: ['createdAt'],
     }
   );
-  // console.log(userCrewJoinTime);
+  console.log(userCrewJoinTime);
   //유저가 방에 언제 입장한지 알아낸 후 그 이후의 대화만 보여주기 위해
-  let offset = 0;
+  let offsetId = offset || 300; //300은 임시다. chat데이터의 가장 마지막 id값 가져오기
   const chatList = await Chat.findAll({
     where: {
-      createdAt: { [Op.gt]: userCrewJoinTime },
+      createdAt: { [Op.gt]: userCrewJoinTime.createdAt },
       MatePost_id: currentCrew,
+      id: { [Op.lt]: offsetId },
     },
     order: [['id', 'DESC']],
-    offset,
-    limit: 10,
+    limit: 20,
   });
-  // console.log(chatList);
+  console.log(chatList);
 
   res.send(chatList);
 });

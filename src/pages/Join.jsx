@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { join } from '../store/modules/register';
+import { registerUser } from '../store/modules/register';
 
 const Div = styled.div`
   position: absolute;
@@ -91,7 +91,6 @@ export default function JoinBox() {
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const registerId = (e) => {
-    console.log(e.target.value);
     setId(e.target.value);
   };
   const registerPwd = (e) => {
@@ -107,52 +106,48 @@ export default function JoinBox() {
     setNickname(e.target.value);
   };
 
-  let body = {
-    id: id,
-    pwd: pwd,
-    city: city,
-    name: name,
-    nickname: nickname,
+  const signup = () => {
+    let body = {
+      id: id,
+      pw: pwd,
+      name: name,
+      nickname: nickname,
+      address: city,
+    };
+
+    dispatch(registerUser(body)).then((response) => {
+      if (response.payload.success) {
+        alert('회원가입 성공');
+      } else {
+        alert('회원가입 실패');
+      }
+    });
   };
 
   return (
     <>
       <Div>
         <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-        <Name
-          placeholder="Name"
-          value={name}
-          onChange={registerName}
-          required
-        ></Name>
+        <Name placeholder="Name" value={name} onChange={registerName}></Name>
         <br />
         <Nickname
           placeholder="Nickname"
           value={nickname}
           onChange={registerNickname}
-          required
         ></Nickname>
         <br />
-        <ID placeholder="ID" value={id} onChange={registerId} required />
+        <ID placeholder="ID" value={id} onChange={registerId} />
         <br />
         <PW
           placeholder="Password"
           value={pwd}
           type={'password'}
           onChange={registerPwd}
-          required
         />
         <br />
         <City placeholder="City" value={city} onChange={registerCity} />
         <br />
-        <Joinbtn
-          type="submit"
-          onClick={() => {
-            dispatch(join({ register: body }));
-          }}
-        >
-          Create an Account
-        </Joinbtn>
+        <Joinbtn onClick={signup}>Create an Account</Joinbtn>
       </Div>
     </>
   );
