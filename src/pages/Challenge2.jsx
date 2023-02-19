@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled, { keyframes } from 'styled-components';
 import NavBar from '../components/mypage/NavBar';
 import { useDispatch, useSelector } from 'react-redux';
 import {
