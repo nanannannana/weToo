@@ -1,169 +1,315 @@
-import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { Button, InputGroup, Form } from 'react-bootstrap';
-import { BsArrowLeft } from 'react-icons/bs';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { infoshow } from '../../store/modules/challenge';
+import styled, { css, keyframes } from 'styled-components';
+import { Button, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
+import { goupload, infoshow, modal } from '../../store/modules/challenge';
+import Upload from './Upload';
+import { BiLeftArrowAlt, BiX } from 'react-icons/bi';
 
-const RightBox = styled.div`
+const InfoBox_mount = keyframes`
+    from {
+        opacity: 0;
+        right: 0;
+    }
+    to {
+        opacity: 1;
+        right: 8%;
+    }
+`;
+const InfoBox_unmount = keyframes`
+    from {
+        opacity: 1;
+        right: 8%;
+    }
+    to {
+        opacity: 0;
+        right: 0;
+    }
+`;
+
+const InfoBox = styled.div`
+  animation: ${(props) =>
+    props.animation
+      ? css`
+          ${InfoBox_mount} 1s ease-in-out
+        `
+      : css`
+          ${InfoBox_unmount} 1s ease-in-out
+        `};
+
   position: absolute;
-  top: 120px;
-  right: 13%;
-  width: 30%;
-  height: 70%;
+  top: 15%;
+  right: 8%;
+  width: 40%;
+  height: 75%;
+  border-radius: 57px;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow: 21px 21px 59px #d4d4d4, -21px -21px 59px #ffffff;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-const ExitIcon = styled(BsArrowLeft)`
-  float: right;
-`;
-const InfoDiv = styled.div`
-  height: 100%;
-  margin-top: 10px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-`;
-const InfoHeader = styled.div`
-  border: 1px solid #d9d9d9;
-  padding: 7px 5px;
-`;
-const InfoMain = styled.div`
-  border: 1px solid #d9d9d9;
-  background-color: #faf9f9;
-  height: 100%;
-  padding: 7px 7px;
-  /* display: flex;
-  justify-content: space-between;
-  flex-direction: column; */
-`;
-const InfoMainTitle = styled.div`
-  font-size: 10px;
-`;
-const InfoMainItem = styled.div`
-  border: 1px solid #d9d9d9;
-  background-color: #ffffff;
-  height: 16%;
-  width: 100%;
-  padding: 6px 5px;
-  margin-top: 6px;
-`;
-const Nickname = styled.div`
-  font-size: 5px;
-  float: right;
-`;
-const Content = styled.div`
-  font-size: 15px;
-`;
-const InfoFooter = styled.div`
-  border: 1px solid #d9d9d9;
-  padding: 7px 5px;
-`;
-const MissionBtn = styled(Button)`
-  float: right;
-  /* border: 1px solid #bb9595;
-  background-color: #bb9595;
-  &:hover,
-  &:active {
-    background-color: #9d5c5c !important;
-    border: 1px solid #9d5c5c !important;
-  } */
-`;
-const FooterContent = styled.p`
-  clear: both;
-  float: right;
-  font-size: 10px;
-  margin-bottom: 0px !important;
+
+  @media (max-width: 1400px) {
+    width: 45%;
+  }
+  @media (max-width: 1300px) {
+    width: 50%;
+  }
+  @media (max-width: 1024px) {
+    width: 65%;
+  }
+  @media (max-width: 560px) {
+    width: 84%;
+  }
 `;
 
-export default function Info({ title, user_id }) {
+const ExitIcon = styled(BiLeftArrowAlt)`
+  float: right;
+  color: #797979 !important;
+  margin-top: 7px;
+`;
+
+const Title = styled.div`
+  padding: 20px 30px 5px 30px;
+  border-bottom: 1px solid #999999;
+
+  // 폰트 지정
+  @font-face {
+    font-family: 'ghanachoco';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ghanachoco.woff')
+      format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  font-family: 'ghanachoco';
+  font-size: 2.2vw;
+  background: linear-gradient(to right bottom, #000000, #d7d7d7);
+  color: transparent;
+  -webkit-background-clip: text;
+
+  @media (max-width: 1400px) {
+    font-size: 2.5vw;
+  }
+  @media (max-width: 1300px) {
+    font-size: 3vw;
+  }
+  @media (max-width: 1024px) {
+    font-size: 4vw;
+  }
+  @media (max-width: 560px) {
+    font-size: 4.7vw;
+  }
+`;
+
+const Main = styled.div`
+  padding: 10px 30px 0 30px;
+  overflow: auto;
+  height: inherit;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: #e0e0e0;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #5d5d5d;
+    border-radius: 5px;
+  }
+`;
+const Donation = styled.div`
+  margin-bottom: 10px;
+`;
+const ProofImg = styled.img`
+  object-fit: cover;
+  border: 1px solid #999999;
+  width: 100%;
+  height: 250px;
+  margin-bottom: 30px;
+`;
+
+const Footer = styled.div`
+  padding: 15px 40px 15px 15px;
+  border-top: 1px solid #999999;
+`;
+const JoinBtn = styled(Button)`
+  float: right;
+`;
+const ProofBtn = styled(Button)`
+  float: right;
+  clear: both;
+  margin: 0 0 3px 7px;
+`;
+const FooterExplanation = styled.div`
+  margin-bottom: 15px;
+  @media (max-width: 860px) {
+    text-align: center;
+    margin: 0 30px 15px 30px;
+    font-size: 2vw;
+  }
+`;
+
+export default function Info({ imgWidth }) {
   const dispatch = useDispatch();
-  // 챌린지 인증글
-  const [infoData, setInfoData] = useState([]);
-  const infoDataCut = infoData.slice(0, 5);
-  // '인증남기기'버튼 기본 세팅 = disabled;
-  const [btnDisabled, setBtnDisabled] = useState(true);
-  // 인증글 value 저장
-  const proofInputRef = useRef(null);
-  const [change, setChange] = useState(true);
+  const [mountAni, setMountAni] = useState(true);
+  // 임시 user_id
+  const user_id = 'hello12';
+  // challenge 정보 가져옴
+  const infoObj = useSelector((state) => state.challenge.infoObj);
+  // 인증글 정보 가져옴
+  const [proofData, setProofData] = useState([]);
+  // 요건 미충족 시, 버튼 disabled
+  const [joinBtnDisabled, setJoinBtnDisabled] = useState(true);
+  const [proofBtnDisabled, setProofDisabled] = useState(true);
+  // 인증 게시글 작성 페이지로 이동
+  const goUpload = useSelector((state) => state.challenge.goUpload);
 
   useEffect(() => {
-    const axiosData = async () => {
-      await axios
-        .post('http://localhost:8000/challenge/searchData', {
-          challenge_name: title,
-          user_id: user_id,
-        })
-        .then((res) => {
-          console.log(res.data);
-          setInfoData(res.data.ProofData);
-          // 사용자 기부 횟수 0 or 기부 횟수 = 인증 횟수인 경우, '인증남기기' 버튼 disabled
-          // 아닐 경우, '인증남기기' 버튼 active
-          res.data.challengeLength === 0
-            ? setBtnDisabled(true)
-            : res.data.challengeLength === res.data.ProofData.length
-            ? setBtnDisabled(true)
-            : setBtnDisabled(false);
-        });
-    };
-    axiosData();
-  }, [title, change]);
+    // portOne 실행을 위한 설정
+    const jquery = document.createElement('script');
+    jquery.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
+    const portOne = document.createElement('script');
+    portOne.src = 'https://service.iamport.kr/js/iamport.payment-1.2.0.js';
+    document.head.appendChild(jquery);
+    document.head.appendChild(portOne);
 
-  const CloseInfo = () => dispatch(infoshow(false));
-  const proofUpload = () => {
-    const data = {
-      challenge_name: title,
-      user_id: user_id,
-      content: proofInputRef.current.value,
-    };
-    axios.post('http://localhost:8000/challenge/proofUpload', data).then(() => {
-      setChange(!change);
-      proofInputRef.current.value = '';
-    });
+    //user_id가 있으면 '참여하기'버튼 active
+    if (user_id !== '' && user_id !== process.env.REACT_APP_ADMIN_ID)
+      setJoinBtnDisabled(false);
+  }, []);
+
+  const axiosData = async () => {
+    await axios
+      .post('http://localhost:8000/challenge/searchData', {
+        challenge_name: infoObj.name,
+        user_id: user_id,
+      })
+      .then((res) => {
+        setProofData(res.data.ProofData);
+        // 사용자 기부 횟수 0 or 기부 횟수 = 인증 횟수인 경우, '인증남기기' 버튼 disabled
+        // 아닐 경우, '인증남기기' 버튼 active
+        res.data.myChallengeLength === 0
+          ? setProofDisabled(true)
+          : res.data.myChallengeLength === res.data.myProofLength
+          ? setProofDisabled(true)
+          : setProofDisabled(false);
+      });
   };
 
+  // 인증 게시물 가져옴
+  useEffect(() => {
+    axiosData();
+    dispatch(goupload(false));
+  }, [infoObj]);
+
+  // 인증 게시물 올린 뒤 리렌더링 -> 올린 게시글 새로고침 없이 확인하기 위해
+  useEffect(() => {
+    axiosData();
+  }, [goUpload]);
+
+  // '인증남기기' 버튼 클릭 시, 사진 업로드 컴포넌트로 전환
+  const GoUpload = () => dispatch(goupload(true));
+
+  // '참여하기' 버큰 클릭 시, 결제 진행
+  const JoinClick = () => {
+    const IMP = window.IMP; // 생략 가능
+    IMP.init(`${process.env.REACT_APP_IMP}`);
+    IMP.request_pay(
+      {
+        pg: 'html5_inicis',
+        pay_method: 'card',
+        merchant_uid: new Date().getTime(),
+        name: infoObj.name,
+        amount: 200,
+        buyer_email: '',
+        buyer_name: `${user_id}`,
+        buyer_tel: infoObj.buyer_tel,
+      },
+      function (rsp) {
+        if (rsp.success) {
+          // 기부 결제 완료 시, user 정보 서버로 전송
+          console.log(rsp);
+          const data = {
+            user_id: rsp.buyer_name,
+            user_phone: rsp.buyer_tel.replace(/-/g, ''),
+            challenge_name: rsp.name,
+            amount: rsp.paid_amount,
+          };
+          axios
+            .post('http://localhost:8000/challenge/putData', data)
+            .then(() => dispatch(modal(true)));
+        } else {
+          console.log(rsp);
+        }
+      }
+    );
+  };
+
+  // 인증샷 삭제
+  const deleteImg = (v) => {
+    axios
+      .delete('http://localhost:8000/challenge/deleteData', {
+        data: { img: v.img, challenge_name: v.challenge_name },
+      })
+      .then((res) => {
+        alert('삭제완료');
+        setProofData(res.data);
+      });
+  };
+
+  // unmount 효과
+  const CloseInfo = () => setMountAni(false);
+  useEffect(() => {
+    if (!mountAni) {
+      setTimeout(() => dispatch(infoshow(false)), 900);
+    }
+  }, [mountAni]);
+
   return (
-    <>
-      <RightBox>
-        <div>
-          Info <ExitIcon onClick={CloseInfo} />
-        </div>
-        <InfoDiv>
-          <InfoHeader>{title}</InfoHeader>
-          <InfoMain>
-            <InfoMainTitle>
-              {infoData.length === 0
+    <InfoBox animation={mountAni}>
+      <Title>
+        {infoObj.name} <ExitIcon onClick={CloseInfo} />
+      </Title>
+      <Main>
+        {goUpload ? (
+          <Upload />
+        ) : (
+          <>
+            <Donation>
+              {proofData.length === 0
                 ? '누적 기부금: 0원'
-                : `누적 기부금: ${infoData.length}000원`}
-            </InfoMainTitle>
-            {infoData.length !== 0 &&
-              infoDataCut.map((v, i) => (
-                <InfoMainItem key={i}>
-                  <Nickname>{v['User.nickName']}</Nickname>
-                  <Content>{v.content}</Content>
-                </InfoMainItem>
+                : `누적 기부금: ${proofData.length}000원`}
+            </Donation>
+            <Row>
+              {proofData.slice(0, 6).map((v, i) => (
+                <React.Fragment key={i}>
+                  <Col xs={imgWidth}>
+                    {user_id === process.env.REACT_APP_ADMIN_ID ? (
+                      <BiX size="20" onClick={() => deleteImg(v)} />
+                    ) : (
+                      true
+                    )}
+                    <ProofImg src={v.img} />
+                  </Col>
+                </React.Fragment>
               ))}
-          </InfoMain>
-          <InfoFooter>
-            <InputGroup className="mb-1">
-              <Form.Control
-                ref={proofInputRef}
-                placeholder="인증글을 작성해주세요!"
-              />
-              <Button
-                disabled={btnDisabled}
-                variant="outline-success"
-                onClick={proofUpload}
-              >
-                인증남기기
-              </Button>
-            </InputGroup>
-            <FooterContent>인증글을 남기면 기부금이 증가해요!</FooterContent>
-          </InfoFooter>
-        </InfoDiv>
-      </RightBox>
-    </>
+            </Row>
+          </>
+        )}
+      </Main>
+      <Footer>
+        <FooterExplanation>
+          {infoObj.content.split(/\n/).map((v, i) => (
+            <div key={i}>{v}</div>
+          ))}
+        </FooterExplanation>
+        <ProofBtn variant="dark" disabled={proofBtnDisabled} onClick={GoUpload}>
+          인증남기기
+        </ProofBtn>
+        <JoinBtn variant="dark" onClick={JoinClick} disabled={joinBtnDisabled}>
+          참여하기
+        </JoinBtn>
+      </Footer>
+    </InfoBox>
   );
 }

@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { modal } from '../../store/modules/challenge';
 
-export default function ChModal() {
+export default function ModalCH() {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.challenge.modal);
   const ModalClose = () => dispatch(modal(false));

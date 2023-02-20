@@ -8,6 +8,20 @@ import { Button } from 'react-bootstrap';
 
 const Title = styled.div`
   font-weight: bolder;
+  font-size: 1.1vw;
+
+  @media (max-width: 1400px) {
+    font-size: 1.3vw;
+  }
+  @media (max-width: 1024px) {
+    font-size: 1.7vw;
+  }
+  @media (max-width: 1023px) {
+    font-size: 2.2vw;
+  }
+  @media (max-width: 767px) {
+    font-size: 2.5vw;
+  }
 `;
 const UploadBtn = styled(Button)`
   float: right;
@@ -30,7 +44,7 @@ const UploadImg = styled.img`
   height: inherit;
 `;
 
-export default function ChUpload() {
+export default function Upload() {
   const dispatch = useDispatch();
   const infoObj = useSelector((state) => state.challenge.infoObj);
   const [imgUrl, setImgUrl] = useState(null);
