@@ -131,26 +131,26 @@ export default function Weather() {
   const [weather, setWeather] = useState();
   const [icon, setIcon] = useState();
 
-  const API_KEY = '4281729cba61323b40e791c6036334ed';
+  // const API_KEY = '4281729cba61323b40e791c6036334ed';
+  const iconurl = `http://openweathermap.org/img/w/${icon}.png`;
+  // const Region = 'seoul';
   // ab9fd86fdb0d2bd4968a55bfa83cf03c
   // c8fffee56b961e5df0d6af641bd1a6e3
   // 242b309a31182dc5c37381b6642b796c
   // 4281729cba61323b40e791c6036334ed
   // const weatherRendering = () => {
-  const iconurl = `http://openweathermap.org/img/w/${icon}.png`;
-  const Region = 'seoul';
   // }
+
   useEffect(() => {
     const weatherShow = async () => {
       const data = await axios({
-        method: 'get',
-        url: `https://proxy.cors.sh/https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`,
-        headers: {
-          'x-cors-api-key': 'temp_ddaf4f333258613e7d6c08b38c5eb809',
-        }
+        method: 'post',
+        url: 'http://localhost:8000/weather/today_weather'
+        // url: `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`,
       });
       setResult(data);
-      console.log(data);
+      // console.log(data.data);
+      // console.log('안녕',data.data.weather[0].main);
       setWeather(data.data.weather[0].main);
       setIcon(data.data.weather[0].icon);
     };
@@ -164,7 +164,7 @@ export default function Weather() {
     <div>
 
     <WeatherBox>
-            <City>{Region}</City>
+            {/* <City>{Region}</City> */}
             <br />
             <State src={iconurl} alt='날씨' />
             <div className='temperature'>
