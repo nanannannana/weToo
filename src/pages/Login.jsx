@@ -137,10 +137,10 @@ export default function Login() {
     catch(err){
       console.log(err.response.data);
       if(err.response.data == '유저 정보가 없습니다.'){
-        alert('일치하는 아이디가 없습니다.');
+        setValid('일치하는 아이디가 없습니다.');
       }
       else if(err.response.data == '비밀번호가 일치 하지 않습니다.'){
-        alert('비밀번호를 확인해주세요.');
+        setValid('비밀번호를 확인해주세요.');
       }
     }
   }
@@ -156,7 +156,7 @@ export default function Login() {
       <PW placeholder='Password' value={pw}
       onChange={pwValue} type={'password'} required/>
       <br />
-      <ErrorMSG></ErrorMSG>
+      <ErrorMSG>{valid}</ErrorMSG>
       <br />
       <LoginBtn 
       // disabled={valid}
