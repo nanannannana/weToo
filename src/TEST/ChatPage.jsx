@@ -72,8 +72,8 @@ export default function ChatPage() {
         method: 'post',
         url: 'http://localhost:8000/mate/addcrew',
         data: {
-          User_id: user.id, //더미데이터
-          Crew_id: currentCrew.id,
+          // User_id: user.id, //더미데이터
+          crewId: currentCrew.id,
         },
       });
       console.log(data);
@@ -92,8 +92,8 @@ export default function ChatPage() {
         method: 'delete',
         url: 'http://localhost:8000/mate/outcrew',
         data: {
-          User_id: user.id, //더미데이터
-          Crew_id: currentCrew.id,
+          // User_id: user.id, //더미데이터
+          crewId: currentCrew.id,
         },
       });
       console.log(data);
