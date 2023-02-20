@@ -32,8 +32,8 @@ const Logo = styled.p`
   cursor: pointer;
 `;
 const ID = styled.input`
-  width: 62%;
-  height: 3%;
+  width: 70%;
+  height: 8%;
   padding: 10px;
   border: 1px solid #d8d8d8;
   ::placeholder {
@@ -41,8 +41,8 @@ const ID = styled.input`
   }
 `;
 const PW = styled.input`
-  width: 62%;
-  height: 3%;
+  width: 70%;
+  height: 8%;
   padding: 10px;
   margin: 8px;
   border: 1px solid #d8d8d8;
