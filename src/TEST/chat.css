@@ -1,3 +1,10 @@
+.room {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.room::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
 
 * {
   padding: 0;

@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken');
 const { tokenCheck } = require('../middleware/tokenCheck');
 
 router.post('/signup', async (req, res, next) => {
-  const { id, nickname, password, phone, name } = req.body;
+  const { id, nickName, pw, address, name } = req.body;
   console.log(req.body);
 
   try {
     const exUser = await User.findOne({ where: { id: id } });
-    const exnickName = await User.findOne({ where: { nickName: nickname } });
+    const exnickName = await User.findOne({ where: { nickName: nickName } });
 
     if (exUser) {
       return res.send('존재하는 ID입니다.');
@@ -20,13 +20,13 @@ router.post('/signup', async (req, res, next) => {
     }
     //const hash = await bcrypt.hash(pw, 12);
     await User.create({
-      id: id,
-      nickName: nickname,
-      pw: password,
-      phone,
+      id,
+      nickName,
+      pw,
+      address,
       name,
     });
-    return res.status(200).json({ success: true });
+    return res.status(200).send('회원가입 성공');
   } catch (error) {
     console.error(error);
     return next(error);
@@ -61,7 +61,7 @@ router.post('/login', async (req, res, next) => {
       {
         type: 'JWT',
         id: userInfo.id,
-        nickname: userInfo.nickname,
+        nickName: userInfo.nickName,
       },
       process.env.ACCESS_SECRET,
       {
