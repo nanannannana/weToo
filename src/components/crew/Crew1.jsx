@@ -6,7 +6,7 @@ import classes from './Crew1.module.css';
 export default function Crew1() {
   let [crews] = useState(crewdata);
   return (
-    <>
+    <div className={classes.Crew1Container}>
       <div>
         <div>Weto</div>
         <div className={classes.crewName}>YOGACREW</div>
@@ -15,6 +15,6 @@ export default function Crew1() {
         </div>
       </div>
       <button>채팅방입장</button>
-    </>
+    </div>
   );
 }
