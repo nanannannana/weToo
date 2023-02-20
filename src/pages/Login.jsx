@@ -105,9 +105,9 @@ export default function Login() {
   const idValue = (e) => {
     setId(e.target.value);
     if (id.length > 5) {
-      setValid(false);
+      setIdValid(true);
     } else {
-      setValid(true);
+      setIdValid(false);
     }
   };
   const pwValue = (e) => {
@@ -115,12 +115,12 @@ export default function Login() {
     if (pw.length > 5) {
       setPwValid(true);
     } else {
-      setPwValid(true);
+      setPwValid(false);
     }
   };
 
   const login = async () => {
-    const data = await axios({
+    try {const data = await axios({
       method: 'post',
       url: 'http://localhost:8000/auth/login',
       data: {
@@ -133,6 +133,15 @@ export default function Login() {
       dispatch(userInfoCreate(data.data.data))
       alert('로그인 성공')
       navigate('/')
+    } }
+    catch(err){
+      console.log(err.response.data);
+      if(err.response.data == '유저 정보가 없습니다.'){
+        alert('일치하는 아이디가 없습니다.');
+      }
+      else if(err.response.data == '비밀번호가 일치 하지 않습니다.'){
+        alert('비밀번호를 확인해주세요.');
+      }
     }
   }
 
@@ -149,12 +158,12 @@ export default function Login() {
       <br />
       <ErrorMSG></ErrorMSG>
       <br />
-      <LoginBtn disabled={valid}
+      <LoginBtn 
+      // disabled={valid}
       onClick={() => login()}>Log In</LoginBtn>
       <br />
       <Line>--------------------------------------</Line>
      <br />
-        <JoinBtn>Create an Account</JoinBtn>
         <JoinBtn onClick={() => window.open('/Join', '_self')}>Create an Account</JoinBtn>
         {/* 삭제하세욤 */}
         <br />

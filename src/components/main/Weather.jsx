@@ -144,13 +144,9 @@ export default function Weather() {
     const weatherShow = async () => {
       const data = await axios({
         method: 'get',
-        url: `https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`,
-        beforeSend: function(xhr){
-        xhr.withCredentials = true;
-       }
+        url: `https://cors.bridged.cc/https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`,
       });
       setResult(data);
-      data.setHeader('Access-Control-Allow-origin', '*');
       console.log(data);
       setWeather(data.data.weather[0].main);
       setIcon(data.data.weather[0].icon);
