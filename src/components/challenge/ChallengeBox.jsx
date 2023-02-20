@@ -9,10 +9,54 @@ const TitleBox = styled.div`
 `;
 const Title = styled.div`
   &:first-child {
-    font-size: 30px;
+    /* font-size: 30px; */
+    /* font-size: ${(props) => props.title_font}; */
+    font-size: 2.3vw;
   }
   &:last-child {
     color: #4b4a4a;
+    /* font-size: ${(props) => props.sub_title_font}; */
+    font-size: 0.9vw;
+  }
+
+  @media (max-width: 1400px) {
+    &:first-child {
+      font-size: 2.5vw;
+    }
+  }
+  @media (max-width: 1300px) {
+    &:first-child {
+      font-size: 2.8vw;
+    }
+    &:last-child {
+      font-size: 1.1vw;
+    }
+  }
+  @media (max-width: 1023px) {
+    &:first-child {
+      font-size: 3.5vw;
+    }
+    &:last-child {
+      font-size: 1.5vw;
+    }
+  }
+  @media (max-width: 1000px) {
+    &:last-child {
+      font-size: 1.7vw;
+    }
+  }
+  @media (max-width: 767px) {
+    &:first-child {
+      font-size: 4.6vw;
+    }
+    &:last-child {
+      font-size: 2vw;
+    }
+  }
+  @media (max-width: 567px) {
+    &:first-child {
+      font-size: 6vw;
+    }
   }
 `;
 
@@ -22,7 +66,7 @@ const ChallengeDiv = styled.div`
   padding: 0 8%;
   width: 100%;
   height: 75%;
-  top: 150px;
+  top: 15%;
 
   display: flex;
   flex-direction: column;
@@ -44,7 +88,23 @@ const ChallengeItems = styled.div`
     font-style: normal;
   }
   font-family: 'ghanachoco';
-  font-size: 40px;
+  font-size: 2.5vw;
+
+  @media (max-width: 1400px) {
+    font-size: 2.7vw;
+  }
+  @media (max-width: 1300px) {
+    font-size: 3.2vw;
+  }
+  @media (max-width: 1023px) {
+    font-size: 4vw;
+  }
+  @media (max-width: 767px) {
+    font-size: 5.2vw;
+  }
+  @media (max-width: 567px) {
+    font-size: 6.2vw;
+  }
 `;
 const ChallengeItem = styled.div`
   &:hover {
@@ -64,7 +124,7 @@ const GoInfoIcon = styled(BsArrowRight)`
   animation: ${un_mount_icon} 0.3s ease-in-out;
 `;
 
-export default function ChChallenge() {
+export default function ChallengeBox({ arrowShow }) {
   const dispatch = useDispatch();
   // challenge 게시글 정보 가져옴
   const challenge = useSelector((state) => state.challenge.challenge);
@@ -80,7 +140,7 @@ export default function ChChallenge() {
   };
 
   const MouseOver = (i) => {
-    infoShow ? setIsHover(null) : setIsHover(i);
+    infoShow && arrowShow ? setIsHover(null) : setIsHover(i);
   };
 
   return (

@@ -5,7 +5,6 @@ const multer = require('../middleware/multer');
 
 router.post('/putData', challenge.putData);
 router.post('/searchData', challenge.searchData);
-// router.post('/proofUpload', challenge.proofUpload);
 router.post('/upLoadData', multer.upLoadImg, challenge.upLoadData);
 router.delete('/deleteData', challenge.deleteData);
 

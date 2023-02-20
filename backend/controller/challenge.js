@@ -4,7 +4,7 @@ const Proof = require('../models/Proof');
 const fs = require('fs');
 
 exports.putData = (req, res) => {
-  console.log('받은 데이터 확인', req.body);
+  // console.log('받은 데이터 확인', req.body);
   Challenge.create({
     user_id: req.body.user_id,
     user_phone: req.body.user_phone,
@@ -15,7 +15,7 @@ exports.putData = (req, res) => {
 };
 
 exports.searchData = async (req, res) => {
-  console.log('받은 데이터 확인: ', req.body);
+  // console.log('받은 데이터 확인: ', req.body);
   const myChallengeData = await Challenge.findAll({
     raw: true,
     where: {
@@ -30,7 +30,7 @@ exports.searchData = async (req, res) => {
       user_id: req.body.user_id,
     },
   });
-  console.log(myChallengeData.length, myProofData.length);
+  // console.log(myChallengeData.length, myProofData.length);
   const ProofData = await Proof.findAll({
     raw: true,
     where: { challenge_name: req.body.challenge_name },
@@ -50,17 +50,9 @@ exports.searchData = async (req, res) => {
   });
 };
 
-// exports.proofUpload = async (req, res) => {
-//   await Proof.create({
-//     challenge_name: req.body.challenge_name,
-//     user_id: req.body.user_id,
-//     content: req.body.content,
-//   });
-//   res.send(true);
-// };
 exports.upLoadData = async (req, res) => {
-  console.log('받은 데이터 확인: ', req.body);
-  console.log('받은 파일 데이터 확인: ', req.file);
+  // console.log('받은 데이터 확인: ', req.body);
+  // console.log('받은 파일 데이터 확인: ', req.file);
   await Proof.create({
     challenge_name: req.body.challenge_name,
     user_id: req.body.user_id,
@@ -70,7 +62,7 @@ exports.upLoadData = async (req, res) => {
 };
 
 exports.deleteData = async (req, res) => {
-  console.log('img: ', req.body.img);
+  // console.log('img: ', req.body.img);
   fs.unlinkSync(`../public${req.body.img}`);
   await Proof.destroy({
     where: { img: req.body.img },
