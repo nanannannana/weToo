@@ -1,0 +1,26 @@
+.ChatBoxContainer {
+  display: flex;
+  width: 100%;
+  height: 700px;
+  flex-direction: column;
+  background-color: #faf9f9;
+  border: 1px solid #d8d8d8;
+}
+
+.mainName {
+  height: 50px;
+  font-size: 40px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  top: 180%;
+}
+
+.mainContent {
+  height: 50px;
+  font-size: 20px;
+  font-weight: medium;
+  text-align: center;
+  position: relative;
+  top: 200%;
+}

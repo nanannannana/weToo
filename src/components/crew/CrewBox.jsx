@@ -1,22 +1,25 @@
 import React from 'react';
 import crewdata from '../../crewdata.js';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Crew1 from '../crew/Crew1';
 import Crew2 from '../crew/Crew2';
 import classes from './CrewBox.module.css';
+import ChatBox from './ChatBox.jsx';
+import styled from 'styled-components';
 
 const CrewBox = () => {
   let [crews] = useState(crewdata);
-  const [content, setContent] = useState();
+  const [content, setContent] = useState({
+    id: 0,
+    title: 'Weto',
+    content: 'Welcome to the Weto!!😊',
+  });
+
   const handleClickButton = (e) => {
     const { id } = e.target;
     setContent(id);
     console.log(id);
-  };
-  const selectComponent = {
-    1: <Crew1 />,
-    2: <Crew2 />,
   };
 
   //   {
@@ -33,29 +36,32 @@ const CrewBox = () => {
   // ];
 
   return (
-    <div className={classes.crewBoxContainer}>
-      {crews.map((data, i) => {
-        return (
-          <>
-            <div className={classes.crewBox}>
-              <Card crews={crews[i]} i={i} />
-              <Button
-                className={classes.crewBtn}
-                onClick={handleClickButton}
-                id={data.id}
-                key={data.id}
-              >
-                {data.title}
-              </Button>
-            </div>
-          </>
-        );
-      })}
+    <>
+      <div className={classes.crewBoxContainer}>
+        {crews.map((data, i) => {
+          return (
+            <>
+              <div className={classes.crewBox}>
+                <Card crews={crews[i]} i={i} />
+                <Button
+                  variant="light"
+                  onClick={handleClickButton}
+                  id={data.id}
+                  key={data.id}
+                >
+                  {data.title}
+                </Button>
+              </div>
+            </>
+          );
+        })}
 
-      {content && (
-        <div className={classes.CrewContentBox}>{selectComponent[content]}</div>
-      )}
-    </div>
+        {/* {content && <div className={classes.CrewContentBox}>sdfsf</div>} */}
+      </div>
+      <div className={classes.mainChatBox}>
+        <ChatBox content={content} />
+      </div>
+    </>
   );
 };
 
