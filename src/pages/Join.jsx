@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../store/modules/register';
+import { userJoin } from '../store/modules/register';
+import { Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Div = styled.div`
   position: absolute;
@@ -84,6 +86,7 @@ const Joinbtn = styled.button`
 `;
 export default function JoinBox() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
@@ -106,22 +109,40 @@ export default function JoinBox() {
     setNickname(e.target.value);
   };
 
-  const signup = () => {
-    let body = {
-      id: id,
-      pw: pwd,
-      name: name,
-      nickname: nickname,
-      address: city,
-    };
+  // const signup = () => {
+  //   let body = {
+  //     id: id,
+  //     pw: pwd,
+  //     name: name,
+  //     nickname: nickname,
+  //     address: city,
+  //   };
 
-    dispatch(registerUser(body)).then((response) => {
-      if (response.payload.success) {
-        alert('회원가입 성공');
-      } else {
-        alert('회원가입 실패');
-      }
+  //   dispatch(registerUser(body)).then((response) => {
+  //     if (response.payload.success) {
+  //       alert('회원가입 성공');
+  //     } else {
+  //       alert('회원가입 실패');
+  //     }
+  //   });
+  // };
+
+  const register = async () => {
+    const request = await axios({
+      method: 'post',
+      url: 'http://localhost:8000/auth/signup',
+      data: {
+        id: id,
+        pw: pwd,
+        address: city,
+        name: name,
+        nickName: nickname,
+      },
     });
+
+    dispatch(userJoin(request.data));
+    alert('회원가입 성공');
+    navigate('/login');
   };
 
   return (
@@ -147,7 +168,7 @@ export default function JoinBox() {
         <br />
         <City placeholder="City" value={city} onChange={registerCity} />
         <br />
-        <Joinbtn onClick={signup}>Create an Account</Joinbtn>
+        <Joinbtn onClick={() => register()}>Create an Account</Joinbtn>
       </Div>
     </>
   );
