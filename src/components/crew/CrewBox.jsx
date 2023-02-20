@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import crewdata from '../../crewdata.js';
 import Button from 'react-bootstrap/Button';
-import { useState, useEffect } from 'react';
-import Crew1 from '../crew/Crew1';
-import Crew2 from '../crew/Crew2';
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './CrewBox.module.css';
 import ChatBox from './ChatBox.jsx';
 import styled from 'styled-components';
 
 const CrewBox = () => {
   let [crews] = useState(crewdata);
+  // const crews = useSelector((state) => state.crewdata.crewdata);
+  // const dispatch = useDispatch();
+
   const [content, setContent] = useState({
     id: 0,
     title: 'Weto',
