@@ -56,6 +56,7 @@ const ErrorMSG = styled.div`
   color: red;
   font-size: 10%;
   text-align: left;
+  font-family: 'Port Lligat Slab';
 `;
 const Line = styled.span`
   color: #d8d8d8;
@@ -71,6 +72,7 @@ const LoginBtn = styled.button`
   &:disabled {
     background-color: unset;
     color: black;
+    cursor: initial;
   }
 `;
 const JoinBtn = styled.button`
@@ -86,9 +88,8 @@ const JoinBtn = styled.button`
 export default function Login() {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
-  const [idValid, setIdValid] = useState(false);
-  const [pwValid, setPwValid] = useState(false);
   const [valid, setValid] = useState(true);
+  const [btnAct, setBtnAct] = useState(true);
   const navigate = useNavigate();
 
   // user_name을 변경하는 작업
@@ -104,22 +105,25 @@ export default function Login() {
 
   const idValue = (e) => {
     setId(e.target.value);
-    if (id.length > 5) {
-      setIdValid(true);
-    } else {
-      setIdValid(false);
-    }
+    if (id !== '') {
+      setBtnAct(true)
+    } else setBtnAct(false)
   };
   const pwValue = (e) => {
     setPw(e.target.value);
-    if (pw.length > 5) {
-      setPwValid(true);
-    } else {
-      setPwValid(false);
+  };
+
+  const handleOnKeyPress = e => {
+    if (e.key === 'Enter') {
+      login();
     }
   };
 
-  const login = async () => {
+  const login = 
+  async () => {
+    if (pw == '') {
+      setValid('비밀번호를 입력해주세요.');
+    } else
     try {const data = await axios({
       method: 'post',
       url: 'http://localhost:8000/auth/login',
@@ -138,6 +142,8 @@ export default function Login() {
       console.log(err.response.data);
       if(err.response.data == '유저 정보가 없습니다.'){
         setValid('일치하는 아이디가 없습니다.');
+        setId('');
+        setPw('');
       }
       else if(err.response.data == '비밀번호가 일치 하지 않습니다.'){
         setValid('비밀번호를 확인해주세요.');
@@ -154,12 +160,13 @@ export default function Login() {
       onChange={idValue} required/>
       <br />
       <PW placeholder='Password' value={pw}
+      onKeyPress={handleOnKeyPress}
       onChange={pwValue} type={'password'} required/>
       <br />
       <ErrorMSG>{valid}</ErrorMSG>
       <br />
       <LoginBtn 
-      // disabled={valid}
+      disabled={btnAct}
       onClick={() => login()}>Log In</LoginBtn>
       <br />
       <Line>--------------------------------------</Line>
