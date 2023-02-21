@@ -8,12 +8,31 @@ import { useNavigate } from 'react-router-dom';
 function BodyShorthandExample(crews) {
   const navigate = useNavigate();
 
-  const { title, location, members } = crews;
   const [show, setShow] = useState(false);
   const [result, setResult] = useState({});
+  const [nickname, setNickname] = useState('');
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
+  const [id, setId] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const nickNameHandler = (e) => {
+    setNickname(e.target.value);
+  };
+
+  const nameHandler = (e) => {
+    setName(e.target.value);
+  };
+
+  const idHandler = (e) => {
+    setId(e.target.value);
+  };
+
+  const cityHandler = (e) => {
+    setCity(e.target.value);
+  };
 
   useEffect(() => {
     const infomodal = async () => {
@@ -47,21 +66,34 @@ function BodyShorthandExample(crews) {
           <Modal.Body>
             <label>닉네임</label>
             <br />
-            <input type="text" className="nickname" value={result.nickName} />
+            <input
+              type="text"
+              className="nickname"
+              value={nickname}
+              onChange={nickNameHandler}
+            />
             <br />
             <label>이름</label>
-            <input type="text" className="id" value={sessionStorage.id}/>
             <br />
-            <input type="text" className="name" value={result.name} />
+            <input
+              type="text"
+              className="name"
+              value={name}
+              onChange={nameHandler}
+            />
             <br />
             <label>아이디</label>
             <br />
-            <input type="text" className="id" value={result.id} />
-            <input type="password" className="password" value={sessionStorage.pw}/>
+            <input type="text" className="id" value={id} onChange={idHandler} />
             <br />
             <label>도시</label>
             <br />
-            <input type="text" className="city" value={result.address} />
+            <input
+              type="text"
+              className="city"
+              value={city}
+              onChange={cityHandler}
+            />
           </Modal.Body>
           <Modal.Footer className="modal_footer">
             <Button variant="light" onClick={handleClose}>
@@ -96,9 +128,9 @@ function BodyShorthandExample(crews) {
           CREW
           <div className="crew_card">
             <ul>
-              <li>{title}</li>
-              <li>{location}</li>
-              <li>{members}</li>
+              <li></li>
+              <li></li>
+              <li></li>
             </ul>
           </div>
         </div>
