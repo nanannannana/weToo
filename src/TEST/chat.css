@@ -138,3 +138,71 @@ form button {
   border-radius: 10px;
   width: 350px;
 }
+
+
+/* crew */
+.chatPage {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1920px;
+  margin: 0 5%;
+}
+
+.AllCrewPost {
+  width: 70%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+.crewPost {
+  width: 25%;
+  height: 15vw;
+  background: #b39393;
+  margin: 0 6% 30px 0;
+  background-size:cover;
+  cursor: pointer;
+}
+.crewPost h3 {
+  width: 100%;
+  background: #00000077;
+  color: #fff;
+  padding: 10px;
+}
+
+.defaultChat {
+  width: 25%;
+  height: 35vw;
+  background: #FAF9F9;
+  border: 1px solid #dbdbdb;
+  padding-top: 3vw;
+  
+}
+.defaultChat img {
+  width: 60%;
+  display: block;
+  margin: 0 auto;
+}
+.defaultChat h4 {
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.3vw;
+  font-weight: 600;
+}
+.defaultChat p {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 20px;
+  /* font-size: 22px; */
+  font-size: 1.3vw;
+  font-weight: 800;
+}
+
+.CrewInfoBox {
+  width: 25%;
+  height: 35vw;
+  background: #FAF9F9;
+  border: 1px solid #dbdbdb;
+  padding-top: 3vw;
+}

@@ -85,6 +85,11 @@ router.post('/create', tokenCheck, async (req, res, next) => {
       User_nickName: req.decoded.nickName,
     });
     //console.log(record);
+    const matePost = await MatePost.findOne({ where: { id: crew.dataValues.id } });
+    if (!matePost) {
+      return res.status(403).send('게시글이 존재하지 않습니다.');
+    }
+    await matePost.addUsers(req.decoded.id);
     res.status(200).json(crew);
   } catch (error) {
     console.error(error);

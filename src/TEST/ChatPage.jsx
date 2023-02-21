@@ -3,6 +3,7 @@ import Chat from './Chat';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import NavBar from '../components/mypage/NavBar'
 
 export default function ChatPage() {
   // console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
@@ -10,7 +11,7 @@ export default function ChatPage() {
   const user = useSelector((state) => state.user.userInfo);
   const [crew, setCrew] = useState([]);
   console.log(crew);
-  const [display, setDisplay] = useState(true);
+  const [display, setDisplay] = useState(0);
   const [currentCrew, currentCrewSet] = useState('');
   console.log(currentCrew);
 
@@ -27,7 +28,7 @@ export default function ChatPage() {
       //데미더이터
       //내 유저 아이디와 같은게 있다면
       //입장
-      setDisplay((state) => !state);
+      setDisplay(2);
       alert('입장');
     } else if (currentCrew.max <= currentCrew.users.length) {
       alert('인원이 초과되었습니다.');
@@ -42,7 +43,7 @@ export default function ChatPage() {
       });
       alert('가입을 축하드립니다.');
       socket.emit('joinCrew', { nickName: user.nickName, currentCrew });
-      setDisplay((state) => !state);
+      setDisplay(2);
     }
   }
 
@@ -63,8 +64,8 @@ export default function ChatPage() {
 
   function selectCrew(e) {
     currentCrewSet(e);
-    if (!display) {
-      setDisplay((state) => !state);
+    setDisplay(1);
+    if (display == 2 ) {
       socket.emit('roomOut', {
         currentCrewId: currentCrew.id,
         nickName: user.nickName,
@@ -108,17 +109,41 @@ export default function ChatPage() {
   }, [currentCrew]);
 
   return (
-    <div>
+    <>
+      <NavBar/>
+      <div>
+
+      </div>
+      <div className='chatPage'>
+      <div className='AllCrewPost'>
       {crew.map((e, i) => (
-        <button key={i} onClick={() => selectCrew(e)}>
-          게시물
-        </button>
-      ))}
-      {display ? (
         <>
+        <div style={{backgroundImage: 'url(./runcrew.png)'}} className='crewPost' key={i} onClick={() => selectCrew(e)}>
+        <h3>같이 운동해요~</h3>
+        </div>
+        </>
+
+      ))}
+      </div>
+
+        
+      {display == 0 ? 
+      <div className='defaultChat'>
+        <img src="./chatdefault.jpg" alt="" />
+        <h4>THE YOGA DAY CREW</h4>
+        <p>
+안녕하세요<br/> 
+매일 하루를 요가와 함께하는
+THE  YOGA DAY  CREW 입니다~:)</p>
+      </div> 
+       : display == 1 ? (
+        <div className='CrewInfoBox'>
+          <h4>같이 운동해요~</h4>
+          <span>인원수 : 3/4</span>
+          <p>크루정보(공지) 뭐든 디테일한 정보들 : 열심히 참여할 분, 하루에 물 3컵, 6시 어디서 정모 등  </p>
           <button onClick={() => joinCrew()}>입장</button>
           <button onClick={() => outCrew()}>탈퇴</button>
-        </>
+        </div>
       ) : (
         <Chat
           setDisplay={setDisplay}
@@ -127,6 +152,15 @@ export default function ChatPage() {
           user={user}
         />
       )}
-    </div>
+      </div>
+      
+    
+      {/* {crew.map((e, i) => (
+        <button key={i} onClick={() => selectCrew(e)}>
+          게시물
+        </button>
+      ))} */}
+      
+    </>
   );
 }

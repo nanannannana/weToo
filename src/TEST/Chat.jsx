@@ -49,30 +49,22 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
     setFirstLoad(true);
   }
 
-  let one = useRef(true);
+  let notChatLoading = useRef(true);
   async function moreChattinglist() {
-    if (!one.current && room.current.scrollTop == 0) {
+    console.log('notChatLoading.current', notChatLoading.current)
+    if (!notChatLoading.current && room.current.scrollTop == 0) {
       return alert('더 이상 대화내용이 없습니다!');
     }
-    // console.log("scrolling")
-    // console.log(room.current.scrollTop)
-    // console.dir(room.current)
-    // console.log(room.current.clientHeight)
-    // console.log(room.current.scrollHeight)
     console.log(room.current.scrollTop);
     console.log(room.current.clientHeight);
     console.log(room.current.scrollHeight);
-    console.log(
-      room.current.scrollHeight -
-        (room.current.scrollHeight - room.current.clientHeight) * 0.9
-    );
     if (
-      one.current &&
+      notChatLoading.current &&
       room.current.scrollTop + room.current.clientHeight <
         room.current.scrollHeight -
-          (room.current.scrollHeight - room.current.clientHeight) * 0.9
+          (room.current.scrollHeight - room.current.clientHeight) * 0.83
     ) {
-      one.current = false;
+      notChatLoading.current = false;
       console.log(chatting[0]);
 
       const data = await axios({
@@ -87,9 +79,10 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
       });
       console.log(data);
       if (data.data.length < 20) {
-        one.current = false;
+        notChatLoading.current = false;
+        
       } else {
-        one.current = true;
+        notChatLoading.current = true;
       }
       setSendMessageTime(false);
       setChatting((state) => {
