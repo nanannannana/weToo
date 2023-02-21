@@ -3,8 +3,11 @@ import './Info.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function BodyShorthandExample(crews) {
+  const navigate = useNavigate();
+
   const { title, location, members } = crews;
   const [show, setShow] = useState(false);
   const [result, setResult] = useState('');
@@ -16,12 +19,18 @@ function BodyShorthandExample(crews) {
     const infomodal = async () => {
       const userinfo = await axios({
         method: 'post',
-        url: 'http://localhost:8000/mypage/info'
+        url: 'http://localhost:8000/mypage/info',
       });
       setResult(userinfo);
     };
     infomodal();
   }, []);
+
+  const deleteInfo = () => {
+    sessionStorage.clear();
+    alert('탈퇴완료!');
+    navigate('/');
+  };
 
   return (
     <>
@@ -47,7 +56,9 @@ function BodyShorthandExample(crews) {
             <Button variant="light" onClick={handleClose}>
               수정하기
             </Button>
-            <Button variant="light">탈퇴하기</Button>
+            <Button variant="light" onClick={() => deleteInfo()}>
+              탈퇴하기
+            </Button>
           </Modal.Footer>
         </Modal>
       </>
