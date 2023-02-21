@@ -91,7 +91,11 @@ export default function Login() {
   const [valid, setValid] = useState(true);
   const [btnAct, setBtnAct] = useState(true);
   const navigate = useNavigate();
-
+  const [savedLoginId, setSavedLoginId] = useState("");
+  const [savedLoginPassword, setSavedLoginPassword] = useState("");
+  
+  const sessionStorage = window.sessionStorage;
+  
   // user_name을 변경하는 작업
   // 1.임시 user_name 설정
   const user_name = '서새싹';
@@ -102,7 +106,7 @@ export default function Login() {
   // const changeName = () => dispatch(change(user_name));
   // 4.콘솔 확인(user_name)
   console.log('name: ', name);
-
+  
   const idValue = (e) => {
     setId(e.target.value);
     if (id !== '') {
@@ -112,15 +116,21 @@ export default function Login() {
   const pwValue = (e) => {
     setPw(e.target.value);
   };
-
+  
   const handleOnKeyPress = e => {
     if (e.key === 'Enter') {
       login();
     }
   };
-
-  const login = 
+  
+  
+  const login =
   async () => {
+    sessionStorage.setItem("id", id);
+    sessionStorage.setItem("pw", pw);
+    setSavedLoginId(sessionStorage.getItem("id"));
+    setSavedLoginPassword(sessionStorage.getItem("pw"));
+    console.log('확인',sessionStorage);
     if (pw == '') {
       setValid('비밀번호를 입력해주세요.');
     } else
@@ -137,7 +147,7 @@ export default function Login() {
       dispatch(userInfoCreate(data.data.data))
       alert('로그인 성공')
       navigate('/')
-    } }
+    }}
     catch(err){
       console.log(err.response.data);
       if(err.response.data == '유저 정보가 없습니다.'){
@@ -149,7 +159,7 @@ export default function Login() {
         setValid('비밀번호를 확인해주세요.');
       }
     }
-  }
+}
 
   const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
   return (

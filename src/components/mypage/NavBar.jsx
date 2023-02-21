@@ -24,7 +24,7 @@ function BasicExample() {
           </Nav>
           <Nav>
             <Nav.Link as={Link} to="/mypage">MY PAGE</Nav.Link>
-            {/* <Nav.Link href={loginHref}>{loginState}</Nav.Link> */}
+            {sessionStorage.length == 0 ? <Nav.Link as={Link} to="/login">LOGIN</Nav.Link> : <Nav.Link as={Link} to="/logout">LOGOUT</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>
