@@ -109,40 +109,32 @@ export default function JoinBox() {
     setNickname(e.target.value);
   };
 
-  // const signup = () => {
-  //   let body = {
-  //     id: id,
-  //     pw: pwd,
-  //     name: name,
-  //     nickname: nickname,
-  //     address: city,
-  //   };
-
-  //   dispatch(registerUser(body)).then((response) => {
-  //     if (response.payload.success) {
-  //       alert('회원가입 성공');
-  //     } else {
-  //       alert('회원가입 실패');
-  //     }
-  //   });
-  // };
-
   const register = async () => {
-    const request = await axios({
-      method: 'post',
-      url: 'http://localhost:8000/auth/signup',
-      data: {
-        id: id,
-        pw: pwd,
-        address: city,
-        name: name,
-        nickName: nickname,
-      },
-    });
+    try {
+      const request = await axios({
+        method: 'post',
+        url: 'http://localhost:8000/auth/signup',
+        data: {
+          id: id,
+          pw: pwd,
+          address: city,
+          name: name,
+          nickName: nickname,
+        },
+      });
 
-    dispatch(userJoin(request.data));
-    alert('회원가입 성공');
-    navigate('/login');
+      dispatch(userJoin(request.data));
+      alert('회원가입 성공');
+      navigate('/login');
+    } catch (err) {
+      if (err.response.data === '존재하는 ID입니다.') {
+        alert('존재하는 ID입니다');
+        setId('');
+      } else if (err.response.data === '존재하는 닉네임입니다.') {
+        alert('존재하는 닉네임입니다.');
+        setNickname('');
+      }
+    }
   };
 
   return (
@@ -157,7 +149,7 @@ export default function JoinBox() {
           onChange={registerNickname}
         ></Nickname>
         <br />
-        <ID placeholder="ID" value={id} onChange={registerId} />
+        <ID placeholder="ID" value={id} onChange={registerId} required />
         <br />
         <PW
           placeholder="Password"

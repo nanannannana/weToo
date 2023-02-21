@@ -1,8 +1,9 @@
 .container {
+  max-width: 1920px;
   display: flex;
   flex-direction: row;
   text-align: center;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .my_info_container {
   display: flex;
@@ -18,7 +19,8 @@
 }
 .my_info {
   /* border: 1px solid black; */
-  box-shadow: 10px 5px 5px grey;
+  background-color: #faf9f9;
+  /* box-shadow: 10px 5px 5px grey; */
   border-radius: 10px;
   width: 200px;
   height: 200px;
@@ -36,7 +38,8 @@
 }
 .crew_card {
   /* border: 1px solid black; */
-  box-shadow: 10px 5px 5px grey;
+  background-color: #faf9f9;
+  /* box-shadow: 10px 5px 5px grey; */
   border-radius: 10px;
   width: 300px;
   text-align: center;
@@ -55,7 +58,8 @@ li {
 }
 .challenge_card {
   /* border: 1px solid black; */
-  box-shadow: 10px 5px 5px grey;
+  background-color: #faf9f9;
+  /* box-shadow: 10px 5px 5px grey; */
   border-radius: 10px;
   width: 300px;
   text-align: center;

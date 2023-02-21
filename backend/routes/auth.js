@@ -13,10 +13,10 @@ router.post('/signup', async (req, res, next) => {
     const exnickName = await User.findOne({ where: { nickName: nickName } });
 
     if (exUser) {
-      return res.send('존재하는 ID입니다.');
+      return res.status(403).send('존재하는 ID입니다.');
     }
     if (exnickName) {
-      return res.send('존재하는 닉네임입니다.');
+      return res.status(403).send('존재하는 닉네임입니다.');
     }
     //const hash = await bcrypt.hash(pw, 12);
     await User.create({

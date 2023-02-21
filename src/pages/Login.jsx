@@ -68,11 +68,13 @@ const LoginBtn = styled.button`
   font-family: 'Port Lligat Slab';
   background-color: black;
   color: white;
-  /* &:disabled {
-    background-color: unset;
+
+  &:disabled {
+    /* background-color: unset;
     color: black;
-    cursor: initial;
-  } */
+    cursor: initial; */
+  }
+
 `;
 const JoinBtn = styled.button`
   width: 70%;
@@ -90,6 +92,10 @@ export default function Login() {
   const [valid, setValid] = useState(true);
   const [btnAct, setBtnAct] = useState(true);
   const navigate = useNavigate();
+  const [savedLoginId, setSavedLoginId] = useState('');
+  const [savedLoginPassword, setSavedLoginPassword] = useState('');
+
+  const sessionStorage = window.sessionStorage;
 
   // user_name을 변경하는 작업
   // 1.임시 user_name 설정
@@ -119,6 +125,13 @@ export default function Login() {
   };
 
   const login = async () => {
+
+    sessionStorage.setItem('id', id);
+    sessionStorage.setItem('pw', pw);
+    setSavedLoginId(sessionStorage.getItem('id'));
+    setSavedLoginPassword(sessionStorage.getItem('pw'));
+    console.log('확인', sessionStorage);
+
     if (pw == '') {
       setValid('비밀번호를 입력해주세요.');
     } else
