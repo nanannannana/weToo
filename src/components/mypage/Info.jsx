@@ -2,15 +2,26 @@ import React, { useState, useEffect } from 'react';
 import './Info.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
 
 function BodyShorthandExample(crews) {
   const { title, location, members } = crews;
   const [show, setShow] = useState(false);
+  const [result, setResult] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  useEffect(() => {});
+  useEffect(() => {
+    const infomodal = async () => {
+      const userinfo = await axios({
+        method: 'post',
+        url: 'http://localhost:8000/mypage/info'
+      });
+      setResult(userinfo);
+    };
+    infomodal();
+  }, []);
 
   return (
     <>

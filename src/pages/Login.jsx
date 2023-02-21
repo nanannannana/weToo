@@ -70,9 +70,9 @@ const LoginBtn = styled.button`
   background-color: black;
   color: white;
   &:disabled {
-    background-color: unset;
+    /* background-color: unset;
     color: black;
-    cursor: initial;
+    cursor: initial; */
   }
 `;
 const JoinBtn = styled.button`
@@ -166,7 +166,7 @@ export default function Login() {
       <ErrorMSG>{valid}</ErrorMSG>
       <br />
       <LoginBtn 
-      disabled={btnAct}
+      // disabled={btnAct}
       onClick={() => login()}>Log In</LoginBtn>
       <br />
       <Line>--------------------------------------</Line>
