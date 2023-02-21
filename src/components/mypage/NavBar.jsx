@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 function BasicExample() {
   return (
     <Navbar className="nav_container" collapseOnSelect expand="lg">
-      <Container>
+      <Container className="nav_size" fluid>
         <Navbar.Brand href="/home" className="weto">
           Weto
         </Navbar.Brand>
