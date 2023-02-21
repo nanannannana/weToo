@@ -40,6 +40,7 @@ function BodyShorthandExample(crews) {
   };
 
   useEffect(() => {
+    // 프론트 <-> 서버 연결 에러 수정
     const infomodal = async () => {
       console.log(sessionStorage.id);
       const userinfo = await axios({
@@ -49,18 +50,19 @@ function BodyShorthandExample(crews) {
           id: sessionStorage.id,
         },
       });
-      setResult(userinfo.data);
+      // info: 유저 정보, amount: 기부금 총 합
+      setResult(userinfo.data.info);
+      setAmount(userinfo.data.amount);
       console.log(userinfo.data);
     };
-    infomodal();
 
-    // 추가 해야 하는 부분
-    const axiosData = async () => {
-      axios
-        .post('http://localhost:8000/mypage/Donation', user)
-        .then((res) => setAmount(res.data.reduce((a, c) => a + c.amount, 0)));
-    };
-    axiosData();
+    // 비로그인 시, alert 창 띄운 후 -> login페이지로
+    if (sessionStorage.id === undefined) {
+      alert('로그인을 하세요.');
+      navigate('/login');
+    } else {
+      infomodal();
+    }
   }, []);
 
   const deleteInfo = () => {

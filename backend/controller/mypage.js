@@ -2,23 +2,25 @@ const Challenge = require('../models/Challenge');
 const User = require('../models/User');
 
 exports.My_info = async (req, res) => {
-  console.log(req.body);
-  const nickName = await User.findOne({
+  console.log('정보확인', req.body);
+
+  // db에서 유저 정보 불러오기
+  const userInfo = await User.findOne({
+    raw: true,
     where: { id: req.body.id },
     attributes: ['nickName', 'id', 'address', 'name'],
   });
 
-  const info = nickName.dataValues;
-  console.log(info);
-  res.send(info);
-};
-
-exports.searchDonation = async (req, res) => {
-  console.log(req.body.id);
-  const result = await Challenge.findAll({
+  // db에서 기부금 정보 불러오기
+  const amount = await Challenge.findAll({
     raw: true,
     where: { user_id: req.body.id },
     attributes: ['amount'],
   });
-  res.send(result);
-}
+
+  // info: 유저 정보, amount: 기부금 총 합
+  res.send({
+    info: userInfo,
+    amount: amount.reduce((a, c) => a + c.amount, 0),
+  });
+};
