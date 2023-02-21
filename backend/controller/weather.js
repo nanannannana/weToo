@@ -7,12 +7,18 @@ const User = require('../models/User');
 
 
 exports.today_weather = async(req, res) => {
-  const address = await User.findOne({
-    where: {id:req.body.id},
-    attributes: ["address"]
-  })
-  console.log(req.body.id)
-  const Region = address.dataValues.address;
+  let address;
+  let def;
+  if (req.body.id !== '') {
+    def = '';
+    address = await User.findOne({
+      where: { id: req.body.id },
+      attributes: ['address'],
+    });
+  } else {
+    def = 'seoul';
+  }
+  const Region = def === '' ? address.dataValues.address : def;
   const API_KEY = '4281729cba61323b40e791c6036334ed';
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`;
   
