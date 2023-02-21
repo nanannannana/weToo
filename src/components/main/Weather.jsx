@@ -144,12 +144,13 @@ export default function Weather() {
   useEffect(() => {
     const weatherShow = async () => {
       const data = await axios({
+        id: sessionStorage.id,
         method: 'post',
         url: 'http://localhost:8000/weather/today_weather'
         // url: `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`,
       });
       setResult(data);
-      // console.log(data.data);
+      console.log(data.data);
       // console.log('안녕',data.data.weather[0].main);
       setWeather(data.data.weather[0].main);
       setIcon(data.data.weather[0].icon);
