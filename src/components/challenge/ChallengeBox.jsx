@@ -9,68 +9,43 @@ const TitleBox = styled.div`
 `;
 const Title = styled.div`
   &:first-child {
-    /* font-size: 30px; */
-    /* font-size: ${(props) => props.title_font}; */
-    font-size: 2.3vw;
+    font-size: 35px;
   }
   &:last-child {
     color: #4b4a4a;
-    /* font-size: ${(props) => props.sub_title_font}; */
-    font-size: 0.9vw;
   }
-
-  @media (max-width: 1400px) {
+  @media (max-width: 1024px) {
     &:first-child {
-      font-size: 2.5vw;
-    }
-  }
-  @media (max-width: 1300px) {
-    &:first-child {
-      font-size: 2.8vw;
+      font-size: 30px;
     }
     &:last-child {
-      font-size: 1.1vw;
+      font-size: 12px;
     }
   }
-  @media (max-width: 1023px) {
-    &:first-child {
-      font-size: 3.5vw;
-    }
+  @media (max-width: 426px) {
     &:last-child {
-      font-size: 1.5vw;
-    }
-  }
-  @media (max-width: 1000px) {
-    &:last-child {
-      font-size: 1.7vw;
-    }
-  }
-  @media (max-width: 767px) {
-    &:first-child {
-      font-size: 4.6vw;
-    }
-    &:last-child {
-      font-size: 2vw;
-    }
-  }
-  @media (max-width: 567px) {
-    &:first-child {
-      font-size: 6vw;
+      font-size: 10px;
     }
   }
 `;
 
 const ChallengeDiv = styled.div`
   // 위치 지정
-  position: absolute;
-  padding: 0 8%;
   width: 100%;
-  height: 75%;
-  top: 15%;
+  height: 100vh;
+  margin: -150px 0 0 5%;
+  /* position: absolute; */
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media (max-width: 1919px) {
+    /* position: static;
+    margin: -100px 0 0 0;
+    width: 100%; */
+    position: absolute;
+  }
 `;
 
 const ChallengeItems = styled.div`
@@ -81,29 +56,33 @@ const ChallengeItems = styled.div`
 
   // 폰트 지정
   @font-face {
-    font-family: 'ghanachoco';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ghanachoco.woff')
+    font-family: 'ONE-Mobile-Title';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff')
       format('woff');
     font-weight: normal;
     font-style: normal;
   }
-  font-family: 'ghanachoco';
-  font-size: 2.5vw;
-
-  @media (max-width: 1400px) {
-    font-size: 2.7vw;
+  font-family: 'ONE-Mobile-Title';
+  font-size: 1.7vw;
+  @media (max-width: 1919px) {
+    font-size: 2vw;
   }
-  @media (max-width: 1300px) {
-    font-size: 3.2vw;
+  @media (max-width: 1441px) {
+    font-size: 2.5vw;
+    margin-bottom: 30px;
   }
-  @media (max-width: 1023px) {
-    font-size: 4vw;
+  @media (max-width: 1200px) {
+    font-size: 3.5vw;
   }
-  @media (max-width: 767px) {
-    font-size: 5.2vw;
+  @media (max-width: 769px) {
+    font-size: 5vw;
+    margin-bottom: 25px;
   }
-  @media (max-width: 567px) {
-    font-size: 6.2vw;
+  @media (max-width: 426px) {
+    font-size: 6vw;
+  }
+  @media (max-width: 321px) {
+    font-size: 7vw;
   }
 `;
 const ChallengeItem = styled.div`

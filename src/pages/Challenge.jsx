@@ -11,6 +11,14 @@ import Info from '../components/challenge/Info';
 import ChallengeBox from '../components/challenge/ChallengeBox';
 import ModalCH from '../components/challenge/ModalCH';
 import { Pc, Tablet, Mobile } from '../components/common/Responsive';
+import styled from 'styled-components';
+
+const OutBox = styled.div`
+  max-width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+`;
 
 export default function Challenge() {
   const dispatch = useDispatch();
@@ -31,18 +39,22 @@ export default function Challenge() {
     <>
       <NavBar />
       {modalShow && <ModalCH />}
-      <Pc>
-        <ChallengeBox arrowShow={true} />
-        {infoShow && <Info imgWidth={6} />}
-      </Pc>
-      <Tablet>
-        <ChallengeBox arrowShow={true} />
-        {infoShow && <Info imgWidth={6} />}
-      </Tablet>
-      <Mobile>
-        <ChallengeBox arrowShow={false} />
-        {infoShow && <Info imgWidth={12} />}
-      </Mobile>
+      <OutBox>
+        <Pc>
+          <ChallengeBox arrowShow={true} />
+          {infoShow && <Info imgWidth={6} />}
+        </Pc>
+
+        <Tablet>
+          <ChallengeBox arrowShow={true} />
+          {infoShow && <Info imgWidth={6} />}
+        </Tablet>
+
+        <Mobile>
+          <ChallengeBox arrowShow={false} />
+          {infoShow && <Info imgWidth={12} />}
+        </Mobile>
+      </OutBox>
     </>
   );
 }

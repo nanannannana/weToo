@@ -22,7 +22,7 @@ export default function Crew() {
   `;
   const DivCrewBox = styled.div`
     position: relative;
-    margin 0 70px;
+    margin: 0 70px;
     top: 20%;
     display: flex;
   `;
@@ -58,6 +58,7 @@ export default function Crew() {
     border: 1px solid #d8d8d8;
     ::placeholder {
       font-size: 3px;
+    }
   `;
   // let [input, setInput] = useState('');
   // function addCrew(input) {

@@ -10,21 +10,21 @@ import { BiLeftArrowAlt, BiX } from 'react-icons/bi';
 const InfoBox_mount = keyframes`
     from {
         opacity: 0;
-        right: 0;
+        right: 5%;
     }
     to {
         opacity: 1;
-        right: 8%;
+        right: 0%;
     }
 `;
 const InfoBox_unmount = keyframes`
     from {
         opacity: 1;
-        right: 8%;
+        right: 0%;
     }
     to {
         opacity: 0;
-        right: 0;
+        right: 5%;
     }
 `;
 
@@ -38,30 +38,40 @@ const InfoBox = styled.div`
           ${InfoBox_unmount} 1s ease-in-out
         `};
 
-  position: absolute;
-  top: 15%;
+  width: 100%;
+  margin-right: 5%;
+  height: 75vh;
+  /* position: absolute; */
+  /* top: 15%;
   right: 8%;
   width: 40%;
-  height: 75%;
-  border-radius: 57px;
-  background: linear-gradient(145deg, #e6e6e6, #ffffff);
-  box-shadow: 21px 21px 59px #d4d4d4, -21px -21px 59px #ffffff;
+  height: 75%; */
+  /* border-radius: 57px; */
+  /* background: linear-gradient(145deg, #e6e6e6, #ffffff); */
+  /* box-shadow: 21px 21px 59px #d4d4d4, -21px -21px 59px #ffffff; */
+  background-color: #fafafa;
+  border: 1px solid #d8d8d8;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1920px) {
+    /* position: static;
+    margin: -100px 0 0 0;
+    width: 100%; */
+    margin-right: 5%;
+    top: 15%;
+    right: 0%;
     width: 45%;
+    position: absolute;
   }
-  @media (max-width: 1300px) {
-    width: 50%;
+
+  @media (max-width: 1700px) {
+    width: 50% !important;
   }
-  @media (max-width: 1024px) {
-    width: 65%;
-  }
-  @media (max-width: 560px) {
-    width: 84%;
+  @media (max-width: 1025px) {
+    width: 90% !important;
   }
 `;
 
@@ -77,29 +87,26 @@ const Title = styled.div`
 
   // 폰트 지정
   @font-face {
-    font-family: 'ghanachoco';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ghanachoco.woff')
+    font-family: 'ONE-Mobile-Title';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff')
       format('woff');
     font-weight: normal;
     font-style: normal;
   }
-  font-family: 'ghanachoco';
-  font-size: 2.2vw;
+  font-family: 'ONE-Mobile-Title';
+  font-size: 1.7vw;
   background: linear-gradient(to right bottom, #000000, #d7d7d7);
   color: transparent;
   -webkit-background-clip: text;
 
-  @media (max-width: 1400px) {
-    font-size: 2.5vw;
+  @media (max-width: 1920px) {
+    font-size: 2vw;
   }
-  @media (max-width: 1300px) {
-    font-size: 3vw;
+  @media (max-width: 1700px) {
+    font-size: 2.7vw;
   }
-  @media (max-width: 1024px) {
-    font-size: 4vw;
-  }
-  @media (max-width: 560px) {
-    font-size: 4.7vw;
+  @media (max-width: 1025px) {
+    font-size: 3.7vw;
   }
 `;
 
@@ -142,11 +149,11 @@ const ProofBtn = styled(Button)`
 `;
 const FooterExplanation = styled.div`
   margin-bottom: 15px;
-  @media (max-width: 860px) {
+  /* @media (max-width: 860px) {
     text-align: center;
     margin: 0 30px 15px 30px;
     font-size: 2vw;
-  }
+  } */
 `;
 
 export default function Info({ imgWidth }) {
