@@ -1,7 +1,16 @@
 const Challenge = require('../models/Challenge');
+const User = require('../models/User');
 
-exports.Info = async (req, res) => {
+exports.My_info = async (req, res) => {
   console.log(req.body);
+  const nickName = await User.findOne({
+    where: { id: req.body.id },
+    attributes: ['nickName', 'id', 'address', 'name'],
+  });
+
+  const info = nickName.dataValues;
+  console.log(info);
+  res.send(info);
 };
 
 exports.searchDonation = async (req, res) => {
@@ -12,4 +21,4 @@ exports.searchDonation = async (req, res) => {
     attributes: ['amount'],
   });
   res.send(result);
-};
+}

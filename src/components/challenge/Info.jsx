@@ -149,11 +149,11 @@ const ProofBtn = styled(Button)`
 `;
 const FooterExplanation = styled.div`
   margin-bottom: 15px;
-  /* @media (max-width: 860px) {
+  @media (max-width: 1200px) {
     text-align: center;
     margin: 0 30px 15px 30px;
-    font-size: 2vw;
-  } */
+    font-size: 12px;
+  }
 `;
 
 export default function Info({ imgWidth }) {

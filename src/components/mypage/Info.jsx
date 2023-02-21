@@ -9,9 +9,12 @@ import { useSelector } from 'react-redux';
 function BodyShorthandExample(crews) {
   const navigate = useNavigate();
 
-  const { title, location, members } = crews;
   const [show, setShow] = useState(false);
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState({});
+  const [nickname, setNickname] = useState('');
+  const [name, setName] = useState('');
+  const [city, setCity] = useState('');
+  const [id, setId] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -20,13 +23,34 @@ function BodyShorthandExample(crews) {
   const user = useSelector((state) => state.user.userInfo);
   const [amount, setAmount] = useState(0);
 
+  const nickNameHandler = (e) => {
+    setNickname(e.target.value);
+  };
+
+  const nameHandler = (e) => {
+    setName(e.target.value);
+  };
+
+  const idHandler = (e) => {
+    setId(e.target.value);
+  };
+
+  const cityHandler = (e) => {
+    setCity(e.target.value);
+  };
+
   useEffect(() => {
     const infomodal = async () => {
+      console.log(sessionStorage.id);
       const userinfo = await axios({
         method: 'post',
         url: 'http://localhost:8000/mypage/info',
+        data: {
+          id: sessionStorage.id,
+        },
       });
-      setResult(userinfo);
+      setResult(userinfo.data);
+      console.log(userinfo.data);
     };
     infomodal();
 
@@ -53,21 +77,36 @@ function BodyShorthandExample(crews) {
             <Modal.Title>회원정보 수정</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <label>아이디</label>
-            <br />
-            <input type="text" className="id" value={sessionStorage.id} />
-            <br />
-            <label>비밀번호</label>
+            <label>닉네임</label>
             <br />
             <input
-              type="password"
-              className="password"
-              value={sessionStorage.pw}
+              type="text"
+              className="nickname"
+              value={nickname}
+              onChange={nickNameHandler}
             />
+            <br />
+            <label>이름</label>
+            <br />
+            <input
+              type="text"
+              className="name"
+              value={name}
+              onChange={nameHandler}
+            />
+            <br />
+            <label>아이디</label>
+            <br />
+            <input type="text" className="id" value={id} onChange={idHandler} />
             <br />
             <label>도시</label>
             <br />
-            <input type="text" className="city" />
+            <input
+              type="text"
+              className="city"
+              value={city}
+              onChange={cityHandler}
+            />
           </Modal.Body>
           <Modal.Footer className="modal_footer">
             <Button variant="light" onClick={handleClose}>
@@ -82,8 +121,16 @@ function BodyShorthandExample(crews) {
 
       <div className="container">
         <div className="my_info_container">
+          나의 정보
           <div className="my_info">
-            <div className="info_pic"></div>
+            <div className="info_pic">
+              <ul>
+                <li>이름 : {result.name}</li>
+                <li>닉네임 : {result.nickName}</li>
+                <li>아이디 : {result.id}</li>
+                <li>지역 : {result.address}</li>
+              </ul>
+            </div>
           </div>
           <Button variant="light" onClick={handleShow} className="edit_profile">
             정보 수정
@@ -94,9 +141,9 @@ function BodyShorthandExample(crews) {
           CREW
           <div className="crew_card">
             <ul>
-              <li>{title}</li>
-              <li>{location}</li>
-              <li>{members}</li>
+              <li></li>
+              <li></li>
+              <li></li>
             </ul>
           </div>
         </div>
