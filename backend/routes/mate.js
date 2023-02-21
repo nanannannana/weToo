@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const MatePost = require('../models/MatePost');
 const { tokenCheck } = require('../middleware/tokenCheck');
+const { Op } = require('sequelize');
 
 router.get('/', async (req, res, next) => {
   // console.log(req.query);
