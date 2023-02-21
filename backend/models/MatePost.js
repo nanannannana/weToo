@@ -19,6 +19,13 @@ class MatePost extends Sequelize.Model {
           type: Sequelize.INTEGER,
           allowNull: false,
         },
+        image: {
+          type: Sequelize.STRING(30),
+        },
+        address: {
+          type: Sequelize.STRING(20),
+          allowNull: false,
+        },
       },
       {
         sequelize,

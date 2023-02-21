@@ -7,7 +7,6 @@ import { userInfoCreate } from '../store/modules/user';
 import { useNavigate } from 'react-router-dom';
 // import { change } from '../store/modules/user';
 
-
 const Div = styled.div`
   position: absolute;
   top: 50%;
@@ -91,11 +90,11 @@ export default function Login() {
   const [valid, setValid] = useState(true);
   const [btnAct, setBtnAct] = useState(true);
   const navigate = useNavigate();
-  const [savedLoginId, setSavedLoginId] = useState("");
-  const [savedLoginPassword, setSavedLoginPassword] = useState("");
-  
+  const [savedLoginId, setSavedLoginId] = useState('');
+  const [savedLoginPassword, setSavedLoginPassword] = useState('');
+
   const sessionStorage = window.sessionStorage;
-  
+
   // user_name을 변경하는 작업
   // 1.임시 user_name 설정
   const user_name = '서새싹';
@@ -106,82 +105,93 @@ export default function Login() {
   // const changeName = () => dispatch(change(user_name));
   // 4.콘솔 확인(user_name)
   console.log('name: ', name);
-  
+
   const idValue = (e) => {
     setId(e.target.value);
     if (id !== '') {
-      setBtnAct(true)
-    } else setBtnAct(false)
+      setBtnAct(true);
+    } else setBtnAct(false);
   };
   const pwValue = (e) => {
     setPw(e.target.value);
   };
-  
-  const handleOnKeyPress = e => {
+
+  const handleOnKeyPress = (e) => {
     if (e.key === 'Enter') {
       login();
     }
   };
-  
-  
-  const login =
-  async () => {
-    sessionStorage.setItem("id", id);
-    sessionStorage.setItem("pw", pw);
-    setSavedLoginId(sessionStorage.getItem("id"));
-    setSavedLoginPassword(sessionStorage.getItem("pw"));
-    console.log('확인',sessionStorage);
+
+  const login = async () => {
+    sessionStorage.setItem('id', id);
+    sessionStorage.setItem('pw', pw);
+    setSavedLoginId(sessionStorage.getItem('id'));
+    setSavedLoginPassword(sessionStorage.getItem('pw'));
+    console.log('확인', sessionStorage);
     if (pw == '') {
       setValid('비밀번호를 입력해주세요.');
     } else
-    try {const data = await axios({
-      method: 'post',
-      url: 'http://localhost:8000/auth/login',
-      data: {
-        id,
-        pw
-      },
-    });
-    console.log(data);
-    if(data.data.message == '로그인 성공!'){
-      dispatch(userInfoCreate(data.data.data))
-      alert('로그인 성공')
-      navigate('/')
-    }}
-    catch(err){
-      console.log(err.response.data);
-      if(err.response.data == '유저 정보가 없습니다.'){
-        setValid('일치하는 아이디가 없습니다.');
-        setId('');
-        setPw('');
+      try {
+        const data = await axios({
+          method: 'post',
+          url: 'http://localhost:8000/auth/login',
+          data: {
+            id,
+            pw,
+          },
+        });
+        console.log(data);
+        if (data.data.message == '로그인 성공!') {
+          dispatch(userInfoCreate(data.data.data));
+          alert('로그인 성공');
+          navigate('/');
+        }
+      } catch (err) {
+        console.log(err.response.data);
+        if (err.response.data == '유저 정보가 없습니다.') {
+          setValid('일치하는 아이디가 없습니다.');
+          setId('');
+          setPw('');
+        } else if (err.response.data == '비밀번호가 일치 하지 않습니다.') {
+          setValid('비밀번호를 확인해주세요.');
+        }
       }
-      else if(err.response.data == '비밀번호가 일치 하지 않습니다.'){
-        setValid('비밀번호를 확인해주세요.');
-      }
-    }
-}
+  };
 
-  const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
+  const Loginstart = () => {
+    if (id == '') {
+      alert('아이디를 입력해주세요.');
+    }
+  };
   return (
     <>
-    <Div>
-      <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-      <ID placeholder='ID' value={id}
-      onChange={idValue} required/>
-      <br />
-      <PW placeholder='Password' value={pw}
-      onKeyPress={handleOnKeyPress}
-      onChange={pwValue} type={'password'} required/>
-      <br />
-      <ErrorMSG>{valid}</ErrorMSG>
-      <br />
-      <LoginBtn 
-      // disabled={btnAct}
-      onClick={() => login()}>Log In</LoginBtn>
-      <br />
-      <Line>--------------------------------------</Line>
-     <br />
-        <JoinBtn onClick={() => window.open('/Join', '_self')}>Create an Account</JoinBtn>
+      <Div>
+        <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
+        <ID placeholder="ID" value={id} onChange={idValue} required />
+        <br />
+        <PW
+          placeholder="Password"
+          value={pw}
+          onKeyPress={handleOnKeyPress}
+          onChange={pwValue}
+          type={'password'}
+          required
+        />
+        <br />
+        <ErrorMSG>{valid}</ErrorMSG>
+        <br />
+        <LoginBtn
+          // disabled={btnAct}
+          onClick={() => login()}
+        >
+          Log In
+        </LoginBtn>
+        <br />
+        <Line>--------------------------------------</Line>
+        <br />
+        <JoinBtn onClick={() => window.open('/Join', '_self')}>
+          Create an Account
+        </JoinBtn>
         {/* 삭제하세욤 */}
         <br />
         {/* <button onClick={changeName}>fkfkf</button> */}

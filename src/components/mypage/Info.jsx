@@ -50,12 +50,14 @@ function BodyShorthandExample(crews) {
             <input type="text" className="nickname" value={result.nickName} />
             <br />
             <label>이름</label>
+            <input type="text" className="id" value={sessionStorage.id}/>
             <br />
             <input type="text" className="name" value={result.name} />
             <br />
             <label>아이디</label>
             <br />
             <input type="text" className="id" value={result.id} />
+            <input type="password" className="password" value={sessionStorage.pw}/>
             <br />
             <label>도시</label>
             <br />
