@@ -42,11 +42,11 @@ function BodyShorthandExample(crews) {
           <Modal.Body>
             <label>아이디</label>
             <br />
-            <input type="text" className="id" />
+            <input type="text" className="id" value={sessionStorage.id}/>
             <br />
             <label>비밀번호</label>
             <br />
-            <input type="password" className="password" />
+            <input type="password" className="password" value={sessionStorage.pw}/>
             <br />
             <label>도시</label>
             <br />
