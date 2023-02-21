@@ -94,12 +94,14 @@ app.use(
 const authRouter = require('./routes/auth');
 const chatRouter = require('./routes/chat');
 const mateRouter = require('./routes/mate');
+const crewRouter = require('./routes/crew');
 const challengeRouter = require('./routes/challenge');
 const weatherRouter = require('./routes/weather');
 
 app.use('/auth', authRouter);
 app.use('/chat', chatRouter);
 app.use('/mate', mateRouter);
+app.use('/crew', crewRouter);
 app.use('/challenge', challengeRouter);
 app.use('/weather', weatherRouter);
 // 서버 실행

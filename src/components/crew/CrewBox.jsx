@@ -4,12 +4,11 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './CrewBox.module.css';
 import ChatBox from './ChatBox.jsx';
-import styled from 'styled-components';
 
 const CrewBox = () => {
   let [crews] = useState(crewdata);
-  // const crews = useSelector((state) => state.crewdata.crewdata);
-  // const dispatch = useDispatch();
+  const crew = useSelector((state) => state.crew.crewInfo);
+  console.log('crew', crew);
 
   const [content, setContent] = useState({
     id: 0,
@@ -23,23 +22,25 @@ const CrewBox = () => {
     console.log(id);
   };
 
-  //   {
-  //     id: [1, 2, 3, 4],
-  //     title: ['yogacrew', 'cyclecrew', 'runcrew', 'swimcrew'],
-  //     info: [
-  //       '오늘 하루도 요가와 함께해요~:)',
-  //       '싸이클 좋아하세요?',
-  //       '함께 달려요!',
-  //       '오늘도 스윔스윔!!',
-  //     ],
-  //     image: ['yogacrew.png', 'cyclecrew.png', 'runcrew.png', 'swimcrew.png'],
-  //   },
-  // ];
-
   return (
     <>
       <div className={classes.crewBoxContainer}>
-        {crews.map((data, i) => {
+        {crew.map((v, i) => (
+          <>
+            <div className={classes.crewBox}>
+              <img alt="img" src={v.image} className={classes.crewImg} />
+              <Button
+                variant="light"
+                onClick={handleClickButton}
+                //  id={v.id}
+                key={i}
+              >
+                {v.title}
+              </Button>
+            </div>
+          </>
+        ))}
+        {/* {crews.map((data, i) => {
           return (
             <>
               <div className={classes.crewBox}>
@@ -55,7 +56,7 @@ const CrewBox = () => {
               </div>
             </>
           );
-        })}
+        })} */}
 
         {/* {content && <div className={classes.CrewContentBox}>sdfsf</div>} */}
       </div>
@@ -68,13 +69,13 @@ const CrewBox = () => {
 
 export default CrewBox;
 
-function Card(props) {
-  let [crews] = useState(crewdata);
-  return (
-    <div>
-      <div>
-        <img alt="img" src={props.crews.img} className={classes.crewImg} />
-      </div>
-    </div>
-  );
-}
+// function Card(props) {
+//   let [crews] = useState(crewdata);
+//   return (
+//     <div>
+//       <div>
+
+//       </div>
+//     </div>
+//   );
+// }
