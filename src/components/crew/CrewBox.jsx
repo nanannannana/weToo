@@ -4,78 +4,72 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './CrewBox.module.css';
 import ChatBox from './ChatBox.jsx';
+import { crewDel, detailShow, infoShow } from '../../store/modules/crew';
+import axios from 'axios';
+import { Row, Col } from 'react-bootstrap';
 
 const CrewBox = () => {
-  let [crews] = useState(crewdata);
   const crew = useSelector((state) => state.crew.crewInfo);
   console.log('crew', crew);
+  const user = useSelector((state) => state.user.userInfo);
+  console.log('user', user);
 
-  const [content, setContent] = useState({
-    id: 0,
-    title: 'Weto',
-    content: 'Welcome to the Weto!!😊',
-  });
+  const dispatch = useDispatch();
+  useEffect(() => {}, [crew]);
 
-  const handleClickButton = (e) => {
-    const { id } = e.target;
-    setContent(id);
-    console.log(id);
+  const handleClickButton = (v) => {
+    dispatch(infoShow(true));
+    dispatch(detailShow(v));
+  };
+
+  const CrewDel = (v) => {
+    axios
+      .delete('http://localhost:8000/crew/crewDel', {
+        data: {
+          id: v.id,
+          image: v.image,
+        },
+      })
+      .then(() => {
+        alert('삭제가 완료되었습니다!');
+        dispatch(crewDel(true));
+      });
   };
 
   return (
     <>
       <div className={classes.crewBoxContainer}>
-        {crew.map((v, i) => (
-          <>
-            <div className={classes.crewBox}>
-              <img alt="img" src={v.image} className={classes.crewImg} />
-              <Button
-                variant="light"
-                onClick={handleClickButton}
-                //  id={v.id}
-                key={i}
-              >
-                {v.title}
-              </Button>
-            </div>
-          </>
-        ))}
-        {/* {crews.map((data, i) => {
-          return (
-            <>
-              <div className={classes.crewBox}>
-                <Card crews={crews[i]} i={i} />
-                <Button
-                  variant="light"
-                  onClick={handleClickButton}
-                  id={data.id}
-                  key={data.id}
-                >
-                  {data.title}
-                </Button>
-              </div>
-            </>
-          );
-        })} */}
-
-        {/* {content && <div className={classes.CrewContentBox}>sdfsf</div>} */}
+        <Row>
+          {crew.map((v, i) => (
+            <React.Fragment key={i}>
+              <Col>
+                <div className={classes.crewBox}>
+                  <img alt="img" src={v.image} className={classes.crewImg} />
+                  <Button
+                    variant="light"
+                    onClick={() => handleClickButton(v)}
+                    key={i}
+                  >
+                    {v.title}
+                  </Button>
+                  {user.nickName === v.User_nickName ? (
+                    <Button variant="danger" onClick={() => CrewDel(v)}>
+                      삭제
+                    </Button>
+                  ) : (
+                    true
+                  )}
+                </div>
+              </Col>
+            </React.Fragment>
+          ))}
+        </Row>
       </div>
       <div className={classes.mainChatBox}>
-        <ChatBox content={content} />
+        <ChatBox />
       </div>
     </>
   );
 };
 
 export default CrewBox;
-
-// function Card(props) {
-//   let [crews] = useState(crewdata);
-//   return (
-//     <div>
-//       <div>
-
-//       </div>
-//     </div>
-//   );
-// }
