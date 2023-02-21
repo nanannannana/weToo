@@ -51,12 +51,13 @@ io.on('connection', (socket) => {
     io.to(data.currentCrew.id).emit('newMsg', data);
   });
   // 채팅방 퇴장
-  socket.on('roomOut', () => {
-    console.log('roomOut');
-    socket.leave(room[socket.id]);
-    io.to(room[socket.id]).emit('notice', {
+  socket.on('roomOut', (data) => {
+    console.log('roomOut', data);
+    // console.log(room[socket.id]);
+    socket.leave(data.currentCrewId);
+    io.to(data.currentCrewId).emit('notice', {
       type: 'notice',
-      chat: users[socket.id] + '님이 대화창을 나갔습니다.',
+      chat: data.nickName + '님이 대화창을 나갔습니다.',
     });
   });
   socket.on('disconnect', () => {

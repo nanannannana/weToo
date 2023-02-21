@@ -2,124 +2,135 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import './chat.css';
 
-export default function Chat({user, setDisplay, currentCrew, socket }) {
-  console.log('user', user)
+export default function Chat({ user, setDisplay, currentCrew, socket }) {
+  console.log('user', user);
   console.log('ChatComponent');
   console.log(socket, socket.id); //왜 소켓아이디는 안뜨냐
   const socketId = socket.id;
   const [chatting, setChatting] = useState([]);
-  console.log(chatting)
+  console.log(chatting);
   const inputValue = useRef(null);
 
   const room = useRef();
   // const [more, setMore] = useState(true)
 
-  const [firstLoad, setFirstLoad] = useState(false)
-  const [top, setTop] = useState(true);
-  useEffect(() => {
-    if(top){
-      room.current.scrollTop = room.current.scrollHeight
-    }
-  },[firstLoad, top])
+  const [firstLoad, setFirstLoad] = useState(false);
+  const [sendMessageTime, setSendMessageTime] = useState(true);
 
+  const [scrollHeight, setScrollHeight] = useState(null);
+  console.log(scrollHeight);
+
+  // useEffect(() => {}, [firstLoad, sendMessageTime]);
 
   async function ChattingListLoad() {
-    console.log('ChattingListLoad', user.id)
+    console.log('ChattingListLoad', user.id);
     const data = await axios({
       method: 'post',
       url: `http://localhost:8000/chat/load`,
       data: {
-        currentCrew : currentCrew.id,
-        id : user.id, //닉네임을 하고 싶었지만 중간테이블이여서 자동 id값으로 들어간다.
-        nickName: user.nickName
-      }
+        currentCrew: currentCrew.id,
+        // id : user.id, //닉네임을 하고 싶었지만 중간테이블이여서 자동 id값으로 들어간다.
+        // nickName: user.nickName
+      },
     });
-    const chatlist = data.data.map(e => {
-      if ( e.User_nickName == user.nickName) {
-        e['liClassName'] = 'myMessage';
-      } else {
-        e['liClassName'] = 'yourMessage';
-        e['divClassName'] = 'yourProfile';
-      }
-      return e
-    }).reverse()
+    const chatlist = data.data
+      .map((e) => {
+        if (e.User_nickName == user.nickName) {
+          e['liClassName'] = 'myMessage';
+        } else {
+          e['liClassName'] = 'yourMessage';
+          e['divClassName'] = 'yourProfile';
+        }
+        return e;
+      })
+      .reverse();
     console.log(chatlist);
-    setChatting(chatlist)
-    setFirstLoad(true)
+    setChatting(chatlist);
+    setFirstLoad(true);
   }
 
-
-
-  let one = useRef(true)
+  let one = useRef(true);
   async function moreChattinglist() {
-    if(!one.current && room.current.scrollTop == 0){
-      
-      return alert("더 이상 대화내용이 없습니다!")
+    if (!one.current && room.current.scrollTop == 0) {
+      return alert('더 이상 대화내용이 없습니다!');
     }
     // console.log("scrolling")
     // console.log(room.current.scrollTop)
     // console.dir(room.current)
     // console.log(room.current.clientHeight)
     // console.log(room.current.scrollHeight)
-    console.log(room.current.scrollTop + room.current.clientHeight)
-    console.log(room.current.scrollHeight - (room.current.scrollHeight - room.current.clientHeight)*0.9)
-    if(one.current && room.current.scrollTop + room.current.clientHeight < room.current.scrollHeight - (room.current.scrollHeight - room.current.clientHeight)*0.9){
+    console.log(room.current.scrollTop);
+    console.log(room.current.clientHeight);
+    console.log(room.current.scrollHeight);
+    console.log(
+      room.current.scrollHeight -
+        (room.current.scrollHeight - room.current.clientHeight) * 0.9
+    );
+    if (
+      one.current &&
+      room.current.scrollTop + room.current.clientHeight <
+        room.current.scrollHeight -
+          (room.current.scrollHeight - room.current.clientHeight) * 0.9
+    ) {
       one.current = false;
-      console.log(chatting[0])
+      console.log(chatting[0]);
 
       const data = await axios({
         method: 'post',
         url: `http://localhost:8000/chat/load`,
-        data:{
-          currentCrew : currentCrew.id,
-          id : user.id, //닉네임을 하고 싶었지만 중간테이블이여서 자동 id값으로 들어간다.
+        data: {
+          currentCrew: currentCrew.id,
+          id: user.id, //닉네임을 하고 싶었지만 중간테이블이여서 자동 id값으로 들어간다.
           nickName: user.nickName,
           offset: chatting[0].id,
-        }
+        },
       });
-      console.log(data)
-      if(data.data.length < 20){
-        one.current = false
+      console.log(data);
+      if (data.data.length < 20) {
+        one.current = false;
       } else {
-        one.current = true
+        one.current = true;
       }
-      setChatting(state => {
-        return [...data.data.reverse(), ...state,]
-      })
+      setSendMessageTime(false);
+      setChatting((state) => {
+        return [...data.data.reverse(), ...state];
+      });
     }
-
-   
-    
   }
 
   useEffect(() => {
-    ChattingListLoad();
-  }, [])
-  useEffect(() => {
     room.current.addEventListener('scroll', moreChattinglist);
+    console.log(sendMessageTime);
+    if (sendMessageTime) {
+      room.current.scrollTop = room.current.scrollHeight;
+    } else {
+      console.log(scrollHeight);
+      console.log(room.current.scrollHeight);
+      room.current.scrollTop = scrollHeight;
+      setScrollHeight((state) => {
+        return scrollHeight;
+      }); //채팅 더 보기
+    }
     return () => {
       room.current?.removeEventListener('scroll', moreChattinglist);
     };
     //왜 안되지
-  }, [chatting])
-
-
-
+  }, [chatting]);
 
   useEffect(() => {
+    ChattingListLoad();
     console.log('notice useEffet');
-    
-    
-    socket.emit('notice', { nickName: user.nickName, currentCrew })
+    setScrollHeight(room.current.scrollHeight);
+    socket.emit('notice', { nickName: user.nickName, currentCrew });
     socket.on('notice', (data) => {
-      console.log('notice')
+      console.log('notice', data);
       if (data.chat.split('님')[0] != 'undefined') {
         // data['User_nickName'] = user.nickName;
         setChatting((chatting) => [...chatting, data]);
       }
       //chat페이지에서 새로고침시에 disconnect가 발생하는데 화면에 그리지 않기 위해 조건사용
     });
-    socket.emit('join', { currentCrew: currentCrew.id})
+    socket.emit('join', { currentCrew: currentCrew.id });
     socket.on('newMsg', (data) => {
       if (socketId == data.from) {
         data['liClassName'] = 'myMessage';
@@ -127,10 +138,11 @@ export default function Chat({user, setDisplay, currentCrew, socket }) {
         data['liClassName'] = 'yourMessage';
         data['divClassName'] = 'yourProfile';
       }
+      setSendMessageTime(true);
       setChatting((chat) => [...chat, data]);
-      console.log(room.current.scrollTop)
-      console.log(room.current.scrollHeight)
-      room.current.scrollTop = room.current.scrollHeight
+      console.log(room.current.scrollTop);
+      console.log(room.current.scrollHeight);
+      // room.current.scrollTop = room.current.scrollHeight;
     });
     //room을 선택해 입장을 누르면 컴포넌트가 마운트 되면서 방에 입장
     return () => {
@@ -140,15 +152,7 @@ export default function Chat({user, setDisplay, currentCrew, socket }) {
   }, []);
   //소켓이 변한다는건 다른 유저가 들어왔다는 거다 그래서 변할 때마다 공지를 해준다.
 
-
-
-
-
-
-
-
   const sendMessage = async () => {
-    setTop(true)
     socket.emit('sendMsg', {
       chat: inputValue.current.value,
       nickName: user.nickName,
@@ -213,9 +217,14 @@ export default function Chat({user, setDisplay, currentCrew, socket }) {
       <button
         className="exit"
         onClick={() => {
-          console.log(1);
+          console.log('out');
+          console.log(currentCrew.id);
+          console.log(user.nickName);
           setDisplay((state) => !state);
-          socket.emit('roomOut');
+          socket.emit('roomOut', {
+            currentCrewId: currentCrew.id,
+            nickName: user.nickName,
+          });
         }}
       >
         나가기

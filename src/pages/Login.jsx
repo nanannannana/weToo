@@ -7,7 +7,6 @@ import { userInfoCreate } from '../store/modules/user';
 import { useNavigate } from 'react-router-dom';
 // import { change } from '../store/modules/user';
 
-
 const Div = styled.div`
   position: absolute;
   top: 50%;
@@ -69,11 +68,11 @@ const LoginBtn = styled.button`
   font-family: 'Port Lligat Slab';
   background-color: black;
   color: white;
-  &:disabled {
+  /* &:disabled {
     background-color: unset;
     color: black;
     cursor: initial;
-  }
+  } */
 `;
 const JoinBtn = styled.button`
   width: 70%;
@@ -106,72 +105,84 @@ export default function Login() {
   const idValue = (e) => {
     setId(e.target.value);
     if (id !== '') {
-      setBtnAct(true)
-    } else setBtnAct(false)
+      setBtnAct(true);
+    } else setBtnAct(false);
   };
   const pwValue = (e) => {
     setPw(e.target.value);
   };
 
-  const handleOnKeyPress = e => {
+  const handleOnKeyPress = (e) => {
     if (e.key === 'Enter') {
       login();
     }
   };
 
-  const login = 
-  async () => {
+  const login = async () => {
     if (pw == '') {
       setValid('비밀번호를 입력해주세요.');
     } else
-    try {const data = await axios({
-      method: 'post',
-      url: 'http://localhost:8000/auth/login',
-      data: {
-        id,
-        pw
-      },
-    });
-    console.log(data);
-    if(data.data.message == '로그인 성공!'){
-      dispatch(userInfoCreate(data.data.data))
-      alert('로그인 성공')
-      navigate('/')
-    } }
-    catch(err){
-      console.log(err.response.data);
-      if(err.response.data == '유저 정보가 없습니다.'){
-        setValid('일치하는 아이디가 없습니다.');
-        setId('');
-        setPw('');
+      try {
+        const data = await axios({
+          method: 'post',
+          url: 'http://localhost:8000/auth/login',
+          data: {
+            id,
+            pw,
+          },
+        });
+        console.log(data);
+        if (data.data.message == '로그인 성공!') {
+          dispatch(userInfoCreate(data.data.data));
+          alert('로그인 성공');
+          navigate('/');
+        }
+      } catch (err) {
+        console.log(err.response.data);
+        if (err.response.data == '유저 정보가 없습니다.') {
+          setValid('일치하는 아이디가 없습니다.');
+          setId('');
+          setPw('');
+        } else if (err.response.data == '비밀번호가 일치 하지 않습니다.') {
+          setValid('비밀번호를 확인해주세요.');
+        }
       }
-      else if(err.response.data == '비밀번호가 일치 하지 않습니다.'){
-        setValid('비밀번호를 확인해주세요.');
-      }
-    }
-  }
+  };
 
-  const Loginstart = () => {if(id=='') {alert('아이디를 입력해주세요.')}};
+  const Loginstart = () => {
+    if (id == '') {
+      alert('아이디를 입력해주세요.');
+    }
+  };
   return (
     <>
-    <Div>
-      <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-      <ID placeholder='ID' value={id}
-      onChange={idValue} required/>
-      <br />
-      <PW placeholder='Password' value={pw}
-      onKeyPress={handleOnKeyPress}
-      onChange={pwValue} type={'password'} required/>
-      <br />
-      <ErrorMSG>{valid}</ErrorMSG>
-      <br />
-      <LoginBtn 
-      disabled={btnAct}
-      onClick={() => login()}>Log In</LoginBtn>
-      <br />
-      <Line>--------------------------------------</Line>
-     <br />
-        <JoinBtn onClick={() => window.open('/Join', '_self')}>Create an Account</JoinBtn>
+      <Div>
+        <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
+        <ID placeholder="ID" value={id} onChange={idValue} required />
+        <br />
+        <PW
+          placeholder="Password"
+          value={pw}
+          onKeyPress={handleOnKeyPress}
+          onChange={pwValue}
+          type={'password'}
+          required
+        />
+        <br />
+        <ErrorMSG>{valid}</ErrorMSG>
+        <br />
+        <LoginBtn
+          // disabled={btnAct}
+          onClick={() => login()}
+        >
+          Log In
+        </LoginBtn>
+        <br />
+        <Line>--------------------------------------</Line>
+        <br />
+        <JoinBtn onClick={() => window.open('/Join', '_self')}>
+          Create an Account
+        </JoinBtn>
         {/* 삭제하세욤 */}
         <br />
         {/* <button onClick={changeName}>fkfkf</button> */}

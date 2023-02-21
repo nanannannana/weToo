@@ -20,7 +20,7 @@
   padding: 60px 20px 40px 20px;
 }
 .room ul {
-  padding-bottom: 30px;
+  /* padding-bottom: 30px; */
 }
 li.yourMessage {
   list-style: none;
