@@ -1,65 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CrewBox from '../components/crew/CrewBox.jsx';
 import NavBar from '../components/mypage/NavBar';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { upload } from '../store/modules/crew';
+import { crewShow, upload } from '../store/modules/crew';
 import axios from 'axios';
+
+const Div = styled.div`
+  position: absolute;
+  width: 33%;
+  right: 7%;
+  top: 150px;
+  text-align: center;
+`;
+const DivCrewBox = styled.div`
+  position: relative;
+  margin: 0 70px;
+  top: 20%;
+  display: flex;
+`;
+
+const DivChatBox = styled.div`
+  position: absolute;
+  left: 70%;
+  top: 30%;
+  text-align: center;
+`;
+const CrewTitle = styled.input`
+  width: 60%;
+  height: 3%;
+  padding: 10px;
+  margin: 5px 30px;
+  border: 1px solid #d8d8d8;
+  ::placeholder {
+    font-size: 3px;
+  }
+`;
+const ImgInput = styled.input`
+  width: 65%;
+  height: 3%;
+  padding: 10px;
+  margin: 3px 93px;
+  border: 1px solid #d8d8d8;
+`;
+const CrewInfo = styled.input`
+  width: 75%;
+  height: 3%;
+  padding: 10px;
+  margin: 5px 15px;
+  border: 1px solid #d8d8d8;
+  ::placeholder {
+    font-size: 3px;
+  }
+`;
 
 export default function Crew() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const Div = styled.div`
-    position: absolute;
-    width: 33%;
-    right: 7%;
-    top: 150px;
-    text-align: center;
-  `;
-  const DivCrewBox = styled.div`
-    position: relative;
-    margin: 0 70px;
-    top: 20%;
-    display: flex;
-  `;
-
-  const DivChatBox = styled.div`
-    position: absolute;
-    left: 70%;
-    top: 30%;
-    text-align: center;
-  `;
-  const CrewTitle = styled.input`
-    width: 60%;
-    height: 3%;
-    padding: 10px;
-    margin: 5px 30px;
-    border: 1px solid #d8d8d8;
-    ::placeholder {
-      font-size: 3px;
-    }
-  `;
-  const ImgInput = styled.input`
-    width: 65%;
-    height: 3%;
-    padding: 10px;
-    margin: 3px 93px;
-    border: 1px solid #d8d8d8;
-  `;
-  const CrewInfo = styled.input`
-    width: 75%;
-    height: 3%;
-    padding: 10px;
-    margin: 5px 15px;
-    border: 1px solid #d8d8d8;
-    ::placeholder {
-      font-size: 3px;
-    }
-  `;
   // let [input, setInput] = useState('');
   // function addCrew(input) {
   //   let newCrew = [...crew];
@@ -73,7 +74,25 @@ export default function Crew() {
   const registerImg = (e) => {
     setImg(e.target.files[0]);
   };
-  const addCrew = () => {};
+  const user = useSelector((state) => state.user.userInfo);
+  const option = [2, 3, 4, 5, 6];
+  const [cityInfo, setCityInfo] = useState('');
+  const [max, setMax] = useState(2);
+
+  console.log('user', user);
+  const addCrew = () => {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('info', crewInfo);
+    formData.append('max', max);
+    formData.append('nickName', user.nickName);
+    formData.append('city', user.address + ' ' + cityInfo);
+    formData.append('img', img);
+    axios.post('http://localhost:8000/crew/putCrew', formData).then((res) => {
+      setShow(false);
+      dispatch(crewInfo(res.data));
+    });
+  };
 
   const registerTitle = (e) => {
     setTitle(e.target.value);
@@ -81,24 +100,22 @@ export default function Crew() {
   const registerCrewInfo = (e) => {
     setCrewInfo(e.target.value);
   };
+  const changeCityInfo = (e) => {
+    setCityInfo(e.target.value);
+  };
+  const selectOnChange = (e) => setMax(e.target.value);
 
-  // useEffect(() => {
-  //   dispatch(upload(false));
-  // }, []);
-
-  // const addCrew = async () => {
-  //   const request = await axios({
-  //     method: 'post',
-  //     url: '',
-  //     data: {
-  //       title: title,
-  //       crewInfo: crewInfo,
-  //     },
-  //   });
-
-  //   dispatch(request.data);
-  //   alert('크루생성 성공');
-  // };
+  useEffect(() => {
+    const address = user.address === undefined ? '서울' : user.address;
+    const axiosData = async () => {
+      await axios
+        .get('http://localhost:8000/crew/showCrew', {
+          params: { city: address },
+        })
+        .then((res) => dispatch(crewShow(res.data)));
+    };
+    axiosData();
+  }, []);
 
   return (
     <div>
@@ -130,11 +147,23 @@ export default function Crew() {
             onChange={registerCrewInfo}
             required
           />
+          최대 인원:
+          <select onChange={selectOnChange}>
+            {option.map((v, i) => (
+              <option key={i}>{v}</option>
+            ))}
+          </select>
+          <br />
+          시/구:
+          <CrewInfo
+            placeholder="시 또는 구를 적어주세요!"
+            value={cityInfo}
+            onChange={changeCityInfo}
+            required
+          />
         </Modal.Body>
 
         <Modal.Footer className="modal_footer">
-          {/* <br />
-          <Button variant="light" onClick={() => addCrew()}> */}
           <Button variant="light" onClick={addCrew}>
             크루 개설하기
           </Button>
