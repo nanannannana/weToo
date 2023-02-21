@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function BodyShorthandExample(crews) {
   const navigate = useNavigate();
@@ -17,6 +18,10 @@ function BodyShorthandExample(crews) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  //추가해야 하는 부분
+  const user = useSelector((state) => state.user.userInfo);
+  const [amount, setAmount] = useState(0);
 
   const nickNameHandler = (e) => {
     setNickname(e.target.value);
@@ -48,6 +53,14 @@ function BodyShorthandExample(crews) {
       console.log(userinfo.data);
     };
     infomodal();
+
+    // 추가 해야 하는 부분
+    const axiosData = async () => {
+      axios
+        .post('http://localhost:8000/mypage/Donation', user)
+        .then((res) => setAmount(res.data.reduce((a, c) => a + c.amount, 0)));
+    };
+    axiosData();
   }, []);
 
   const deleteInfo = () => {
@@ -139,7 +152,7 @@ function BodyShorthandExample(crews) {
           참여중인 챌린지
           <div className="challenge_card">
             <ul>
-              <li></li>
+              <li>요가교실-현재 모금 금액 : {amount}</li>
             </ul>
           </div>
         </div>

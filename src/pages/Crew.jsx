@@ -5,8 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { crewShow, upload } from '../store/modules/crew';
+import { crewShow, infoShow, upload } from '../store/modules/crew';
 import axios from 'axios';
+import { crewDel } from '../store/modules/crew';
 
 const Div = styled.div`
   position: absolute;
@@ -79,6 +80,8 @@ export default function Crew() {
   const [cityInfo, setCityInfo] = useState('');
   const [max, setMax] = useState(2);
 
+  const del = useSelector((state) => state.crew.crewDel);
+
   console.log('user', user);
   const addCrew = () => {
     const formData = new FormData();
@@ -90,7 +93,6 @@ export default function Crew() {
     formData.append('img', img);
     axios.post('http://localhost:8000/crew/putCrew', formData).then((res) => {
       setShow(false);
-      dispatch(crewInfo(res.data));
     });
   };
 
@@ -115,7 +117,9 @@ export default function Crew() {
         .then((res) => dispatch(crewShow(res.data)));
     };
     axiosData();
-  }, []);
+    dispatch(infoShow(false));
+    dispatch(crewDel(false));
+  }, [del]);
 
   return (
     <div>

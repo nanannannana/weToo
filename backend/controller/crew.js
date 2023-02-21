@@ -1,5 +1,6 @@
 const MatePost = require('../models/MatePost');
 const { Op } = require('sequelize');
+const fs = require('fs');
 
 exports.showCrew = async (req, res) => {
   console.log('나의 도시: ', req.query.city);
@@ -24,5 +25,14 @@ exports.putCrew = async (req, res) => {
     image: '/img/' + req.file.filename,
     address: req.body.city,
   });
+  res.send(true);
+};
+
+exports.crewDel = async (req, res) => {
+  console.log(req.body);
+  await MatePost.destroy({
+    where: { id: req.body.id },
+  });
+  fs.unlinkSync(`../public${req.body.image}`);
   res.send(true);
 };

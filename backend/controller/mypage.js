@@ -1,9 +1,5 @@
-// const axios = require('axios');
+const Challenge = require('../models/Challenge');
 const User = require('../models/User');
-// const userInfo = User.findOne({
-//   where: { id }
-//   // attributes: ['nickName', 'id', 'pw'],
-// });
 
 exports.My_info = async (req, res) => {
   console.log(req.body);
@@ -16,3 +12,13 @@ exports.My_info = async (req, res) => {
   console.log(info);
   res.send(info);
 };
+
+exports.searchDonation = async (req, res) => {
+  console.log(req.body.id);
+  const result = await Challenge.findAll({
+    raw: true,
+    where: { user_id: req.body.id },
+    attributes: ['amount'],
+  });
+  res.send(result);
+}
