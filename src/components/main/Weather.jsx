@@ -130,7 +130,7 @@ export default function Weather() {
   const [result, setResult] = useState({});
   const [weather, setWeather] = useState();
   const [icon, setIcon] = useState();
-  const [idS, setIdS] = useState('hello');
+  const [idS, setIdS] = useState('');
 
   // const API_KEY = '4281729cba61323b40e791c6036334ed';
   const iconurl = `http://openweathermap.org/img/w/${icon}.png`;
