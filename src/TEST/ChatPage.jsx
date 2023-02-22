@@ -58,7 +58,8 @@ export default function ChatPage() {
         crewId: currentCrew.id,
       },
     });
-    console.log(data);
+    socket.emit('outCrew', { nickName: user.nickName, currentCrew });
+    setDisplay(1);
     // setDisplay((state) => !state);
   }
 
@@ -102,9 +103,31 @@ export default function ChatPage() {
       // console.log(crewAdded)
       // setCrew((state => ({...state, currentCrew})))
     });
+    socket.on('outCrew', (data) => {
+      //인원 제한시 실시간으로 반영하기 위해 사용
+      console.log('socket outCrew');
+      console.log(crew);
+      console.log(data);
+
+      setCrew((state) => {
+        return state.map((e) => {
+          console.log(e.id, data.currentCrew.id);
+          if (e.id == data.currentCrew.id) {
+            const users = e.users.filter((ee) => ee.nickName != data.nickName )
+            console.log(e.users)
+            console.log(users)
+            delete e.users
+            e['users'] = users
+          }
+          return e;
+        });
+      });
+     
+    });
 
     return () => {
       socket.off('joinCrew');
+      socket.off('outCrew');
     };
   }, [currentCrew]);
 
@@ -139,7 +162,8 @@ THE  YOGA DAY  CREW 입니다~:)</p>
        : display == 1 ? (
         <div className='CrewInfoBox'>
           <h4>같이 운동해요~</h4>
-          <span>인원수 : 3/4</span>
+          <span>가입 인원수 : 3/4</span>
+          <span>채팅 참여중인 인원수 : 2/4</span>
           <p>크루정보(공지) 뭐든 디테일한 정보들 : 열심히 참여할 분, 하루에 물 3컵, 6시 어디서 정모 등  </p>
           <button onClick={() => joinCrew()}>입장</button>
           <button onClick={() => outCrew()}>탈퇴</button>

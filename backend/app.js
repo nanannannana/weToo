@@ -41,6 +41,11 @@ io.on('connection', (socket) => {
 
     io.emit('joinCrew', data);
   });
+  socket.on('outCrew', (data) => {
+    console.log('outCrew', data);
+
+    io.emit('outCrew', data);
+  });
 
   console.log('server open ' + socket.id);
   socket.emit('socketID', socket.id);

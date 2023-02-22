@@ -165,8 +165,8 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
   // const SelectOnChange = (e) => setTo(e.target.value);
   return (
     <div className="relative">
-      <div className="roomTitle">{currentCrew.title}</div>
       <div ref={room} className="room">
+      <div className="roomTitle">{currentCrew.title}</div>
         <ul>
           {chatting.map((data, i, chatlist) => {
             return data.type == 'notice' ? (
@@ -207,7 +207,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
           </button>
         </form>
       </div>
-      <button
+      {/* <button
         className="exit"
         onClick={() => {
           console.log('out');
@@ -221,7 +221,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
         }}
       >
         나가기
-      </button>
+      </button> */}
     </div>
   );
 }
