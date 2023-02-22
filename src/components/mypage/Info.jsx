@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 
 function BodyShorthandExample(crews) {
   const navigate = useNavigate();
+  // const myCrew = useSelector(state => state.myCrew)
+  const myCrew = [{ id: 1, title: '같이 운동해요', max: 2 }, {}, {}];
 
   const [show, setShow] = useState(false);
   const [result, setResult] = useState({});
@@ -15,6 +17,7 @@ function BodyShorthandExample(crews) {
   const [name, setName] = useState('');
   const [city, setCity] = useState('');
   const [id, setId] = useState('');
+  const [crew, setCrew] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -53,6 +56,7 @@ function BodyShorthandExample(crews) {
       // info: 유저 정보, amount: 기부금 총 합
       setResult(userinfo.data.info);
       setAmount(userinfo.data.amount);
+      setCrew(userinfo.data.crew);
       console.log(userinfo.data);
     };
 
@@ -178,7 +182,7 @@ function BodyShorthandExample(crews) {
           CREW
           <div className="crew_card">
             <ul>
-              <li></li>
+              <li>{crew}</li>
               <li></li>
               <li></li>
             </ul>
