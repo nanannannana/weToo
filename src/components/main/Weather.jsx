@@ -129,7 +129,6 @@ export default function Weather() {
   // 4281729cba61323b40e791c6036334ed
   // const weatherRendering = () => {
   // }
-  console.log(sessionStorage);
   const sessionid = () => {
     if (sessionStorage.length !== 0){setIdS(sessionStorage.id)}
   };
@@ -147,13 +146,11 @@ export default function Weather() {
       });
       setResult(data);
       console.log(data.data);
-      // console.log('안녕',data.data.weather[0].main);
       setWeather(data.data.weather[0].main);
       setIcon(data.data.weather[0].icon);
     };
     weatherShow();
   }, []);
-  // console.log(WeatherCases[weather].subtitle);
   return <>
   <Outer>
     {Object.keys(result).length !== 0 && (
