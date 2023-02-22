@@ -9,36 +9,49 @@ import { Link } from 'react-router-dom';
 const Fdiv = styled.div`
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -20%);
+  transform: translate(-50%, -10%);
   width: 90%;
   max-width: 1930px;
   height: 85%;
+  @media (max-width: 768px) {
+  height: 30%;
+  }
 `;
 const Div = styled.div`
   position: absolute;
-  width: 30%;
+  width: 40%;
   height: 90%;
   right: 1%;
   top: 50%;
   transform: translate(0%, -50%);
   text-align: center;
-  background-color: #FAF9F9;
+  /* background-color: red; */
+  @media (max-width: 768px) {
+  position: relative;
+  width: 80%;
+  height: 70%;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  text-align: center;
+  }
 `;
 const Ldiv = styled.div`
   position: absolute;
-  width: 65%;
+  width: 57%;
   height: 90%;
   left: 1%;
   top: 50%;
   transform: translate(0%, -50%);
-  background-color: #FAF9F9;
+  /* background-color: yellow; */
+  @media (max-width: 768px) {
+  width: 80%;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  text-align: center;
+  }
   `;
-
-// const CText = styled.span`
-//   position: absolute;
-//   font-size: 2vw;
-//   background-color: yellow;
-// `;
 
 const CrBox = styled.div`
   position: absolute;
@@ -46,6 +59,10 @@ const CrBox = styled.div`
   width: 100%;
   height: 50%;
   font-size:2vw;
+  @media (max-width: 769px) {
+    background-color: #FAF9F9;
+    padding: unset;
+  }
   `;
 
 const ChBox = styled.div`
@@ -55,6 +72,10 @@ const ChBox = styled.div`
   height: 50%;
   top: 50%;
   font-size: 2vw;
+  @media (max-width: 769px) {
+    padding: unset;
+    background-color: #FAF9F9;
+  }
 `;
 // -------------------------------------------------------------
 const ChallengeItems = styled.div`
@@ -86,7 +107,7 @@ const ChallengeItems = styled.div`
   }
   @media (max-width: 769px) {
     font-size: 3vw;
-    margin-bottom: 25px;
+    display: inline;
   }
   @media (max-width: 426px) {
     font-size: 2vw;
@@ -114,6 +135,9 @@ font-size: 1vw;
 font-family: initial;
 right:10%;
 animation: ${un_mount_icon} 0.3s ease-in-out;
+@media (max-width: 769px) {
+    font-size: 1px;
+  }
 `;
 
 export default function Main({arrowShow}) {

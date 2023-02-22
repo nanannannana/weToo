@@ -16,21 +16,23 @@ const Outer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  @media (max-width: 768px) {
+    display: inline-block;
+    width:100%;
+    align-content: initial;
+    top:10%;
+  }
 `
-const Title = styled.p`
+const Title = styled.span`
   margin: 1% 0 0 0;
   /* transform: translate(0%, 0%); */
   font-size: 2vw;
   font-family: 'Port Lligat Slab';
   font-style: normal;
   font-weight: 400;
-  /* @media (max-width: 769px) {
-    font-size: 4vw;
-    margin-bottom: 25px;
+  @media (max-width: 768px) {
+    display: none;
   }
-  @media (max-width: 321px) {
-    font-size: 7vw;
-  } */
   `;
 
 const WeatherBox = styled.div`
@@ -43,7 +45,13 @@ const WeatherBox = styled.div`
   font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
+  @media (max-width: 768px) {
+  width: 40%;
+  min-height: 150px;
+  position: absolute;
+  }
   `;
+  
   const State = styled.img`
     width: 8vh;
     height: 8vh;
@@ -57,6 +65,13 @@ const FitnessBox = styled.div`
   font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
+  @media (max-width: 768px) {
+    position: absolute;
+    min-height: 150px;
+  width: 40%;
+  left: 45%;
+  top: 100%;
+  }
   `;
 const Fitimg = styled.img`
   margin: 15%;
@@ -166,7 +181,6 @@ export default function Weather() {
               <br />
               </div>
       </WeatherBox>
-      <br />
     <Title>Today Fitness</Title>
     <FitnessBox>
               <br />

@@ -29,7 +29,7 @@ const Logo = styled.p`
   cursor: pointer;
 `;
 const ID = styled.input`
-  width: 62%;
+  width: 69%;
   height: 3%;
   padding: 10px;
   border: 1px solid #d8d8d8;
@@ -38,7 +38,7 @@ const ID = styled.input`
   }
 `;
 const Name = styled.input`
-  width: 62%;
+  width: 69%;
   height: 3%;
   padding: 10px;
   border: 1px solid #d8d8d8;
@@ -47,7 +47,7 @@ const Name = styled.input`
   }
 `;
 const Nickname = styled.input`
-  width: 62%;
+  width: 69%;
   height: 3%;
   padding: 10px;
   border: 1px solid #d8d8d8;
@@ -56,19 +56,18 @@ const Nickname = styled.input`
   }
 `;
 const PW = styled.input`
-  width: 62%;
+  width: 69%;
   height: 3%;
   padding: 10px;
   border: 1px solid #d8d8d8;
-  margin: 5px;
   ::placeholder {
     font-size: 3px;
   }
 `;
 const City = styled.select`
-  width: 62%;
+  width: 69%;
   height: 6%;
-  padding-left: 5px;
+  padding-left: 7px;
   border: 1px solid #d8d8d8;
   font-size: 10px;
   ::placeholder {
@@ -76,7 +75,7 @@ const City = styled.select`
   }
 `;
 const Address = styled.input`
-  width: 62%;
+  width: 69%;
   height: 3%;
   padding: 10px;
   border: 1px solid #d8d8d8;
@@ -87,7 +86,7 @@ const Address = styled.input`
 const Joinbtn = styled.button`
   width: 69%;
   height: 8%;
-  margin: 50px;
+  margin: 20px;
   border: 1px solid #d8d8d8;
   cursor: pointer;
   font-family: 'Port Lligat Slab';
@@ -171,8 +170,10 @@ export default function JoinBox() {
           value={pwd}
           type={'password'}
           onChange={registerPwd}
+          required
         />
-        <City name="items1" onChange={registerCity}>
+        <div>----------side info----------</div>
+        <City name="items1" onChange={registerCity} required>
           <option value="">Address</option>
           <option value="seoul">서울특별시</option>
           <option value="Daejeon">세종특별시</option>
@@ -192,8 +193,7 @@ export default function JoinBox() {
           <option value="Jeollanam-do">전라남도</option>
           <option value="Jeju-do">제주도</option>
         </City>
-        <Address placeholder="City" value={address} onChange={registerAddress} />
-        <br />
+        <Address placeholder="City" value={address} onChange={registerAddress} required/>
         <Joinbtn onClick={() => register()}>Create an Account</Joinbtn>
       </Div>
     </>
