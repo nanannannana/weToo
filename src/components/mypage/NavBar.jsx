@@ -9,27 +9,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { userInfoCreate } from '../../store/modules/user';
 
 function BasicExample() {
-  const [loginState, setLoginState] = useState();
-  const [id, setId] = useState();
-  const [name, setName] = useState();
-  const [nickName, setNickName] = useState();
-  const [address, setAddress] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
-  const info = useSelector((state) => state.user.userInfo);
   useEffect(() => {
-    setId(sessionStorage.id);
-    setName(sessionStorage.name);
-    setNickName(sessionStorage.nickName);
-    setAddress(sessionStorage.address);
-    dispatch(userInfoCreate({id:id,name:name,nickName:nickName,address:address}));
-    setLoginState(info);
+    dispatch(userInfoCreate({
+      'id':sessionStorage.id, 'name':sessionStorage.name, 'nickName':sessionStorage.neickName,'address':sessionStorage.address
+    }));
   },[]);
+  const info = useSelector((state) => state.user.userInfo);
+  console.log('로그인상태',info);
 
   const logout = () => {
     sessionStorage.removeItem('id');
-    sessionStorage.removeItem('pw');
+    sessionStorage.removeItem('name');
+    sessionStorage.removeItem('nickName');
+    sessionStorage.removeItem('address');
     navigate('/');
   };
   return (

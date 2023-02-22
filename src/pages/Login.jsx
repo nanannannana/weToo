@@ -143,7 +143,8 @@ export default function Login() {
           },
         });
         if (data.data.message == '로그인 성공!') {
-          dispatch(userInfoCreate(data.data.data));
+          // dispatch(userInfoCreate(data.data.data));
+          console.log("양식",data.data.data);
           sessionStorage.setItem('id', data.data.data.id);
           sessionStorage.setItem('name', data.data.data.name);
           sessionStorage.setItem('nickName', data.data.data.nickName);
