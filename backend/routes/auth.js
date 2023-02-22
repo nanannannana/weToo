@@ -91,4 +91,39 @@ router.post('/userinfo', tokenCheck, async (req, res, next) => {
   res.send('로그인 성공');
 });
 
+router.put('/updateInfo', async (req, res, next) => {
+  const { id, nickName, address, name } = req.body;
+  try {
+    await User.update(
+      {
+        nickName: nickName,
+        address: address,
+        name: name,
+      },
+      { where: { id: id } }
+    );
+    res.send('회원정보 수정');
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.delete('/delInfo', async (req, res, next) => {
+  const { id, nickName, address, name, pw } = req.body;
+  try {
+    await User.destroy(
+      { where: { id: id } },
+      {
+        id: id,
+        pw: pw,
+        nickName: nickName,
+        address: address,
+        name: name,
+      }
+    );
+    res.send('회원탈퇴');
+  } catch (err) {
+    console.log(err);
+  }
+});
 module.exports = router;

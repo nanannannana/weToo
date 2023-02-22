@@ -65,10 +65,40 @@ function BodyShorthandExample(crews) {
     }
   }, []);
 
-  const deleteInfo = () => {
+  const deleteInfo = async () => {
+    const delData = await axios({
+      method: 'delete',
+      url: 'http://localhost:8000/auth/delInfo',
+      data: {
+        id: sessionStorage.id,
+        pw: sessionStorage.pw,
+        address: city,
+        name: name,
+        nickName: nickname,
+      },
+    });
     sessionStorage.clear();
-    alert('탈퇴완료!');
+    alert('탈퇴완료');
     navigate('/');
+    // sessionStorage.clear();
+    // alert('탈퇴완료!');
+    // navigate('/');
+  };
+
+  const updateInfo = async () => {
+    const data = await axios({
+      method: 'put',
+      url: 'http://localhost:8000/auth/updateInfo',
+      data: {
+        id: sessionStorage.id,
+        address: city,
+        name: name,
+        nickName: nickname,
+      },
+    });
+    alert('회원정보 수정');
+    handleClose();
+    window.location.reload();
   };
 
   return (
@@ -79,6 +109,15 @@ function BodyShorthandExample(crews) {
             <Modal.Title>회원정보 수정</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <label>아이디</label>
+            <br />
+            <input
+              type="text"
+              className="id"
+              value={result.id}
+              onChange={idHandler}
+            />
+            <br />
             <label>닉네임</label>
             <br />
             <input
@@ -97,10 +136,6 @@ function BodyShorthandExample(crews) {
               onChange={nameHandler}
             />
             <br />
-            <label>아이디</label>
-            <br />
-            <input type="text" className="id" value={id} onChange={idHandler} />
-            <br />
             <label>도시</label>
             <br />
             <input
@@ -111,7 +146,7 @@ function BodyShorthandExample(crews) {
             />
           </Modal.Body>
           <Modal.Footer className="modal_footer">
-            <Button variant="light" onClick={handleClose}>
+            <Button variant="light" onClick={updateInfo}>
               수정하기
             </Button>
             <Button variant="light" onClick={() => deleteInfo()}>
@@ -154,7 +189,7 @@ function BodyShorthandExample(crews) {
           참여중인 챌린지
           <div className="challenge_card">
             <ul>
-              <li>요가교실-현재 모금 금액 : {amount}</li>
+              <li>현재 모금 금액 : {amount}</li>
             </ul>
           </div>
         </div>
