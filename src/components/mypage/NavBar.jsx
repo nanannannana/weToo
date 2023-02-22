@@ -1,22 +1,35 @@
 import './NavBar.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,} from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userInfoCreate } from '../../store/modules/user';
 
 function BasicExample() {
+  const [loginState, setLoginState] = useState();
+  const [id, setId] = useState();
+  const [name, setName] = useState();
+  const [nickName, setNickName] = useState();
+  const [address, setAddress] = useState();
   const navigate = useNavigate();
-  // const {loginState, setLoginState} = useState(nav_login);
-  // const {loginHref, setLoginHref} = useState('/login');
-  // const nav_login = 'login';
-  // console.log(loginState);
+  const dispatch = useDispatch();
+  
+  const info = useSelector((state) => state.user.userInfo);
+  useEffect(() => {
+    setId(sessionStorage.id);
+    setName(sessionStorage.name);
+    setNickName(sessionStorage.nickName);
+    setAddress(sessionStorage.address);
+    dispatch(userInfoCreate({id:id,name:name,nickName:nickName,address:address}));
+    setLoginState(info);
+  },[]);
 
   const logout = () => {
     sessionStorage.removeItem('id');
     sessionStorage.removeItem('pw');
-    console.log(sessionStorage);
     navigate('/');
   };
   return (
@@ -36,9 +49,12 @@ function BasicExample() {
             </Nav.Link>
           </Nav>
           <Nav>
+            {sessionStorage.length == 0 ? ''
+             : 
             <Nav.Link as={Link} to="/mypage">
               MY PAGE
             </Nav.Link>
+            }
             {sessionStorage.length == 0 ? (
               <Nav.Link as={Link} to="/login">
                 LOGIN

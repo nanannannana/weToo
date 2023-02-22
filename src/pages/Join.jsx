@@ -65,7 +65,17 @@ const PW = styled.input`
     font-size: 3px;
   }
 `;
-const City = styled.input`
+const City = styled.select`
+  width: 62%;
+  height: 6%;
+  padding-left: 5px;
+  border: 1px solid #d8d8d8;
+  font-size: 10px;
+  ::placeholder {
+    font-size: 3px;
+  }
+`;
+const Address = styled.input`
   width: 62%;
   height: 3%;
   padding: 10px;
@@ -90,9 +100,10 @@ export default function JoinBox() {
 
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
-  const [city, setCity] = useState('');
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
   const registerId = (e) => {
     setId(e.target.value);
   };
@@ -108,6 +119,9 @@ export default function JoinBox() {
   const registerNickname = (e) => {
     setNickname(e.target.value);
   };
+  const registerAddress = (e) => {
+    setAddress(e.target.value);
+  };
 
   const register = async () => {
     try {
@@ -117,7 +131,8 @@ export default function JoinBox() {
         data: {
           id: id,
           pw: pwd,
-          address: city,
+          city: city,
+          address: address,
           name: name,
           nickName: nickname,
         },
@@ -157,8 +172,27 @@ export default function JoinBox() {
           type={'password'}
           onChange={registerPwd}
         />
-        <br />
-        <City placeholder="City" value={city} onChange={registerCity} />
+        <City name="items1" onChange={registerCity}>
+          <option value="">Address</option>
+          <option value="seoul">서울특별시</option>
+          <option value="Daejeon">세종특별시</option>
+          <option value="Incheon">인천광역시</option>
+          <option value="Gwangju">광주광역시</option>
+          <option value="Ulsan">울산광역시</option>
+          <option value="Daejeon">대전광역시</option>
+          <option value="Daegu">대구광역시</option>
+          <option value="Busan">부산광역시</option>
+          <option value="Gyeonggi-do">경기도</option>
+          <option value="Gangwon-do">강원도</option>
+          <option value="Chungcheongbuk-do">충청북도</option>
+          <option value="Chungcheongnam-do">충청남도</option>
+          <option value="Gyeongsangbuk-do">경상북도</option>
+          <option value="Gyeongsangnam-do">경상남도</option>
+          <option value="Jeollabuk-do">전라북도</option>
+          <option value="Jeollanam-do">전라남도</option>
+          <option value="Jeju-do">제주도</option>
+        </City>
+        <Address placeholder="City" value={address} onChange={registerAddress} />
         <br />
         <Joinbtn onClick={() => register()}>Create an Account</Joinbtn>
       </Div>
