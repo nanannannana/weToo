@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import Fitness from '../main/Fitness';
 import yoga from '../../static/images/yoga.png';
 import pilates from '../../static/images/pilates.png';
 import running from '../../static/images/running.png';
@@ -10,70 +9,59 @@ import tennis from '../../static/images/tennis.png';
 import board from '../../static/images/board.png';
 import swim from '../../static/images/swim.png';
 
-const Title = styled.div`
+const Outer = styled.div`
+  align-content: center;
+  display: block;
   position: relative;
-  height: 31.86px;
-  top: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
+const Title = styled.p`
+  margin: 1% 0 0 0;
+  /* transform: translate(0%, 0%); */
+  font-size: 2vw;
   font-family: 'Port Lligat Slab';
   font-style: normal;
   font-weight: 400;
-  font-size: 24px;
-  line-height: 26px;
+  /* @media (max-width: 769px) {
+    font-size: 4vw;
+    margin-bottom: 25px;
+  }
+  @media (max-width: 321px) {
+    font-size: 7vw;
+  } */
   `;
 
 const WeatherBox = styled.div`
-  display: inline-block;
   position: relative;
-  width: 55%;
-  height: 55%;
-  padding-bottom: 5%;
-  top: 1px;
+  text-align: center;
+  margin: 0 10% 0 10%;
+  width: 80%;
   border: 1px solid #D8D8D8;
-  margin-bottom: 5%;
   background-color: #FAF9F9;
-  
+  font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
   `;
-
-const City = styled.p`
-  margin-top: 5%;
-  margin-bottom: 0%;
-  `;
-const State = styled.img`
-  width: 30%;
-  height: 30%;
-  `;
-const FitTitle = styled.div`
-position: relative;
-height: 31.86px;
-top: 10px;
-font-family: 'Port Lligat Slab';
-font-style: normal;
-font-weight: 400;
-font-size: 24px;
-line-height: 26px;
-`;
-
+  const State = styled.img`
+    width: 8vh;
+    height: 8vh;
+    `;
 const FitnessBox = styled.div`
-display: inline-block;
-position: relative;
-width: 55%;
-height: 55%;
-top: 1px;
-padding-bottom: 5%;
-margin-bottom: 5%;
-border: 1px solid #D8D8D8;
-background-color: #FAF9F9;
-
-font-family: 'Poppins';
-font-weight: 700;
-font-size: 12px;
-`;
-
+  position: relative;
+  margin: 0 10% 0 10%;
+  width: 80%;
+  border: 1px solid #D8D8D8;
+  background-color: #FAF9F9;
+  font-size: 1vw;
+  font-family: 'Poppins';
+  font-weight: 700;
+  `;
 const Fitimg = styled.img`
-  width: 50%;
-  height: 50%;
+  margin: 15%;
+  width: 8vh;
+  height: 8vh;
 `
 
 const WeatherCases = {
@@ -167,31 +155,29 @@ export default function Weather() {
   }, []);
   // console.log(WeatherCases[weather].subtitle);
   return <>
-    <Title>Today Weather</Title>
-    <div>
+  <Outer>
     {Object.keys(result).length !== 0 && (
-    <div>
-
-    <WeatherBox>
-            {/* <City>{Region}</City> */}
-            <br />
-            <State src={iconurl} alt='날씨' />
-            <div className='temperature'>
-              현재 기온 {Math.round((result.data.main.temp - 273.15) * 10) / 10}℃
-            </div>
-            <div className='sky'>{WeatherCases[weather].title}</div>
-    </WeatherBox>
-    
+      <div>
+      <Title>Weather</Title>
+      <WeatherBox>
+              <br />
+              <p>우리 지역 날씨는?</p>
+              <State src={iconurl} alt='날씨' />
+              <div className='temperature'>
+                현재 기온 {Math.round((result.data.main.temp - 273.15) * 10) / 10}℃
+              <div className='sky'>{WeatherCases[weather].title}</div>
+              <br />
+              </div>
+      </WeatherBox>
+      <br />
     <Title>Today Fitness</Title>
     <FitnessBox>
-            <br />
-            <br />
+              <br />
             <div className='sky'>{WeatherCases[weather].subtitle}</div>
-            <br />
     <Fitimg src={WeatherCases[weather].img} />
     </FitnessBox>
           </div>
     )}
-    </div>
+  </Outer>
   </>;
 }

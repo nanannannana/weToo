@@ -92,8 +92,10 @@ export default function Login() {
   const [valid, setValid] = useState(true);
   const [btnAct, setBtnAct] = useState(true);
   const navigate = useNavigate();
-  const [savedLoginId, setSavedLoginId] = useState('');
-  const [savedLoginPassword, setSavedLoginPassword] = useState('');
+  // const [savedLoginId, setSavedLoginId] = useState('');
+  // const [savedLoginPassword, setSavedLoginPassword] = useState('');
+  // const [savedLoginNickname, setSavedLoginNickname] = useState('');
+  // const [savedLoginAddress, setSavedLoginAddress] = useState('');
 
   const sessionStorage = window.sessionStorage;
 
@@ -126,12 +128,8 @@ export default function Login() {
 
   const login = async () => {
 
-    sessionStorage.setItem('id', id);
-    sessionStorage.setItem('pw', pw);
-    setSavedLoginId(sessionStorage.getItem('id'));
-    setSavedLoginPassword(sessionStorage.getItem('pw'));
-    console.log('확인', sessionStorage);
-
+    // setSavedLoginId(sessionStorage.getItem('id'));
+    // setSavedLoginPassword(sessionStorage.getItem('pw'));
     if (pw == '') {
       setValid('비밀번호를 입력해주세요.');
     } else
@@ -144,9 +142,12 @@ export default function Login() {
             pw,
           },
         });
-        console.log(data);
         if (data.data.message == '로그인 성공!') {
           dispatch(userInfoCreate(data.data.data));
+          sessionStorage.setItem('id', data.data.data.id);
+          sessionStorage.setItem('name', data.data.data.name);
+          sessionStorage.setItem('nickName', data.data.data.nickName);
+          sessionStorage.setItem('address', data.data.data.address);
           alert('로그인 성공');
           navigate('/');
         }
