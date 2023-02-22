@@ -1,4 +1,5 @@
 const Challenge = require('../models/Challenge');
+const MatePost = require('../models/MatePost');
 const User = require('../models/User');
 
 exports.My_info = async (req, res) => {
@@ -18,9 +19,16 @@ exports.My_info = async (req, res) => {
     attributes: ['amount'],
   });
 
+  // const crewInfo = await MatePost.findAll({
+  //   raw: true,
+  //   where: { User_nickName: req.body.nickname },
+  //   attributes: ['title', 'info'],
+  // });
+
   // info: 유저 정보, amount: 기부금 총 합
   res.send({
     info: userInfo,
     amount: amount.reduce((a, c) => a + c.amount, 0),
+    // crew: crewInfo,
   });
 };
