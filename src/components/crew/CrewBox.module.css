@@ -14,20 +14,22 @@
 .crewBoxContainer {
   /* max-width: 1800px; */
   /* margin: 5% 15% 25%; */
+  margin-left: 140px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 60%;
 }
+.crewBox {
+  width: 30%;
+  height: 30%;
+  margin-bottom: 100px;
+}
 
 .crewImg {
   display: flex;
-  width: 90%;
-  height: 90%;
-}
-.CrewContentBox {
-  width: 90%;
-  height: 90%;
+  width: 280px;
+  height: 280px;
 }
 
 /* 수정중 */
@@ -40,6 +42,6 @@
 }
 
 .mainChatBox {
-  width: 40%;
+  width: 30%;
   height: 500px;
 }
