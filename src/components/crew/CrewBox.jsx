@@ -6,7 +6,6 @@ import classes from './CrewBox.module.css';
 import ChatBox from './ChatBox.jsx';
 import { crewDel, detailShow, infoShow } from '../../store/modules/crew';
 import axios from 'axios';
-import { Row, Col } from 'react-bootstrap';
 
 const CrewBox = () => {
   const crew = useSelector((state) => state.crew.crewInfo);
@@ -42,7 +41,12 @@ const CrewBox = () => {
         {crew.map((v, i) => (
           <React.Fragment key={i}>
             <div className={classes.crewBox}>
-              <img alt="img" src={v.image} className={classes.crewImg} />
+              <img
+                alt="img"
+                src={v.image}
+                className={classes.crewImg}
+                onClick={() => handleClickButton(v)}
+              />
               <Button
                 variant="light"
                 onClick={() => handleClickButton(v)}
@@ -51,7 +55,7 @@ const CrewBox = () => {
                 {v.title}
               </Button>
               {user.nickName === v.User_nickName ? (
-                <Button variant="danger" onClick={() => CrewDel(v)}>
+                <Button variant="secondary" onClick={() => CrewDel(v)}>
                   삭제
                 </Button>
               ) : (

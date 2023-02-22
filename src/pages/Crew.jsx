@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { crewShow, infoShow, upload } from '../store/modules/crew';
+import { crewShow, infoShow, crewMain } from '../store/modules/crew';
 import axios from 'axios';
 import { crewDel } from '../store/modules/crew';
 
@@ -57,11 +57,15 @@ const CrewInfo = styled.input`
   }
 `;
 
+const Aaa = styled.select`
+  width: 75%;
+`;
 export default function Crew() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const crew = useSelector((state) => state.crew.crewInfo);
+  console.log(crew);
   // let [input, setInput] = useState('');
   // function addCrew(input) {
   //   let newCrew = [...crew];
@@ -92,6 +96,8 @@ export default function Crew() {
     formData.append('city', user.address + ' ' + cityInfo);
     formData.append('img', img);
     axios.post('http://localhost:8000/crew/putCrew', formData).then((res) => {
+      console.log(res);
+      dispatch(crewMain(res.data));
       setShow(false);
     });
   };
@@ -152,11 +158,11 @@ export default function Crew() {
             required
           />
           최대 인원:
-          <select onChange={selectOnChange}>
+          <Aaa onChange={selectOnChange}>
             {option.map((v, i) => (
               <option key={i}>{v}</option>
             ))}
-          </select>
+          </Aaa>
           <br />
           시/구:
           <CrewInfo
@@ -168,7 +174,7 @@ export default function Crew() {
         </Modal.Body>
 
         <Modal.Footer className="modal_footer">
-          <Button variant="light" onClick={addCrew}>
+          <Button variant="light" onClick={() => addCrew()}>
             크루 개설하기
           </Button>
         </Modal.Footer>
