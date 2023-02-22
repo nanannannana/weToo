@@ -49,7 +49,6 @@ export default function Upload() {
   const infoObj = useSelector((state) => state.challenge.infoObj);
   const [imgUrl, setImgUrl] = useState(null);
   const [img, setImg] = useState(null);
-  const user_id = 'hello12';
   const [uploadBtnDisabled, setUploadBtnDisabled] = useState(true);
 
   useEffect(() => {
@@ -76,7 +75,7 @@ export default function Upload() {
   const sendData = async () => {
     const formData = new FormData();
     formData.append('challenge_name', infoObj.name);
-    formData.append('user_id', user_id);
+    formData.append('user_id', sessionStorage.id);
     formData.append('img', imgUrl);
     await axios
       .post('http://localhost:8000/challenge/upLoadData', formData)

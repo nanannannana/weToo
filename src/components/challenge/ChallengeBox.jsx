@@ -33,17 +33,14 @@ const ChallengeDiv = styled.div`
   // 위치 지정
   width: 100%;
   height: 100vh;
-  margin: -150px 0 0 5%;
-  /* position: absolute; */
+  margin-top: -150px;
+  padding: 0 5%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   @media (max-width: 1919px) {
-    /* position: static;
-    margin: -100px 0 0 0;
-    width: 100%; */
     position: absolute;
   }
 `;
