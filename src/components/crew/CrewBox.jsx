@@ -39,31 +39,27 @@ const CrewBox = () => {
   return (
     <>
       <div className={classes.crewBoxContainer}>
-        <Row>
-          {crew.map((v, i) => (
-            <React.Fragment key={i}>
-              <Col>
-                <div className={classes.crewBox}>
-                  <img alt="img" src={v.image} className={classes.crewImg} />
-                  <Button
-                    variant="light"
-                    onClick={() => handleClickButton(v)}
-                    key={i}
-                  >
-                    {v.title}
-                  </Button>
-                  {user.nickName === v.User_nickName ? (
-                    <Button variant="danger" onClick={() => CrewDel(v)}>
-                      삭제
-                    </Button>
-                  ) : (
-                    true
-                  )}
-                </div>
-              </Col>
-            </React.Fragment>
-          ))}
-        </Row>
+        {crew.map((v, i) => (
+          <React.Fragment key={i}>
+            <div className={classes.crewBox}>
+              <img alt="img" src={v.image} className={classes.crewImg} />
+              <Button
+                variant="light"
+                onClick={() => handleClickButton(v)}
+                key={i}
+              >
+                {v.title}
+              </Button>
+              {user.nickName === v.User_nickName ? (
+                <Button variant="danger" onClick={() => CrewDel(v)}>
+                  삭제
+                </Button>
+              ) : (
+                true
+              )}
+            </div>
+          </React.Fragment>
+        ))}
       </div>
       <div className={classes.mainChatBox}>
         <ChatBox />
