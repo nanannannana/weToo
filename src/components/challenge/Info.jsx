@@ -41,14 +41,6 @@ const InfoBox = styled.div`
   width: 100%;
   margin-right: 5%;
   height: 75vh;
-  /* position: absolute; */
-  /* top: 15%;
-  right: 8%;
-  width: 40%;
-  height: 75%; */
-  /* border-radius: 57px; */
-  /* background: linear-gradient(145deg, #e6e6e6, #ffffff); */
-  /* box-shadow: 21px 21px 59px #d4d4d4, -21px -21px 59px #ffffff; */
   background-color: #fafafa;
   border: 1px solid #d8d8d8;
 
@@ -57,10 +49,6 @@ const InfoBox = styled.div`
   justify-content: space-between;
 
   @media (max-width: 1920px) {
-    /* position: static;
-    margin: -100px 0 0 0;
-    width: 100%; */
-    margin-right: 5%;
     top: 15%;
     right: 0%;
     width: 45%;
@@ -159,8 +147,6 @@ const FooterExplanation = styled.div`
 export default function Info({ imgWidth }) {
   const dispatch = useDispatch();
   const [mountAni, setMountAni] = useState(true);
-  // 임시 user_id
-  const user_id = 'hello12';
   // challenge 정보 가져옴
   const infoObj = useSelector((state) => state.challenge.infoObj);
   // 인증글 정보 가져옴
@@ -181,7 +167,10 @@ export default function Info({ imgWidth }) {
     document.head.appendChild(portOne);
 
     //user_id가 있으면 '참여하기'버튼 active
-    if (user_id !== '' && user_id !== process.env.REACT_APP_ADMIN_ID)
+    if (
+      sessionStorage.id !== undefined &&
+      sessionStorage.id !== process.env.REACT_APP_ADMIN_ID
+    )
       setJoinBtnDisabled(false);
   }, []);
 
@@ -189,7 +178,7 @@ export default function Info({ imgWidth }) {
     await axios
       .post('http://localhost:8000/challenge/searchData', {
         challenge_name: infoObj.name,
-        user_id: user_id,
+        user_id: sessionStorage.id,
       })
       .then((res) => {
         setProofData(res.data.ProofData);
@@ -229,7 +218,7 @@ export default function Info({ imgWidth }) {
         name: infoObj.name,
         amount: 200,
         buyer_email: '',
-        buyer_name: `${user_id}`,
+        buyer_name: `${sessionStorage.id}`,
         buyer_tel: infoObj.buyer_tel,
       },
       function (rsp) {
@@ -291,7 +280,7 @@ export default function Info({ imgWidth }) {
               {proofData.slice(0, 6).map((v, i) => (
                 <React.Fragment key={i}>
                   <Col xs={imgWidth}>
-                    {user_id === process.env.REACT_APP_ADMIN_ID ? (
+                    {sessionStorage.id === process.env.REACT_APP_ADMIN_ID ? (
                       <BiX size="20" onClick={() => deleteImg(v)} />
                     ) : (
                       true
