@@ -17,7 +17,7 @@ exports.showCrew = async (req, res) => {
 exports.putCrew = async (req, res) => {
   console.log(req.body);
   console.log(req.file);
-  await MatePost.create({
+  const newCrew = await MatePost.create({
     title: req.body.title,
     info: req.body.info,
     max: req.body.max,
@@ -25,7 +25,8 @@ exports.putCrew = async (req, res) => {
     image: '/img/' + req.file.filename,
     address: req.body.city,
   });
-  res.send(true);
+  console.log(newCrew);
+  res.send(newCrew.dataValues);
 };
 
 exports.crewDel = async (req, res) => {
