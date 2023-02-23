@@ -95,7 +95,7 @@ function BodyShorthandExample(crews) {
       url: '/auth/updateInfo',
       data: {
         id: sessionStorage.id,
-        address: city,
+        city: city,
         name: name,
         nickName: nickname,
       },
@@ -112,7 +112,7 @@ function BodyShorthandExample(crews) {
           <Modal.Header closeButton>
             <Modal.Title>회원정보 수정</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className="modalBody">
             <label>아이디</label>
             <br />
             <input
@@ -169,7 +169,7 @@ function BodyShorthandExample(crews) {
                 <li>이름 {result.name}</li>
                 <li>닉네임 {result.nickName}</li>
                 <li>아이디 {result.id}</li>
-                <li>지역 {result.address}</li>
+                <li>지역 {result.city}</li>
               </ul>
             </div>
           </div>
