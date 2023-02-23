@@ -2,20 +2,8 @@ const axios = require('axios');
 const User = require('../models/User');
 
 exports.today_weather = async(req, res) => {
-  let city;
-  let def;
-  if (req.body.id !== '') {
-    def = '';
-    city = await User.findOne({
-      where: { id: req.body.id },
-      attributes: ['city'],
-    });
-  } else {
-    def = 'seoul';
-  }
-  const city_E = city.dataValues.city.split('/');
-  console.log(city_E);
-  const Region = def === '' ? city_E[0] : def;
+  console.log('현재 보고있는 날씨',req.body.city);
+  const Region = req.body.city;
   const API_KEY = '4281729cba61323b40e791c6036334ed';
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`;
   
