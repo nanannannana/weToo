@@ -131,7 +131,7 @@ export default function JoinBox() {
           id: id,
           pw: pwd,
           city: city,
-          // address: address
+          address: address,
           name: name,
           nickName: nickname,
         },

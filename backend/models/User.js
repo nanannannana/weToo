@@ -29,6 +29,10 @@ class User extends Sequelize.Model {
           type: Sequelize.STRING(100),
           allowNull: false,
         },
+        city: {
+          type: Sequelize.STRING(100),
+          allowNull: false,
+        }
       },
       {
         // 두번째 객체 인수는 테이블 자체에 대한 설정
