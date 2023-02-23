@@ -7,7 +7,15 @@ import NavBar from '../components/mypage/NavBar';
 import { Pagination } from 'antd';
 import { crewChange, crewPagination, modalShow } from '../store/modules/crew';
 import { Button } from 'react-bootstrap';
+import styled from 'styled-components';
 import CrewModal from '../components/crew/CrewModal';
+
+const InfoTitle = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+`;
 
 export default function ChatPage() {
   // console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
@@ -22,6 +30,8 @@ export default function ChatPage() {
   const dispatch = useDispatch();
   const changeNum = (e) => dispatch(crewPagination(e - 1));
   const change = useSelector((state) => state.crew.crewChange);
+  console.log('user 확인: ', user.city.split('/')[1]);
+  console.log('change', change);
 
   useEffect(() => {
     dispatch(crewPagination(0));
@@ -30,12 +40,13 @@ export default function ChatPage() {
   }, [change]);
 
   async function AllmatePostLoad() {
-    const address = user.address === undefined ? '서울' : user.address;
+    const city =
+      user.city === undefined ? '서울특별시' : user.city.split('/')[1];
     const data = await axios({
       method: 'get',
       url: `/crew/showCrew`,
       params: {
-        city: address,
+        city: city,
       },
     });
     setCrew(data.data);
@@ -147,7 +158,7 @@ export default function ChatPage() {
       socket.off('joinCrew');
       socket.off('outCrew');
     };
-  }, [currentCrew]);
+  }, [currentCrew, change]);
 
   // 크루 생성 모달 나타나게 하기
   const ModalShow = () => dispatch(modalShow(true));
@@ -177,17 +188,21 @@ export default function ChatPage() {
       <div className="chatPage">
         <div className="AllCrewPost">
           {crewPagi.map((e, i) => (
-            <React.Fragment key={i}>
+            <div className="crewDiv" key={i}>
               <div
                 style={{ backgroundImage: `url(${e.image})` }}
                 className="crewPost"
                 key={i}
                 onClick={() => selectCrew(e)}
-              >
-                <h3>{e.title}</h3>
-                <div onClick={() => crewDel(e)}>X</div>
+              ></div>
+              <div className="crewPostTitle">
+                {/* <h3>{e.title}</h3> */}
+
+                <InfoTitle key={i}>{e.title}</InfoTitle>
+
+                <div onClick={() => crewDel(e)}>❎</div>
               </div>
-            </React.Fragment>
+            </div>
           ))}
         </div>
 
@@ -201,8 +216,8 @@ export default function ChatPage() {
         ) : display == 1 ? (
           <div className="CrewInfoBox">
             <h4>{currentCrew.title}</h4>
-            <span>가입 인원수 : 3/{currentCrew.max}</span>
-            <span>채팅 참여중인 인원수 : ^^</span>
+            <p>가입 인원수 : 0/{currentCrew.max}</p>
+            <p>채팅 참여중인 인원수 : ^^</p>
             <p>{currentCrew.info}</p>
             <button onClick={() => joinCrew()}>입장</button>
             <button onClick={() => outCrew()}>탈퇴</button>

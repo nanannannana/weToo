@@ -159,19 +159,19 @@ form button {
 }
 
 .crewPost {
-  width: 25%;
+  width: 100%;
   height: 15vw;
   background: #b39393;
-  margin: 0 6% 30px 0;
+  /* margin: 0 6% 30px 0; */
   background-size: cover;
   cursor: pointer;
 }
-.crewPost h3 {
+/* .crewPost h3 {
   width: 100%;
   background: #00000077;
   color: #fff;
   padding: 10px;
-}
+} */
 
 .defaultChat {
   width: 25%;
@@ -207,4 +207,17 @@ form button {
   background: #faf9f9;
   border: 1px solid #dbdbdb;
   padding-top: 3vw;
+}
+
+.crewDiv {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 6% 30px 0;
+}
+
+.crewPostTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
 }
