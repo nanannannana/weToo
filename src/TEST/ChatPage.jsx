@@ -3,7 +3,7 @@ import Chat from './Chat';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import NavBar from '../components/mypage/NavBar'
+import NavBar from '../components/mypage/NavBar';
 
 export default function ChatPage() {
   // console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
@@ -66,7 +66,7 @@ export default function ChatPage() {
   function selectCrew(e) {
     currentCrewSet(e);
     setDisplay(1);
-    if (display == 2 ) {
+    if (display == 2) {
       socket.emit('roomOut', {
         currentCrewId: currentCrew.id,
         nickName: user.nickName,
@@ -113,16 +113,15 @@ export default function ChatPage() {
         return state.map((e) => {
           console.log(e.id, data.currentCrew.id);
           if (e.id == data.currentCrew.id) {
-            const users = e.users.filter((ee) => ee.nickName != data.nickName )
-            console.log(e.users)
-            console.log(users)
-            delete e.users
-            e['users'] = users
+            const users = e.users.filter((ee) => ee.nickName != data.nickName);
+            console.log(e.users);
+            console.log(users);
+            delete e.users;
+            e['users'] = users;
           }
           return e;
         });
       });
-     
     });
 
     return () => {
@@ -133,58 +132,61 @@ export default function ChatPage() {
 
   return (
     <>
-      <NavBar/>
-      <div>
-
-      </div>
-      <div className='chatPage'>
-      <div className='AllCrewPost'>
-      {crew.map((e, i) => (
-        <>
-        <div style={{backgroundImage: 'url(./runcrew.png)'}} className='crewPost' key={i} onClick={() => selectCrew(e)}>
-        <h3>같이 운동해요~</h3>
+      <NavBar />
+      <div></div>
+      <div className="chatPage">
+        <div className="AllCrewPost">
+          {crew.map((e, i) => (
+            <>
+              <div
+                style={{ backgroundImage: 'url(./runcrew.png)' }}
+                className="crewPost"
+                key={i}
+                onClick={() => selectCrew(e)}
+              >
+                <h3>같이 운동해요~</h3>
+              </div>
+            </>
+          ))}
         </div>
-        </>
 
-      ))}
+        {display == 0 ? (
+          <div className="defaultChat">
+            <img src="./chatdefault.jpg" alt="" />
+            <h4>THE YOGA DAY CREW</h4>
+            <p>
+              안녕하세요
+              <br />
+              매일 하루를 요가와 함께하는 THE YOGA DAY CREW 입니다~:)
+            </p>
+          </div>
+        ) : display == 1 ? (
+          <div className="CrewInfoBox">
+            <h4>같이 운동해요~</h4>
+            <span>가입 인원수 : 3/4</span>
+            <span>채팅 참여중인 인원수 : 2/4</span>
+            <p>
+              크루정보(공지) 뭐든 디테일한 정보들 : 열심히 참여할 분, 하루에 물
+              3컵, 6시 어디서 정모 등{' '}
+            </p>
+            <button onClick={() => joinCrew()}>입장</button>
+            <button onClick={() => outCrew()}>탈퇴</button>
+          </div>
+        ) : (
+          <Chat
+            setDisplay={setDisplay}
+            currentCrew={currentCrew}
+            socket={socket}
+            user={user}
+          />
+        )}
       </div>
 
-        
-      {display == 0 ? 
-      <div className='defaultChat'>
-        <img src="./chatdefault.jpg" alt="" />
-        <h4>THE YOGA DAY CREW</h4>
-        <p>
-안녕하세요<br/> 
-매일 하루를 요가와 함께하는
-THE  YOGA DAY  CREW 입니다~:)</p>
-      </div> 
-       : display == 1 ? (
-        <div className='CrewInfoBox'>
-          <h4>같이 운동해요~</h4>
-          <span>가입 인원수 : 3/4</span>
-          <span>채팅 참여중인 인원수 : 2/4</span>
-          <p>크루정보(공지) 뭐든 디테일한 정보들 : 열심히 참여할 분, 하루에 물 3컵, 6시 어디서 정모 등  </p>
-          <button onClick={() => joinCrew()}>입장</button>
-          <button onClick={() => outCrew()}>탈퇴</button>
-        </div>
-      ) : (
-        <Chat
-          setDisplay={setDisplay}
-          currentCrew={currentCrew}
-          socket={socket}
-          user={user}
-        />
-      )}
-      </div>
-      
-    
       {/* {crew.map((e, i) => (
         <button key={i} onClick={() => selectCrew(e)}>
           게시물
         </button>
       ))} */}
-      
     </>
   );
 }

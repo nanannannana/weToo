@@ -1,16 +1,17 @@
 .crewBtn {
-  background-color: #a3a1a1;
-  color: #e3dede;
   position: relative;
+  width: 67%;
+  background-color: white;
   border: none;
-  padding: 5px 15px;
-  transition: 0.25s;
+  margin-top: 1rem;
+  font-size: 18px;
+  font-weight: bold;
 }
-.crewBtn :hover {
-  background: #a3a1a1;
-  color: black;
+.delBtn {
+  background-color: white;
+  border: none;
+  font-size: 18px;
 }
-
 .crewBoxContainer {
   /* max-width: 1800px; */
   /* margin: 5% 15% 25%; */
@@ -30,6 +31,7 @@
   display: flex;
   width: 280px;
   height: 280px;
+  cursor: pointer;
 }
 
 /* 수정중 */
@@ -44,4 +46,37 @@
 .mainChatBox {
   width: 30%;
   height: 500px;
+}
+
+@media (max-width: 1920px) {
+  .crewBoxContainer {
+    margin-left: 140px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 60%;
+  }
+  .crewBox {
+    width: 30%;
+    height: 30%;
+    margin-bottom: 100px;
+  }
+
+  .crewImg {
+    display: flex;
+    width: 280px;
+    height: 280px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 1700px) {
+  .crewBox {
+    width: 50% !important;
+  }
+}
+@media (max-width: 1025px) {
+  .crewBox {
+    width: 0%;
+  }
 }

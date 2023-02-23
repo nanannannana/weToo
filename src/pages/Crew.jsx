@@ -23,14 +23,8 @@ const DivCrewBox = styled.div`
   display: flex;
 `;
 
-const DivChatBox = styled.div`
-  position: absolute;
-  left: 70%;
-  top: 30%;
-  text-align: center;
-`;
 const CrewTitle = styled.input`
-  width: 60%;
+  width: 65%;
   height: 3%;
   padding: 10px;
   margin: 5px 30px;
@@ -47,7 +41,7 @@ const ImgInput = styled.input`
   border: 1px solid #d8d8d8;
 `;
 const CrewInfo = styled.input`
-  width: 75%;
+  width: 65%;
   height: 3%;
   padding: 10px;
   margin: 5px 15px;
@@ -57,8 +51,17 @@ const CrewInfo = styled.input`
   }
 `;
 
-const Aaa = styled.select`
-  width: 75%;
+const Person = styled.select`
+  width: 65%;
+  padding: 10px;
+  border: 1px solid #d8d8d8;
+  margin: 5px 20px;
+`;
+const CityInfo = styled.select`
+  width: 65%;
+  padding: 10px;
+  border: 1px solid #d8d8d8;
+  margin: 5px 52px;
 `;
 export default function Crew() {
   const [show, setShow] = useState(false);
@@ -157,15 +160,16 @@ export default function Crew() {
             onChange={registerCrewInfo}
             required
           />
+          <br />
           최대 인원:
-          <Aaa onChange={selectOnChange}>
+          <Person onChange={selectOnChange}>
             {option.map((v, i) => (
               <option key={i}>{v}</option>
             ))}
-          </Aaa>
+          </Person>
           <br />
           시/구:
-          <CrewInfo
+          <CityInfo
             placeholder="시 또는 구를 적어주세요!"
             value={cityInfo}
             onChange={changeCityInfo}
