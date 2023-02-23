@@ -135,12 +135,11 @@ export default function JoinBox() {
   const registerAddress = (e) => {
     setAddress(e.target.value);
   };
-  console.log('번호길이',phone.length);
-  console.log('번호타입',phone.type);
+  
   const register = async () => {
     if(phone.length !== 11){
       alert('11자리가 맞는지 확인해주세요.');
-    }else if(phone[0,2] !== '010'){
+    }else if(phone.slice(0,3) !== '010'){
       alert('옳바른 형식이 아닙니다. ex.01012341234');
     } else
     try {
