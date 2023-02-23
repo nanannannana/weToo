@@ -17,11 +17,12 @@ const Outer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  @media (max-width: 768px) {
+  background-color: yellow;
+  @media (max-width: 820px) {
     display: inline-block;
     width: 100%;
     align-content: initial;
-    top: 10%;
+    top: 3vh;
   }
 `;
 const Title = styled.span`
@@ -31,7 +32,7 @@ const Title = styled.span`
   font-family: 'Port Lligat Slab';
   font-style: normal;
   font-weight: 400;
-  @media (max-width: 768px) {
+  @media (max-width: 820px) {
     display: none;
   }
 `;
@@ -46,9 +47,9 @@ const WeatherBox = styled.div`
   font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
-  @media (max-width: 768px) {
+  @media (max-width: 820px) {
     width: 40%;
-    min-height: 150px;
+    height: 20vh;
     position: absolute;
   }
 `;
@@ -66,9 +67,9 @@ const FitnessBox = styled.div`
   font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
-  @media (max-width: 768px) {
+  @media (max-width: 820px) {
     position: absolute;
-    min-height: 150px;
+    height: 20vh;
     width: 40%;
     left: 45%;
     top: 100%;

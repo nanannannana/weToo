@@ -30,6 +30,7 @@ function BasicExample() {
     sessionStorage.removeItem('id');
     sessionStorage.removeItem('name');
     sessionStorage.removeItem('nickName');
+    sessionStorage.removeItem('phone');
     sessionStorage.removeItem('city');
     navigate('/');
   };
