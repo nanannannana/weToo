@@ -19,6 +19,7 @@ function BasicExample() {
         name: sessionStorage.name,
         nickName: sessionStorage.nickName,
         city: sessionStorage.city,
+        phone: sessionStorage.phone,
       })
     );
   }, []);
