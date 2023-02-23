@@ -98,7 +98,7 @@ export default function Crew() {
     formData.append('nickName', user.nickName);
     formData.append('city', user.address + ' ' + cityInfo);
     formData.append('img', img);
-    axios.post('http://localhost:8000/crew/putCrew', formData).then((res) => {
+    axios.post('/crew/putCrew', formData).then((res) => {
       console.log(res);
       dispatch(crewMain(res.data));
       setShow(false);
@@ -120,7 +120,7 @@ export default function Crew() {
     const address = user.address === undefined ? '서울' : user.address;
     const axiosData = async () => {
       await axios
-        .get('http://localhost:8000/crew/showCrew', {
+        .get('/crew/showCrew', {
           params: { city: address },
         })
         .then((res) => dispatch(crewShow(res.data)));

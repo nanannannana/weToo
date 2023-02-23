@@ -126,7 +126,7 @@ export default function JoinBox() {
     try {
       const request = await axios({
         method: 'post',
-        url: 'http://localhost:8000/auth/signup',
+        url: '/auth/signup',
         data: {
           id: id,
           pw: pwd,
@@ -193,7 +193,12 @@ export default function JoinBox() {
           <option value="Jeollanam-do">전라남도</option>
           <option value="Jeju-do">제주도</option>
         </City>
-        <Address placeholder="City" value={address} onChange={registerAddress} required/>
+        <Address
+          placeholder="City"
+          value={address}
+          onChange={registerAddress}
+          required
+        />
         <Joinbtn onClick={() => register()}>Create an Account</Joinbtn>
       </Div>
     </>

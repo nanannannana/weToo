@@ -7,7 +7,7 @@ import NavBar from '../components/mypage/NavBar';
 
 export default function ChatPage() {
   // console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
-  let socket = io.connect('http://localhost:8000');
+  let socket = io.connect('');
   const user = useSelector((state) => state.user.userInfo);
   const [crew, setCrew] = useState([]);
   console.log(crew);
@@ -18,7 +18,7 @@ export default function ChatPage() {
   async function AllmatePostLoad() {
     const data = await axios({
       method: 'get',
-      url: `http://localhost:8000/mate`,
+      url: `/mate`,
     });
     setCrew(data.data);
   }
@@ -35,7 +35,7 @@ export default function ChatPage() {
     } else {
       const data = await axios({
         method: 'post',
-        url: 'http://localhost:8000/mate/addcrew',
+        url: '/mate/addcrew',
         data: {
           // User_id: user.id, //더미데이터
           crewId: currentCrew.id,
@@ -52,7 +52,7 @@ export default function ChatPage() {
 
     const data = await axios({
       method: 'delete',
-      url: 'http://localhost:8000/mate/outcrew',
+      url: '/mate/outcrew',
       data: {
         // User_id: user.id, //더미데이터
         crewId: currentCrew.id,
