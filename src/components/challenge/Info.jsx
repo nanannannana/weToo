@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled, { css, keyframes } from 'styled-components';
 import { Button, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
-import { goupload, infoshow, modal } from '../../store/modules/challenge';
+import {
+  goupload,
+  infoshow,
+  modal,
+  reRender,
+} from '../../store/modules/challenge';
 import Upload from './Upload';
 import { BiLeftArrowAlt, BiX } from 'react-icons/bi';
 
@@ -156,6 +161,8 @@ export default function Info({ imgWidth }) {
   const [proofBtnDisabled, setProofDisabled] = useState(true);
   // 인증 게시글 작성 페이지로 이동
   const goUpload = useSelector((state) => state.challenge.goUpload);
+  // 참여하기 완료 후, info창 리렌더
+  const rerender = useSelector((state) => state.challenge.rerender);
 
   useEffect(() => {
     // portOne 실행을 위한 설정
@@ -196,7 +203,8 @@ export default function Info({ imgWidth }) {
   useEffect(() => {
     axiosData();
     dispatch(goupload(false));
-  }, [infoObj]);
+    dispatch(reRender(false));
+  }, [infoObj, rerender]);
 
   // 인증 게시물 올린 뒤 리렌더링 -> 올린 게시글 새로고침 없이 확인하기 위해
   useEffect(() => {
@@ -219,7 +227,7 @@ export default function Info({ imgWidth }) {
         amount: 200,
         buyer_email: '',
         buyer_name: `${sessionStorage.id}`,
-        buyer_tel: infoObj.buyer_tel,
+        buyer_tel: `${sessionStorage.phone}` || '01012341212',
       },
       function (rsp) {
         if (rsp.success) {
