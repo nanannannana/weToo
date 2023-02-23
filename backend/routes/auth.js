@@ -5,13 +5,13 @@ const jwt = require('jsonwebtoken');
 const { tokenCheck } = require('../middleware/tokenCheck');
 
 router.post('/signup', async (req, res, next) => {
-  const { id, nickName, pw, address, city, name, phone } = req.body;
-  console.log(req.body);
+  const { id, nickName, pw, city, name, phone } = req.body;
+  console.log('들어온정보',req.body);
 
   try {
     const exUser = await User.findOne({ where: { id: id } });
     const exnickName = await User.findOne({ where: { nickName: nickName } });
-
+    
     if (exUser) {
       return res.status(403).send('존재하는 ID입니다.');
     }
@@ -23,7 +23,6 @@ router.post('/signup', async (req, res, next) => {
       id,
       nickName,
       pw,
-      address,
       name,
       city,
       phone
@@ -94,12 +93,11 @@ router.post('/userinfo', tokenCheck, async (req, res, next) => {
 });
 
 router.put('/updateInfo', async (req, res, next) => {
-  const { id, nickName, address, name, city } = req.body;
+  const { id, nickName, name, city, phone } = req.body;
   try {
     await User.update(
       {
         nickName: nickName,
-        address: address,
         name: name,
         city: city,
         phone: phone
@@ -113,7 +111,7 @@ router.put('/updateInfo', async (req, res, next) => {
 });
 
 router.delete('/delInfo', async (req, res, next) => {
-  const { id, nickName, address, name, pw, city, phone } = req.body;
+  const { id, nickName, name, pw, city, phone } = req.body;
   try {
     await User.destroy(
       { where: { id: id } },
@@ -121,7 +119,6 @@ router.delete('/delInfo', async (req, res, next) => {
         id: id,
         pw: pw,
         nickName: nickName,
-        address: address,
         name: name,
         city: city,
         phone: phone
