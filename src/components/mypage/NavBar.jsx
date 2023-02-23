@@ -13,10 +13,16 @@ function BasicExample() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(userInfoCreate({
-      'id':sessionStorage.id, 'name':sessionStorage.name, 'nickName':sessionStorage.nickName, 'city':sessionStorage.city
-    }));
-  },[]);
+    dispatch(
+      userInfoCreate({
+        id: sessionStorage.id,
+        name: sessionStorage.name,
+        nickName: sessionStorage.nickName,
+        city: sessionStorage.city,
+      })
+    );
+  }, []);
+
   const info = useSelector((state) => state.user.userInfo);
   console.log('로그인상태', info);
 
@@ -44,14 +50,14 @@ function BasicExample() {
             </Nav.Link>
           </Nav>
           <Nav>
-            {sessionStorage.length == 0 ? (
+            {sessionStorage.id == undefined ? (
               ''
             ) : (
               <Nav.Link as={Link} to="/mypage">
                 MY PAGE
               </Nav.Link>
             )}
-            {sessionStorage.length == 0 ? (
+            {sessionStorage.id == undefined ? (
               <Nav.Link as={Link} to="/login">
                 LOGIN
               </Nav.Link>

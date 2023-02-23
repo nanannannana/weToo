@@ -2,35 +2,54 @@ import React, { useEffect, useState } from 'react';
 import Chat from './Chat';
 import { io } from 'socket.io-client';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import NavBar from '../components/mypage/NavBar';
+import { Pagination } from 'antd';
+import { crewChange, crewPagination, modalShow } from '../store/modules/crew';
+import { Button } from 'react-bootstrap';
+import CrewModal from '../components/crew/CrewModal';
 
 export default function ChatPage() {
   // console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
-  let socket = io.connect('');
-  const user = useSelector((state) => state.user.userInfo);
+  let socket = io.connect('http://localhost:8000');
+  const user = sessionStorage;
   const [crew, setCrew] = useState([]);
-  console.log(crew);
+  console.log('크루게시물', crew);
   const [display, setDisplay] = useState(0);
   const [currentCrew, currentCrewSet] = useState('');
-  console.log(currentCrew);
+  const page = useSelector((state) => state.crew.page);
+  const crewPagi = crew.slice(page * 6, page * 6 + 6);
+  const dispatch = useDispatch();
+  const changeNum = (e) => dispatch(crewPagination(e - 1));
+  const change = useSelector((state) => state.crew.crewChange);
+
+  useEffect(() => {
+    dispatch(crewPagination(0));
+    dispatch(modalShow(false));
+    dispatch(crewChange(false));
+  }, [change]);
 
   async function AllmatePostLoad() {
+    const address = user.address === undefined ? '서울' : user.address;
     const data = await axios({
       method: 'get',
-      url: `/mate`,
+      url: `/crew/showCrew`,
+      params: {
+        city: address,
+      },
     });
     setCrew(data.data);
   }
 
   async function joinCrew() {
-    if (currentCrew.users.find((e) => e.nickName == user.nickName)) {
+    console.log('현재 크루', currentCrew);
+    if (currentCrew.users?.find((e) => e.nickName == user.nickName)) {
       //데미더이터
       //내 유저 아이디와 같은게 있다면
       //입장
       setDisplay(2);
       alert('입장');
-    } else if (currentCrew.max <= currentCrew.users.length) {
+    } else if (currentCrew.max <= currentCrew.users?.length) {
       alert('인원이 초과되었습니다.');
     } else {
       const data = await axios({
@@ -130,45 +149,61 @@ export default function ChatPage() {
     };
   }, [currentCrew]);
 
+  // 크루 생성 모달 나타나게 하기
+  const ModalShow = () => dispatch(modalShow(true));
+
+  // 크루 삭제
+  const crewDel = (v) => {
+    axios
+      .delete('/crew/crewDel', {
+        data: {
+          id: v.id,
+          image: v.image,
+        },
+      })
+      .then(() => {
+        alert('삭제가 완료되었습니다!');
+        dispatch(crewChange(true));
+      });
+  };
+
   return (
     <>
       <NavBar />
-      <div></div>
+      <CrewModal />
+      <Button variant="light" onClick={ModalShow}>
+        +crew
+      </Button>
       <div className="chatPage">
         <div className="AllCrewPost">
-          {crew.map((e, i) => (
-            <>
+          {crewPagi.map((e, i) => (
+            <React.Fragment key={i}>
               <div
-                style={{ backgroundImage: 'url(./runcrew.png)' }}
+                style={{ backgroundImage: `url(${e.image})` }}
                 className="crewPost"
                 key={i}
                 onClick={() => selectCrew(e)}
               >
-                <h3>같이 운동해요~</h3>
+                <h3>{e.title}</h3>
+                <div onClick={() => crewDel(e)}>X</div>
               </div>
-            </>
+            </React.Fragment>
           ))}
         </div>
 
         {display == 0 ? (
           <div className="defaultChat">
-            <img src="./chatdefault.jpg" alt="" />
-            <h4>THE YOGA DAY CREW</h4>
-            <p>
-              안녕하세요
-              <br />
-              매일 하루를 요가와 함께하는 THE YOGA DAY CREW 입니다~:)
-            </p>
+            <div>
+              <div>Weto</div>
+              <div> Welcome to the Weto!!😊</div>
+            </div>
           </div>
         ) : display == 1 ? (
           <div className="CrewInfoBox">
-            <h4>같이 운동해요~</h4>
-            <span>가입 인원수 : 3/4</span>
-            <span>채팅 참여중인 인원수 : 2/4</span>
-            <p>
-              크루정보(공지) 뭐든 디테일한 정보들 : 열심히 참여할 분, 하루에 물
-              3컵, 6시 어디서 정모 등{' '}
-            </p>
+            <h4>{currentCrew.title}</h4>
+            <span>가입 인원수 : 3/{currentCrew.max}</span>
+            <span>채팅 참여중인 인원수 : ^^</span>
+            <p>{currentCrew.info}</p>
             <button onClick={() => joinCrew()}>입장</button>
             <button onClick={() => outCrew()}>탈퇴</button>
           </div>
@@ -181,6 +216,12 @@ export default function ChatPage() {
           />
         )}
       </div>
+      <Pagination
+        defaultCurrent={page}
+        defaultPageSize={6}
+        total={crew.length}
+        onChange={(e) => changeNum(e)}
+      />
 
       {/* {crew.map((e, i) => (
         <button key={i} onClick={() => selectCrew(e)}>

@@ -2,24 +2,28 @@
 const initState = {
   crewInfo: [],
   infoShow: false,
+  modalShow: false,
   crewDetail: [],
-  delete: false,
+  crewChange: false,
   crewMain: false,
+  page: 0,
 };
 
 // 액션명 지정
 const CREWSHOW = 'crew/CREWSHOW';
 const INFOSHOW = 'crew/INFOSHOW';
+const MODALSHOW = 'crew/MODALSHOW';
 const DETAILSHOW = 'crew/DETAILSHOW';
-const CREWDEL = 'crew/CREWDEL';
-const CREWMAIN = 'crew/CREWMAIN';
+const CREWCHANGE = 'crew/CREWCHANGE';
+const CREWPAGI = 'crew/CREWPAGI';
 
 // 액션 함수 지정
 export const crewShow = (data) => ({ type: CREWSHOW, payload: data });
 export const infoShow = (show) => ({ type: INFOSHOW, payload: show });
+export const modalShow = (show) => ({ type: MODALSHOW, payload: show });
 export const detailShow = (data) => ({ type: DETAILSHOW, payload: data });
-export const crewDel = (del) => ({ type: CREWDEL, payload: del });
-export const crewMain = (main) => ({ type: CREWMAIN, payload: main });
+export const crewChange = (change) => ({ type: CREWCHANGE, payload: change });
+export const crewPagination = (page) => ({ type: CREWPAGI, payload: page });
 
 // 리덕스 지정
 export default function crew(state = initState, action) {
@@ -34,22 +38,25 @@ export default function crew(state = initState, action) {
         ...state,
         infoShow: action.payload,
       };
+    case MODALSHOW:
+      return {
+        ...state,
+        modalShow: action.payload,
+      };
     case DETAILSHOW:
       return {
         ...state,
         crewDetail: action.payload,
       };
-    case CREWDEL:
+    case CREWCHANGE:
       return {
         ...state,
-        crewDel: action.payload,
+        crewChange: action.payload,
       };
-    case CREWMAIN:
-      console.log(state.crewInfo);
-      console.log(action.payload);
+    case CREWPAGI:
       return {
         ...state,
-        crewInfo: [...state.crewInfo, action.payload],
+        page: action.payload,
       };
     default:
       return state;

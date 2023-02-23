@@ -1,17 +1,27 @@
 const MatePost = require('../models/MatePost');
 const { Op } = require('sequelize');
 const fs = require('fs');
+const User = require('../models/User');
 
 exports.showCrew = async (req, res) => {
   console.log('나의 도시: ', req.query.city);
   const showCrew = await MatePost.findAll({
-    raw: true,
+    // raw: true,
     where: {
       address: {
         [Op.like]: '%' + req.query.city + '%',
       },
     },
+    order: [['id', 'DESC']],
+    include: [
+      {
+        model: User,
+        as: 'users',
+        attributes: ['nickName'],
+      },
+    ],
   });
+  console.log(showCrew);
   res.send(showCrew);
 };
 exports.putCrew = async (req, res) => {
