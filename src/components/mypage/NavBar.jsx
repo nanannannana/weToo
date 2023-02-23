@@ -1,5 +1,5 @@
 import './NavBar.css';
-import React, { useState, useEffect,} from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -11,14 +11,19 @@ import { userInfoCreate } from '../../store/modules/user';
 function BasicExample() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    dispatch(userInfoCreate({
-      'id':sessionStorage.id, 'name':sessionStorage.name, 'nickName':sessionStorage.neickName,'address':sessionStorage.address
-    }));
-  },[]);
+    dispatch(
+      userInfoCreate({
+        id: sessionStorage.id,
+        name: sessionStorage.name,
+        nickName: sessionStorage.nickName,
+        address: sessionStorage.address,
+      })
+    );
+  }, []);
   const info = useSelector((state) => state.user.userInfo);
-  console.log('로그인상태',info);
+  console.log('로그인상태', info);
 
   const logout = () => {
     sessionStorage.removeItem('id');
@@ -44,12 +49,13 @@ function BasicExample() {
             </Nav.Link>
           </Nav>
           <Nav>
-            {sessionStorage.length == 0 ? ''
-             : 
-            <Nav.Link as={Link} to="/mypage">
-              MY PAGE
-            </Nav.Link>
-            }
+            {sessionStorage.length == 0 ? (
+              ''
+            ) : (
+              <Nav.Link as={Link} to="/mypage">
+                MY PAGE
+              </Nav.Link>
+            )}
             {sessionStorage.length == 0 ? (
               <Nav.Link as={Link} to="/login">
                 LOGIN

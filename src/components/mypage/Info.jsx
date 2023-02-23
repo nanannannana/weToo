@@ -48,7 +48,7 @@ function BodyShorthandExample(crews) {
       console.log(sessionStorage.id);
       const userinfo = await axios({
         method: 'post',
-        url: 'http://localhost:8000/mypage/info',
+        url: '/mypage/info',
         data: {
           id: sessionStorage.id,
         },
@@ -72,7 +72,7 @@ function BodyShorthandExample(crews) {
   const deleteInfo = async () => {
     const delData = await axios({
       method: 'delete',
-      url: 'http://localhost:8000/auth/delInfo',
+      url: '/auth/delInfo',
       data: {
         id: sessionStorage.id,
         pw: sessionStorage.pw,
@@ -92,7 +92,7 @@ function BodyShorthandExample(crews) {
   const updateInfo = async () => {
     const data = await axios({
       method: 'put',
-      url: 'http://localhost:8000/auth/updateInfo',
+      url: '/auth/updateInfo',
       data: {
         id: sessionStorage.id,
         address: city,

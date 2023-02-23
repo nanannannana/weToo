@@ -176,7 +176,7 @@ export default function Info({ imgWidth }) {
 
   const axiosData = async () => {
     await axios
-      .post('http://localhost:8000/challenge/searchData', {
+      .post('/challenge/searchData', {
         challenge_name: infoObj.name,
         user_id: sessionStorage.id,
       })
@@ -232,7 +232,7 @@ export default function Info({ imgWidth }) {
             amount: rsp.paid_amount,
           };
           axios
-            .post('http://localhost:8000/challenge/putData', data)
+            .post('/challenge/putData', data)
             .then(() => dispatch(modal(true)));
         } else {
           console.log(rsp);
@@ -244,7 +244,7 @@ export default function Info({ imgWidth }) {
   // 인증샷 삭제
   const deleteImg = (v) => {
     axios
-      .delete('http://localhost:8000/challenge/deleteData', {
+      .delete('/challenge/deleteData', {
         data: { img: v.img, challenge_name: v.challenge_name },
       })
       .then((res) => {

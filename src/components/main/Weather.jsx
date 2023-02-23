@@ -18,11 +18,11 @@ const Outer = styled.div`
   transform: translate(-50%, -50%);
   @media (max-width: 768px) {
     display: inline-block;
-    width:100%;
+    width: 100%;
     align-content: initial;
-    top:10%;
+    top: 10%;
   }
-`
+`;
 const Title = styled.span`
   margin: 1% 0 0 0;
   /* transform: translate(0%, 0%); */
@@ -33,51 +33,51 @@ const Title = styled.span`
   @media (max-width: 768px) {
     display: none;
   }
-  `;
+`;
 
 const WeatherBox = styled.div`
   position: relative;
   text-align: center;
   margin: 0 10% 0 10%;
   width: 80%;
-  border: 1px solid #D8D8D8;
-  background-color: #FAF9F9;
+  border: 1px solid #d8d8d8;
+  background-color: #faf9f9;
   font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
   @media (max-width: 768px) {
-  width: 40%;
-  min-height: 150px;
-  position: absolute;
+    width: 40%;
+    min-height: 150px;
+    position: absolute;
   }
-  `;
-  
-  const State = styled.img`
-    width: 8vh;
-    height: 8vh;
-    `;
+`;
+
+const State = styled.img`
+  width: 8vh;
+  height: 8vh;
+`;
 const FitnessBox = styled.div`
   position: relative;
   margin: 0 10% 0 10%;
   width: 80%;
-  border: 1px solid #D8D8D8;
-  background-color: #FAF9F9;
+  border: 1px solid #d8d8d8;
+  background-color: #faf9f9;
   font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
   @media (max-width: 768px) {
     position: absolute;
     min-height: 150px;
-  width: 40%;
-  left: 45%;
-  top: 100%;
+    width: 40%;
+    left: 45%;
+    top: 100%;
   }
-  `;
+`;
 const Fitimg = styled.img`
   margin: 15%;
   width: 8vh;
   height: 8vh;
-`
+`;
 
 const WeatherCases = {
   Rain: {
@@ -145,17 +145,19 @@ export default function Weather() {
   // const weatherRendering = () => {
   // }
   const sessionid = () => {
-    if (sessionStorage.length !== 0){setIdS(sessionStorage.id)}
+    if (sessionStorage.length !== 0) {
+      setIdS(sessionStorage.id);
+    }
   };
   useEffect(() => {
     const weatherShow = async () => {
       const data = await axios({
         method: 'post',
-        url: 'http://localhost:8000/weather/today_weather',
-        data:{
-          id : idS,
-        }
-        
+        url: '/weather/today_weather',
+        data: {
+          id: idS,
+        },
+
         // id: sessionStorage.id,
         // url: `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`,
       });
@@ -166,29 +168,32 @@ export default function Weather() {
     };
     weatherShow();
   }, []);
-  return <>
-  <Outer>
-    {Object.keys(result).length !== 0 && (
-      <div>
-      <Title>Weather</Title>
-      <WeatherBox>
+  return (
+    <>
+      <Outer>
+        {Object.keys(result).length !== 0 && (
+          <div>
+            <Title>Weather</Title>
+            <WeatherBox>
               <br />
               <p>우리 지역 날씨는?</p>
-              <State src={iconurl} alt='날씨' />
-              <div className='temperature'>
-                현재 기온 {Math.round((result.data.main.temp - 273.15) * 10) / 10}℃
-              <div className='sky'>{WeatherCases[weather].title}</div>
-              <br />
+              <State src={iconurl} alt="날씨" />
+              <div className="temperature">
+                현재 기온{' '}
+                {Math.round((result.data.main.temp - 273.15) * 10) / 10}℃
+                <div className="sky">{WeatherCases[weather].title}</div>
+                <br />
               </div>
-      </WeatherBox>
-    <Title>Today Fitness</Title>
-    <FitnessBox>
+            </WeatherBox>
+            <Title>Today Fitness</Title>
+            <FitnessBox>
               <br />
-            <div className='sky'>{WeatherCases[weather].subtitle}</div>
-    <Fitimg src={WeatherCases[weather].img} />
-    </FitnessBox>
+              <div className="sky">{WeatherCases[weather].subtitle}</div>
+              <Fitimg src={WeatherCases[weather].img} />
+            </FitnessBox>
           </div>
-    )}
-  </Outer>
-  </>;
+        )}
+      </Outer>
+    </>
+  );
 }
