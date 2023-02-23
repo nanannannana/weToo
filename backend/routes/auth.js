@@ -25,7 +25,7 @@ router.post('/signup', async (req, res, next) => {
       pw,
       name,
       city,
-      phone
+      phone,
     });
     return res.status(200).send('회원가입 성공');
   } catch (error) {
@@ -100,7 +100,7 @@ router.put('/updateInfo', async (req, res, next) => {
         nickName: nickName,
         name: name,
         city: city,
-        phone: phone
+        phone: phone,
       },
       { where: { id: id } }
     );
@@ -121,7 +121,7 @@ router.delete('/delInfo', async (req, res, next) => {
         nickName: nickName,
         name: name,
         city: city,
-        phone: phone
+        phone: phone,
       }
     );
     res.send('회원탈퇴');
