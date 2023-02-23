@@ -1,52 +1,110 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
-import './MyInfo.css';
-import Modal from './Modal';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
 
-const BTN1 = styled.button`
-  z-index: 1;
+const Div = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  width: 300px;
+  height: 100%;
+  background-color: #faf9f9;
+  border: 0.5px solid black;
+  text-align: center;
+`;
+const Logo = styled.p`
+  width: 137px;
+  height: 65px;
+  margin: 70px auto -10px;
+
+  font-family: 'Port Lligat Slab';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 64px;
+  cursor: pointer;
+`;
+const ID = styled.input`
+  width: 70%;
+  height: 8%;
+  padding: 10px;
+  border: 1px solid #d8d8d8;
+  ::placeholder {
+    font-size: 3px;
+  }
+`;
+const PW = styled.input`
+  width: 70%;
+  height: 8%;
+  padding: 10px;
+  margin: 8px;
+  border: 1px solid #d8d8d8;
+  ::placeholder {
+    font-size: 3px;
+  }
+`;
+const ErrorMSG = styled.div`
+  width: 62%;
+  margin: auto;
+  color: red;
+  font-size: 10%;
+  text-align: left;
+  font-family: 'Port Lligat Slab';
+`;
+const Line = styled.span`
+  color: #d8d8d8;
+`;
+const LoginBtn = styled.button`
+  width: 70%;
+  height: 8%;
+  border: 1px solid #d8d8d8;
+  cursor: pointer;
+  font-family: 'Port Lligat Slab';
+  background-color: black;
+  color: white;
+
+  &:disabled {
+    /* background-color: unset;
+    color: black;
+    cursor: initial; */
+  }
+`;
+const JoinBtn = styled.button`
+  width: 70%;
+  height: 8%;
+  border: 1px solid #d8d8d8;
+  cursor: pointer;
+  font-family: 'Port Lligat Slab';
+  background-color: black;
+  color: white;
 `;
 
 export default function MyInfo() {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  // 모달창 노출
-  const showModal = () => {
-    setModalOpen(true);
-  };
+  const [id, setId] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [name, setName] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
   return (
     <>
-      <div className="container">
-        <div className="my_info_container">
-          <div className="my_info">
-            <div className="info_pic"></div>
-          </div>
-          <BTN1 onClick={showModal}>정보 수정</BTN1>
-          {modalOpen && <Modal setModalOpen={setModalOpen} />}
-          <button>회원 탈퇴</button>
-        </div>
+      <Div>
+        <Logo onClick={() => window.open('/', '_self')}>MyPage</Logo>
+        <p>이름 {sessionStorage.id}</p>
+        <p>닉네임{sessionStorage.nickname}</p>
+        <p>핸드폰</p>
+        <p>address{sessionStorage.city}</p>
 
-        <div className="crew_container">
-          CREW
-          <div className="crew_card">
-            <ul>
-              <li>서울걷기</li>
-              <li>서울시 용산구</li>
-              <li>멤버수 : 4명</li>
-            </ul>
-          </div>
-        </div>
+        <p>참여중인 동네{sessionStorage.address}</p>
 
-        <div className="challenge_container">
-          참여중인 챌린지
-          <div className="challenge_card">
-            <ul>
-              <li>요가교실</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        <button>정보수정</button>
+
+        <p>crew</p>
+
+        <p>challenge</p>
+
+        <button>회원탈퇴</button>
+      </Div>
     </>
   );
 }
