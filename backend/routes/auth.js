@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { tokenCheck } = require('../middleware/tokenCheck');
 
 router.post('/signup', async (req, res, next) => {
-  const { id, nickName, pw, address, city, name } = req.body;
+  const { id, nickName, pw, address, city, name, phone } = req.body;
   console.log(req.body);
 
   try {
@@ -25,7 +25,8 @@ router.post('/signup', async (req, res, next) => {
       pw,
       address,
       name,
-      city
+      city,
+      phone
     });
     return res.status(200).send('회원가입 성공');
   } catch (error) {
@@ -100,7 +101,8 @@ router.put('/updateInfo', async (req, res, next) => {
         nickName: nickName,
         address: address,
         name: name,
-        city: city
+        city: city,
+        phone: phone
       },
       { where: { id: id } }
     );
@@ -111,7 +113,7 @@ router.put('/updateInfo', async (req, res, next) => {
 });
 
 router.delete('/delInfo', async (req, res, next) => {
-  const { id, nickName, address, name, pw, city } = req.body;
+  const { id, nickName, address, name, pw, city, phone } = req.body;
   try {
     await User.destroy(
       { where: { id: id } },
@@ -121,7 +123,8 @@ router.delete('/delInfo', async (req, res, next) => {
         nickName: nickName,
         address: address,
         name: name,
-        city: city
+        city: city,
+        phone: phone
       }
     );
     res.send('회원탈퇴');

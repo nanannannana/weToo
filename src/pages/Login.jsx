@@ -163,11 +163,6 @@ export default function Login() {
       }
   };
 
-  const Loginstart = () => {
-    if (id == '') {
-      alert('아이디를 입력해주세요.');
-    }
-  };
   return (
     <>
       <Div>

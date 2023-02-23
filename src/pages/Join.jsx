@@ -19,7 +19,7 @@ const Div = styled.div`
 const Logo = styled.p`
   width: 137px;
   height: 65px;
-  margin: 70px auto -10px;
+  margin: 20px auto 0px;
 
   font-family: 'Port Lligat Slab';
   font-style: normal;
@@ -38,6 +38,15 @@ const ID = styled.input`
   }
 `;
 const Name = styled.input`
+  width: 69%;
+  height: 3%;
+  padding: 10px;
+  border: 1px solid #d8d8d8;
+  ::placeholder {
+    font-size: 3px;
+  }
+`;
+const Phone = styled.input`
   width: 69%;
   height: 3%;
   padding: 10px;
@@ -69,6 +78,7 @@ const City = styled.select`
   height: 6%;
   padding-left: 7px;
   border: 1px solid #d8d8d8;
+  color: #999999;
   font-size: 10px;
   ::placeholder {
     font-size: 3px;
@@ -99,6 +109,7 @@ export default function JoinBox() {
 
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
+  const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const [city, setCity] = useState('');
@@ -118,11 +129,20 @@ export default function JoinBox() {
   const registerNickname = (e) => {
     setNickname(e.target.value);
   };
+  const registerPhone = (e) => {
+    setPhone(e.target.value);
+  };
   const registerAddress = (e) => {
     setAddress(e.target.value);
   };
-
+  console.log('번호길이',phone.length);
+  console.log('번호타입',phone.type);
   const register = async () => {
+    if(phone.length !== 11){
+      alert('11자리가 맞는지 확인해주세요.');
+    }else if(phone[0,2] !== '010'){
+      alert('옳바른 형식이 아닙니다. ex.01012341234');
+    } else
     try {
       const request = await axios({
         method: 'post',
@@ -134,6 +154,7 @@ export default function JoinBox() {
           address: address,
           name: name,
           nickName: nickname,
+          phone: phone
         },
       });
 
@@ -155,14 +176,6 @@ export default function JoinBox() {
     <>
       <Div>
         <Logo onClick={() => window.open('/', '_self')}>WeTo</Logo>
-        <Name placeholder="Name" value={name} onChange={registerName}></Name>
-        <br />
-        <Nickname
-          placeholder="Nickname"
-          value={nickname}
-          onChange={registerNickname}
-        ></Nickname>
-        <br />
         <ID placeholder="ID" value={id} onChange={registerId} required />
         <br />
         <PW
@@ -172,6 +185,16 @@ export default function JoinBox() {
           onChange={registerPwd}
           required
         />
+        <div>user info</div>
+        <Name placeholder="Name" value={name} onChange={registerName}></Name>
+        <br />
+        <Nickname
+          placeholder="Nickname"
+          value={nickname}
+          onChange={registerNickname}
+        ></Nickname>
+        <Phone placeholder="Phone ex.01012341234" value={phone} onChange={registerPhone} type='number' required></Phone>
+        <br />
         <div>----------side info----------</div>
         <City name="items1" onChange={registerCity} required>
           <option value="">Address</option>
