@@ -24,10 +24,11 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Join" element={<Join />} />
         <Route path="/challenge" element={<Challenge />} />
-        <Route path="/crew" element={<Crew />} />
+        <Route path="/chat" element={<Crew />} />
+        <Route path="/crew/:page" element={<Crew />} />
         <Route path="/recommendation" element={<Recommendation />} />
         <Route path="/mypage" element={<Mypage />} />
-        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/crew" element={<ChatPage />} />
       </Routes>
     </div>
   );

@@ -134,7 +134,11 @@ export default function Weather() {
   const [result, setResult] = useState({});
   const [weather, setWeather] = useState();
   const [icon, setIcon] = useState();
-  const [city, setCity] = useState((sessionStorage.city !== undefined ? sessionStorage.city.split('/')[0] : 'seoul'));
+  const [city, setCity] = useState(
+    sessionStorage.city !== undefined
+      ? sessionStorage.city.split('/')[0]
+      : 'seoul'
+  );
 
   // const API_KEY = '4281729cba61323b40e791c6036334ed';
   const iconurl = `http://openweathermap.org/img/w/${icon}.png`;
@@ -151,9 +155,9 @@ export default function Weather() {
       const data = await axios({
         method: 'post',
         url: 'http://localhost:8000/weather/today_weather',
-        data:{
-          city : city,
-        }
+        data: {
+          city: city,
+        },
         // id: sessionStorage.id,
         // url: `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?q=${Region}&appid=${API_KEY}`,
       });

@@ -5,9 +5,13 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { crewShow, infoShow, crewMain } from '../store/modules/crew';
+import {
+  crewShow,
+  infoShow,
+  crewMain,
+  crewChange,
+} from '../store/modules/crew';
 import axios from 'axios';
-import { crewDel } from '../store/modules/crew';
 
 const Div = styled.div`
   position: absolute;
@@ -15,12 +19,6 @@ const Div = styled.div`
   right: 7%;
   top: 150px;
   text-align: center;
-`;
-const DivCrewBox = styled.div`
-  position: relative;
-  margin: 0 70px;
-  top: 20%;
-  display: flex;
 `;
 
 const CrewTitle = styled.input`
@@ -57,11 +55,11 @@ const Person = styled.select`
   border: 1px solid #d8d8d8;
   margin: 5px 20px;
 `;
-const CityInfo = styled.select`
+const CityInfo = styled.input`
   width: 65%;
   padding: 10px;
   border: 1px solid #d8d8d8;
-  margin: 5px 52px;
+  margin: 5px 50px;
 `;
 export default function Crew() {
   const [show, setShow] = useState(false);
@@ -87,7 +85,7 @@ export default function Crew() {
   const [cityInfo, setCityInfo] = useState('');
   const [max, setMax] = useState(2);
 
-  const del = useSelector((state) => state.crew.crewDel);
+  const change = useSelector((state) => state.crew.crewChange);
 
   console.log('user', user);
   const addCrew = () => {
@@ -100,8 +98,9 @@ export default function Crew() {
     formData.append('img', img);
     axios.post('/crew/putCrew', formData).then((res) => {
       console.log(res);
-      dispatch(crewMain(res.data));
+      // dispatch(crewMain(res.data));
       setShow(false);
+      dispatch(crewChange(true));
     });
   };
 
@@ -127,8 +126,8 @@ export default function Crew() {
     };
     axiosData();
     dispatch(infoShow(false));
-    dispatch(crewDel(false));
-  }, [del]);
+    dispatch(crewChange(false));
+  }, [change]);
 
   return (
     <div>
@@ -189,9 +188,9 @@ export default function Crew() {
           +CREW
         </Button>
       </Div>
-      <DivCrewBox>
-        <CrewBox />
-      </DivCrewBox>
+      {/* <DivCrewBox> */}
+      <CrewBox />
+      {/* </DivCrewBox> */}
 
       {/* <DivChatBox>
         <ChatBox />
