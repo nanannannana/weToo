@@ -146,7 +146,6 @@ export default function Login() {
           sessionStorage.setItem('id', data.data.data.id);
           sessionStorage.setItem('name', data.data.data.name);
           sessionStorage.setItem('nickName', data.data.data.nickName);
-          sessionStorage.setItem('address', data.data.data.address);
           sessionStorage.setItem('city', data.data.data.city);
           alert('로그인 성공');
           navigate('/');

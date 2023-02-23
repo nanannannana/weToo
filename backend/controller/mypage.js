@@ -10,7 +10,7 @@ exports.My_info = async (req, res, next) => {
     const userInfo = await User.findOne({
       raw: true,
       where: { id: req.body.id },
-      attributes: ['nickName', 'id', 'address', 'name', 'city'],
+      attributes: ['nickName', 'id', 'name', 'city'],
     });
     // db에서 기부금 정보 불러오기
     const amount = await Challenge.findAll({

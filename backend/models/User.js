@@ -29,10 +29,6 @@ class User extends Sequelize.Model {
           type: Sequelize.STRING(11),
           allowNull: false,
         },
-        address: {
-          type: Sequelize.STRING(100),
-          allowNull: false,
-        },
         city: {
           type: Sequelize.STRING(100),
           allowNull: false,

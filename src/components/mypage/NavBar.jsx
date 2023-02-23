@@ -14,7 +14,7 @@ function BasicExample() {
 
   useEffect(() => {
     dispatch(userInfoCreate({
-      'id':sessionStorage.id, 'name':sessionStorage.name, 'nickName':sessionStorage.nickName,'address':sessionStorage.address, 'city':sessionStorage.city
+      'id':sessionStorage.id, 'name':sessionStorage.name, 'nickName':sessionStorage.nickName, 'city':sessionStorage.city
     }));
   },[]);
   const info = useSelector((state) => state.user.userInfo);
@@ -24,7 +24,6 @@ function BasicExample() {
     sessionStorage.removeItem('id');
     sessionStorage.removeItem('name');
     sessionStorage.removeItem('nickName');
-    sessionStorage.removeItem('address');
     sessionStorage.removeItem('city');
     navigate('/');
   };
