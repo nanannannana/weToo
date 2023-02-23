@@ -166,17 +166,21 @@ function BodyShorthandExample(crews) {
           <div className="my_info">
             <div className="info_pic">
               <ul>
-                <li>이름 : {result.name}</li>
-                <li>닉네임 : {result.nickName}</li>
-                <li>아이디 : {result.id}</li>
-                <li>지역 : {result.address}</li>
+                <li>이름 {result.name}</li>
+                <li>닉네임 {result.nickName}</li>
+                <li>아이디 {result.id}</li>
+                <li>지역 {result.address}</li>
               </ul>
             </div>
           </div>
           <Button variant="light" onClick={handleShow} className="edit_profile">
             정보 수정
           </Button>
-          <Button variant="light" onClick={() => deleteInfo()}>
+          <Button
+            variant="light"
+            onClick={() => deleteInfo()}
+            className="del_profile"
+          >
             탈퇴하기
           </Button>
         </div>
@@ -185,8 +189,10 @@ function BodyShorthandExample(crews) {
           <span className="crew">CREW</span>
           <div className="crew_card">
             <ul>
-              <li>{crew}</li>
-              <li></li>
+              <div>
+                <li>{crew.map((el) => el.title)}</li>
+                <li>{crew.map((el) => el.image)}</li>
+              </div>
               <li></li>
             </ul>
           </div>
@@ -196,7 +202,7 @@ function BodyShorthandExample(crews) {
           <span className="challenge">CHALLENGE</span>
           <div className="challenge_card">
             <ul>
-              <li>모금 금액 : {amount}</li>
+              <li>모금 금액 {amount}원</li>
             </ul>
           </div>
         </div>
