@@ -13,15 +13,10 @@ function BasicExample() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      userInfoCreate({
-        id: sessionStorage.id,
-        name: sessionStorage.name,
-        nickName: sessionStorage.nickName,
-        address: sessionStorage.address,
-      })
-    );
-  }, []);
+    dispatch(userInfoCreate({
+      'id':sessionStorage.id, 'name':sessionStorage.name, 'nickName':sessionStorage.nickName,'address':sessionStorage.address, 'city':sessionStorage.city
+    }));
+  },[]);
   const info = useSelector((state) => state.user.userInfo);
   console.log('로그인상태', info);
 
@@ -30,6 +25,7 @@ function BasicExample() {
     sessionStorage.removeItem('name');
     sessionStorage.removeItem('nickName');
     sessionStorage.removeItem('address');
+    sessionStorage.removeItem('city');
     navigate('/');
   };
   return (
