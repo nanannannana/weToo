@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import crewdata from '../../crewdata.js';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './CrewBox.module.css';
 import ChatBox from './ChatBox.jsx';
@@ -47,17 +47,18 @@ const CrewBox = () => {
                 className={classes.crewImg}
                 onClick={() => handleClickButton(v)}
               />
-              <Button
-                variant="light"
+              <button
+                // variant="light"
+                className={classes.crewBtn}
                 onClick={() => handleClickButton(v)}
                 key={i}
               >
                 {v.title}
-              </Button>
+              </button>
               {user.nickName === v.User_nickName ? (
-                <Button variant="secondary" onClick={() => CrewDel(v)}>
-                  삭제
-                </Button>
+                <button className={classes.delBtn} onClick={() => CrewDel(v)}>
+                  ❎
+                </button>
               ) : (
                 true
               )}
