@@ -1,12 +1,15 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { modal } from '../../store/modules/challenge';
+import { modal, reRender } from '../../store/modules/challenge';
 
 export default function ModalCH() {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.challenge.modal);
-  const ModalClose = () => dispatch(modal(false));
+  const ModalClose = () => {
+    dispatch(modal(false));
+    dispatch(reRender(true));
+  };
 
   return (
     <>

@@ -6,6 +6,7 @@ import {
   infochange,
   infoshow,
   modal,
+  reRender,
 } from '../store/modules/challenge';
 import Info from '../components/challenge/Info';
 import ChallengeBox from '../components/challenge/ChallengeBox';
@@ -33,6 +34,7 @@ export default function Challenge() {
     dispatch(infoshow(false));
     dispatch(modal(false));
     dispatch(goupload(false));
+    dispatch(reRender(false));
   }, []);
 
   return (
