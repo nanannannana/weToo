@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 function BodyShorthandExample(crews) {
   const navigate = useNavigate();
   // const myCrew = useSelector(state => state.myCrew)
-  const myCrew = [{ id: 1, title: '같이 운동해요', max: 2 }, {}, {}];
+  // const myCrew = [{ id: 1, title: '같이 운동해요', max: 2 }, {}, {}];
 
   const [show, setShow] = useState(false);
   const [result, setResult] = useState({});
@@ -162,7 +162,7 @@ function BodyShorthandExample(crews) {
 
       <div className="container">
         <div className="my_info_container">
-          나의 정보
+          <span className="myInfo">MyInfo</span>
           <div className="my_info">
             <div className="info_pic">
               <ul>
@@ -176,10 +176,13 @@ function BodyShorthandExample(crews) {
           <Button variant="light" onClick={handleShow} className="edit_profile">
             정보 수정
           </Button>
+          <Button variant="light" onClick={() => deleteInfo()}>
+            탈퇴하기
+          </Button>
         </div>
 
         <div className="crew_container">
-          CREW
+          <span className="crew">CREW</span>
           <div className="crew_card">
             <ul>
               <li>{crew}</li>
@@ -190,10 +193,10 @@ function BodyShorthandExample(crews) {
         </div>
 
         <div className="challenge_container">
-          참여중인 챌린지
+          <span className="challenge">CHALLENGE</span>
           <div className="challenge_card">
             <ul>
-              <li>현재 모금 금액 : {amount}</li>
+              <li>모금 금액 : {amount}</li>
             </ul>
           </div>
         </div>
