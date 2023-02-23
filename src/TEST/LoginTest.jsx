@@ -9,7 +9,7 @@ function LoginTest() {
         onClick={async () => {
           const data = await axios({
             method: 'post',
-            url: 'http://localhost:8000/auth/login',
+            url: '/auth/login',
             data: {
               id: 'asd',
               pw: '123',
@@ -24,7 +24,7 @@ function LoginTest() {
         onClick={async () => {
           const data = await axios({
             method: 'post',
-            url: 'http://localhost:8000/auth/userinfo',
+            url: '/auth/userinfo',
           });
           console.log(data);
         }}

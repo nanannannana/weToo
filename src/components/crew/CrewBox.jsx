@@ -23,7 +23,7 @@ const CrewBox = () => {
 
   const CrewDel = (v) => {
     axios
-      .delete('http://localhost:8000/crew/crewDel', {
+      .delete('/crew/crewDel', {
         data: {
           id: v.id,
           image: v.image,

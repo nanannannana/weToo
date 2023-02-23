@@ -90,6 +90,7 @@ li.myMessage {
 .relative {
   position: relative;
   width: 25%;
+  height: 600px;
 }
 .room form {
   position: absolute;
@@ -142,7 +143,6 @@ form button {
   border-radius: 10px;
 }
 
-
 /* crew */
 .chatPage {
   display: flex;
@@ -163,7 +163,7 @@ form button {
   height: 15vw;
   background: #b39393;
   margin: 0 6% 30px 0;
-  background-size:cover;
+  background-size: cover;
   cursor: pointer;
 }
 .crewPost h3 {
@@ -176,10 +176,9 @@ form button {
 .defaultChat {
   width: 25%;
   height: 35vw;
-  background: #FAF9F9;
+  background: #faf9f9;
   border: 1px solid #dbdbdb;
   padding-top: 3vw;
-  
 }
 .defaultChat img {
   width: 60%;
@@ -205,7 +204,7 @@ form button {
 .CrewInfoBox {
   width: 25%;
   height: 35vw;
-  background: #FAF9F9;
+  background: #faf9f9;
   border: 1px solid #dbdbdb;
   padding-top: 3vw;
 }

@@ -74,7 +74,6 @@ const LoginBtn = styled.button`
     color: black;
     cursor: initial; */
   }
-
 `;
 const JoinBtn = styled.button`
   width: 70%;
@@ -127,7 +126,6 @@ export default function Login() {
   };
 
   const login = async () => {
-
     // setSavedLoginId(sessionStorage.getItem('id'));
     // setSavedLoginPassword(sessionStorage.getItem('pw'));
     if (pw == '') {
@@ -136,7 +134,7 @@ export default function Login() {
       try {
         const data = await axios({
           method: 'post',
-          url: 'http://localhost:8000/auth/login',
+          url: '/auth/login',
           data: {
             id,
             pw,
@@ -144,7 +142,7 @@ export default function Login() {
         });
         if (data.data.message == '로그인 성공!') {
           // dispatch(userInfoCreate(data.data.data));
-          console.log("양식",data.data.data);
+          console.log('양식', data.data.data);
           sessionStorage.setItem('id', data.data.data.id);
           sessionStorage.setItem('name', data.data.data.name);
           sessionStorage.setItem('nickName', data.data.data.nickName);

@@ -26,7 +26,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
     console.log('ChattingListLoad', user.id);
     const data = await axios({
       method: 'post',
-      url: `http://localhost:8000/chat/load`,
+      url: `/chat/load`,
       data: {
         currentCrew: currentCrew.id,
         // id : user.id, //닉네임을 하고 싶었지만 중간테이블이여서 자동 id값으로 들어간다.
@@ -51,7 +51,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
 
   let notChatLoading = useRef(true);
   async function moreChattinglist() {
-    console.log('notChatLoading.current', notChatLoading.current)
+    console.log('notChatLoading.current', notChatLoading.current);
     if (!notChatLoading.current && room.current.scrollTop == 0) {
       return alert('더 이상 대화내용이 없습니다!');
     }
@@ -69,7 +69,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
 
       const data = await axios({
         method: 'post',
-        url: `http://localhost:8000/chat/load`,
+        url: `/chat/load`,
         data: {
           currentCrew: currentCrew.id,
           id: user.id, //닉네임을 하고 싶었지만 중간테이블이여서 자동 id값으로 들어간다.
@@ -80,7 +80,6 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
       console.log(data);
       if (data.data.length < 20) {
         notChatLoading.current = false;
-        
       } else {
         notChatLoading.current = true;
       }
@@ -153,7 +152,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
     }); //게시물 id도 같이 보내야한다.
     const data = await axios({
       method: 'post',
-      url: 'http://localhost:8000/chat/message',
+      url: '/chat/message',
       data: {
         chat: inputValue.current.value,
         nickName: user.nickName,
@@ -166,7 +165,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
   return (
     <div className="relative">
       <div ref={room} className="room">
-      <div className="roomTitle">{currentCrew.title}</div>
+        <div className="roomTitle">{currentCrew.title}</div>
         <ul>
           {chatting.map((data, i, chatlist) => {
             return data.type == 'notice' ? (

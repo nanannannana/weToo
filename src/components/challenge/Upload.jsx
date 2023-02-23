@@ -78,7 +78,7 @@ export default function Upload() {
     formData.append('user_id', sessionStorage.id);
     formData.append('img', imgUrl);
     await axios
-      .post('http://localhost:8000/challenge/upLoadData', formData)
+      .post('/challenge/upLoadData', formData)
       .then(() => dispatch(goupload(false)));
   };
 

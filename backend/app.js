@@ -12,7 +12,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'http://3.35.48.121:3000'],
     methods: ['GET', 'POST'],
   },
 });
@@ -91,7 +91,7 @@ app.use(express.urlencoded({ extended: false })); // uri 파싱
 app.use(cookieParser());
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000', 'http://3.35.48.121:3000'],
     credentials: true,
     method: ['GET', 'POST', 'DELETE', 'PATCH'],
   })
