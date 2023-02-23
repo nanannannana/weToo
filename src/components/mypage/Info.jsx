@@ -176,33 +176,36 @@ function BodyShorthandExample(crews) {
           <Button variant="light" onClick={handleShow} className="edit_profile">
             정보 수정
           </Button>
-          <Button
+          {/* <Button
             variant="light"
             onClick={() => deleteInfo()}
             className="del_profile"
           >
             탈퇴하기
-          </Button>
+          </Button> */}
         </div>
-
         <div className="crew_container">
           <span className="crew">CREW</span>
           <div className="crew_card">
             <ul>
-              <div>
-                <li>{crew.map((el) => el.title)}</li>
-                <li>{crew.map((el) => el.image)}</li>
-              </div>
+              {crew.map((el, i) => (
+                <div className="crew_info" key={i}>
+                  <img alt="img" src={el.image} />
+                  <p>{el.title}</p>
+                  <p>{el.info}</p>
+                </div>
+              ))}
+
               <li></li>
             </ul>
           </div>
         </div>
 
         <div className="challenge_container">
-          <span className="challenge">CHALLENGE</span>
+          <div className="challenge">CHALLENGE</div>
           <div className="challenge_card">
             <ul>
-              <li>모금 금액 {amount}원</li>
+              <li className="amount">모금 금액 {amount}원</li>
             </ul>
           </div>
         </div>
