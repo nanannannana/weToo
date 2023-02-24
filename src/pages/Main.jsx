@@ -5,6 +5,7 @@ import NavBar from '../components/mypage/NavBar.jsx'
 import { useDispatch, useSelector } from 'react-redux';
 import { BsArrowRight } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import MainCrew from '../components/main/MainCrew.jsx';
 
 const Fdiv = styled.div`
   position: absolute;
@@ -69,7 +70,6 @@ const CrBox = styled.div`
   @media (max-width: 820px) {
     /* background-color: #FAF9F9; */
     height: 25vh;
-    background-color: yellow;
     padding: unset;
   }
   `;
@@ -164,7 +164,10 @@ export default function Main({arrowShow}) {
     <Fdiv>
       <Ldiv>
         <CrBox>
+        <Link as={Link} to="/crew" style={{ textDecoration: "none" , color:"black" }}>
           Crew
+          <MainCrew />
+        </Link>
         </CrBox>
         <ChBox>
           OPEN Challenge
