@@ -84,7 +84,7 @@ const ChBox = styled.div`
   height: 30vm;
   top: 16vw;
   font-size: 2vw;
-  background-color: #FAF9F9;
+  /* background-color: #FAF9F9; */
   @media (max-width: 912px) {
     padding-left: unset;
     /* background-color: #FAF9F9; */
