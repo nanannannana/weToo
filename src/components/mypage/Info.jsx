@@ -10,13 +10,14 @@ import { Collapse } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Space } from 'antd';
 import { Col, Row, Statistic } from 'antd';
+import { Pagination } from 'antd';
 
 const { Panel } = Collapse;
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+// const text = `
+//   A dog is a type of domesticated animal.
+//   Known for its loyalty and faithfulness,
+//   it can be found as a welcome guest in many households across the world.
+// `;
 
 function BodyShorthandExample(crews) {
   const navigate = useNavigate();
