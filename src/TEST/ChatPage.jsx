@@ -54,6 +54,8 @@ export default function ChatPage() {
 
   async function joinCrew() {
     console.log('현재 크루', currentCrew);
+    console.log('아이디상태',sessionStorage.id);
+    if(!sessionStorage.id){return alert('로그인 후 이용해주세요.') }
     if (currentCrew.users?.find((e) => e.nickName == user.nickName)) {
       //데미더이터
       //내 유저 아이디와 같은게 있다면
