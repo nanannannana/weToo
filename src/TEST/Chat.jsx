@@ -145,11 +145,15 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
   //소켓이 변한다는건 다른 유저가 들어왔다는 거다 그래서 변할 때마다 공지를 해준다.
 
   const sendMessage = async () => {
+    if (inputValue.current.value == ''){
+      return 
+    }
     socket.emit('sendMsg', {
       chat: inputValue.current.value,
       nickName: user.nickName,
       currentCrew,
     }); //게시물 id도 같이 보내야한다.
+
     const data = await axios({
       method: 'post',
       url: '/chat/message',
