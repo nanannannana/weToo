@@ -1,4 +1,7 @@
 import { Carousel } from 'antd';
+import banner1 from '../../static/images/banner1.png'
+import banner2 from '../../static/images/banner2.png'
+import banner3 from '../../static/images/banner3.png'
 
 const contentStyle = {
   height: '160px',
@@ -9,15 +12,9 @@ const contentStyle = {
 };
 const MainCrew = () => (
   <Carousel autoplay>
-    <div>
-      <h3 style={contentStyle}>1</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>2</h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}>3</h3>
-    </div>
+        <img src={banner1} alt="" />
+        <img src={banner2} alt="" />
+        <img src={banner3} alt="" />
   </Carousel>
 );
 export default MainCrew;

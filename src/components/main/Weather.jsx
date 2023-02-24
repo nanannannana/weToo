@@ -17,7 +17,7 @@ const Outer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: yellow;
+  /* background-color: yellow; */
   @media (max-width: 820px) {
     display: inline-block;
     width: 100%;

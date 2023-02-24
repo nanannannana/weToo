@@ -20,7 +20,6 @@ const Logo = styled.p`
   width: 137px;
   height: 65px;
   margin: 20px auto 0px;
-
   font-family: 'Port Lligat Slab';
   font-style: normal;
   font-weight: 400;
@@ -97,7 +96,6 @@ const Joinbtn = styled.button`
 export default function JoinBox() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
   const [phone, setPhone] = useState('');
