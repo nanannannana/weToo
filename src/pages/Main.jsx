@@ -18,6 +18,12 @@ const Fdiv = styled.div`
   @media (max-width: 912px) {
   height: 30%;
   }
+  @media (max-width: 540px) {
+  top:26vw;
+  }
+  @media (max-width: 426px) {
+  top:60vw;
+  }
 `;
 const Div = styled.div`
   position: absolute;
@@ -27,7 +33,6 @@ const Div = styled.div`
   top: 50%;
   transform: translate(0%, -50%);
   text-align: center;
-  /* background-color: blue; */
   @media (max-width: 912px) {
   position: relative;
   width: 80%;
@@ -53,12 +58,12 @@ const Ldiv = styled.div`
   width: 80%;
   top: 15vh;
   left: 50%;
-  height: 20vh;
+  height: 30vh;
   transform: translate(-50%, 50%);
   text-align: center;
-  }
-  @media (max-width: 540px){
-    top: 40%;
+}
+@media (max-width: 540px){
+    top: 24vw;
   }
   `;
 
@@ -73,6 +78,10 @@ const CrBox = styled.div`
     /* background-color: #FAF9F9; */
     height: 10vh;
     padding: unset;
+    font-size: 5vw;
+  }
+  @media (max-width: 426px) {
+    font-size: 6vw;
   }
   `;
 
@@ -82,23 +91,30 @@ const ChBox = styled.div`
   padding-top : 5%;
   width: 100%;
   height: 30vm;
-  top: 16vw;
+  top: 14.5vw;
   font-size: 2vw;
-  background-color: #FAF9F9;
+  /* background-color: #FAF9F9; */
   @media (max-width: 912px) {
     padding-left: unset;
-    /* background-color: #FAF9F9; */
-    height: 30vw;
-    top: 15vh;
+    background-color: #faf9f9;
+    border: 1px solid #dbdada;
+    height: 40vw;
+    top: 16vh;
+    font-size: 5vw;
+  }
+  @media (max-width: 426px) {
+    height: 50vw;
+    top: 13vh;
+    font-size: 6vw;
   }
 `;
 // -------------------------------------------------------------
 const ChallengeItems = styled.div`
   // 위치 지정
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   display: flex;
   justify-content: space-between;
-  width: 70%;
+  width: 80%;
 
   // 폰트 지정
   @font-face {
@@ -119,13 +135,14 @@ const ChallengeItems = styled.div`
   }
   @media (max-width: 1200px) {
     font-size: 2vw;
+    margin-bottom: 20px;
   }
   @media (max-width: 912px) {
     font-size: 3vw;
     display: inline;
   }
   @media (max-width: 426px) {
-    font-size: 2vw;
+    font-size: 5vw;
   }
   @media (max-width: 321px) {
     font-size: 1.7vw;
