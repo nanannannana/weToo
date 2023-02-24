@@ -4,6 +4,8 @@ const router = express.Router();
 const MatePost = require('../models/MatePost');
 const { tokenCheck } = require('../middleware/tokenCheck');
 const { Op } = require('sequelize');
+const fs = require('fs');
+const db = require('../models');
 
 router.get('/', async (req, res, next) => {
   // console.log(req.query);
@@ -61,6 +63,20 @@ router.delete('/outcrew', tokenCheck, async (req, res, next) => {
     if (!matePost) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
+    console.log(matePost);
+    const crewMember = await db.sequelize.models.matePost_user_join.findAll({
+      where: {
+        MatePost_id: crewId,
+      },
+      attributes: ['MatePost_id'],
+    });
+    console.log('crewMember', crewMember);
+    if (crewMember.length == 1) {
+      await MatePost.destroy({
+        where: { id: crewId },
+      });
+      fs.unlinkSync(`../build${matePost.dataValues.image}`);
+    }
     await matePost.removeUsers(req.decoded.id);
     res.send('탈퇴성공');
   } catch (error) {
@@ -85,7 +101,9 @@ router.post('/create', tokenCheck, async (req, res, next) => {
       User_nickName: req.decoded.nickName,
     });
     //console.log(record);
-    const matePost = await MatePost.findOne({ where: { id: crew.dataValues.id } });
+    const matePost = await MatePost.findOne({
+      where: { id: crew.dataValues.id },
+    });
     if (!matePost) {
       return res.status(403).send('게시글이 존재하지 않습니다.');
     }
