@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import './Info.css';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -6,18 +7,139 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { Collapse } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Space } from 'antd';
-import { Col, Row, Statistic } from 'antd';
-import { Pagination } from 'antd';
 
-const { Panel } = Collapse;
-// const text = `
-//   A dog is a type of domesticated animal.
-//   Known for its loyalty and faithfulness,
-//   it can be found as a welcome guest in many households across the world.
-// `;
+const Fdiv = styled.div`
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  width: 90%;
+  /* background-color: beige; */
+  max-width: 1930px;
+  height: 85%;
+  @media (max-width: 912px) {
+    height: 30%;
+  }
+`;
+const Div = styled.div`
+  position: absolute;
+  width: 40%;
+  height: 90%;
+  right: 1%;
+  top: 50%;
+  transform: translate(0%, -50%);
+  text-align: center;
+  font-size: 1.5vw;
+  /* background-color: #faf9f9; */
+  @media (max-width: 912px) {
+    position: relative;
+    width: 80%;
+    height: 70%;
+    top: -20%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    text-align: center;
+  }
+  @media (max-width: 376px) {
+    top: -50%;
+  }
+`;
+const Ldiv = styled.div`
+  position: absolute;
+  width: 57%;
+  height: 90%;
+  left: 1%;
+  top: 50%;
+  transform: translate(0%, -50%);
+  /* background-color: yellow; */
+  @media (max-width: 912px) {
+    width: 80%;
+    top: 15vh;
+    left: 50%;
+    height: 20vh;
+    transform: translate(-50%, 50%);
+    text-align: center;
+  }
+  @media (max-width: 540px) {
+    top: 40%;
+  }
+`;
+
+const CrBox = styled.div`
+  position: absolute;
+  /* padding-left: 10%; */
+  width: 100%;
+  height: 30%;
+  font-size: 2vw;
+  /* background-color: red; */
+  @media (max-width: 912px) {
+    /* background-color: #FAF9F9; */
+    height: 10vh;
+    padding: unset;
+  }
+`;
+
+const ChBox = styled.div`
+  position: relative;
+  /* padding-left: 10%;
+  padding-top: 5%; */
+  width: 100%;
+  height: 30vm;
+  top: 16vw;
+  font-size: 2vw;
+  /* background-color: #faf9f9; */
+  @media (max-width: 912px) {
+    padding-left: unset;
+    /* background-color: #FAF9F9; */
+    height: 30vw;
+    top: 15vh;
+  }
+`;
+// -------------------------------------------------------------
+const ChallengeItems = styled.div`
+  // 위치 지정
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+
+  // 폰트 지정
+  @font-face {
+    font-family: 'ONE-Mobile-Title';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff')
+      format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+  font-family: 'ONE-Mobile-Title';
+  font-size: 1.7vw;
+  @media (max-width: 1919px) {
+    font-size: 1.3vw;
+  }
+  @media (max-width: 1441px) {
+    font-size: 1.7vw;
+    margin-bottom: 30px;
+  }
+  @media (max-width: 1200px) {
+    font-size: 2vw;
+  }
+  @media (max-width: 912px) {
+    font-size: 3vw;
+    display: inline;
+  }
+  @media (max-width: 426px) {
+    font-size: 2vw;
+  }
+  @media (max-width: 321px) {
+    font-size: 1.7vw;
+  }
+`;
+const ChallengeItem = styled.div`
+  &:hover {
+    color: #505050;
+  }
+`;
 
 function BodyShorthandExample(crews) {
   const navigate = useNavigate();
@@ -97,9 +219,6 @@ function BodyShorthandExample(crews) {
     sessionStorage.clear();
     alert('탈퇴완료');
     navigate('/');
-    // sessionStorage.clear();
-    // alert('탈퇴완료!');
-    // navigate('/');
   };
 
   const updateInfo = async () => {
@@ -119,48 +238,55 @@ function BodyShorthandExample(crews) {
   };
 
   return (
-    <div className="total_container">
-      <div className="user_container">
-        <Space direction="vertical" size={16} className="avatar">
-          <Space wrap size={16}>
-            <Avatar size={64} icon={<UserOutlined />} />
-          </Space>
-        </Space>
-        <div className="my_info">
-          <div>{result.name}</div>
-          <div>{result.nickName}</div>
-          {/* <div>{result.id}</div> */}
-          <div>{result.city}</div>
-          {/* <Row gutter={16}> */}
-          <Col span={12}>
-            <Statistic title="donation" value={amount} />
-          </Col>
-          {/* </Row> */}
-        </div>
-        <Button variant="light" onClick={handleShow} className="edit_profile">
-          정보 수정
-        </Button>
-      </div>
-      {/* <div className="challenge_box">dfasd</div> */}
-      {/* <Row gutter={16}>
-        <Col span={12}>
-          <Statistic title="challenge" value={amount} />
-        </Col>
-      </Row> */}
-
-      <Collapse accordion className="accordion">
-        <Panel header="CREW" key="1">
-          <p>
+    <>
+      <Fdiv>
+        <Ldiv>
+          <CrBox>
+            <div>현재까지 기부 금액</div>
+            <div>{amount}원</div>
+          </CrBox>
+          <ChBox>
+            CREW
+            <br />
+            <br />
             {crew.map((el, i) => (
               <div className="crew_info" key={i}>
                 <img alt="img" src={el.image} className="crew_img" />
-                <p>{el.title}</p>
-                <p>{el.info}</p>
+                <div className="crew_word">
+                  <div>{el.title}</div>
+                  <div>{el.info}</div>
+                </div>
               </div>
             ))}
-          </p>
-        </Panel>
-      </Collapse>
+            <React.Fragment>
+              <ChallengeItems>
+                <ChallengeItem></ChallengeItem>
+              </ChallengeItems>
+            </React.Fragment>
+          </ChBox>
+        </Ldiv>
+        <Div>
+          <div className="my_info_container">
+            {/* <div className="myInfo">나의 정보</div> */}
+            <Space direction="vertical" size={16} className="avatar">
+              <Space wrap size={16}>
+                <Avatar size={64} icon={<UserOutlined />} />
+              </Space>
+            </Space>
+            <div> {result.name}</div>
+            <div> {result.nickName}</div>
+            <div> {result.id}</div>
+            <div> {result.city}</div>
+            <Button
+              variant="light"
+              onClick={handleShow}
+              className="edit_profile"
+            >
+              정보 수정
+            </Button>
+          </div>
+        </Div>
+      </Fdiv>
 
       <div>
         <Modal show={show} onHide={handleClose}>
@@ -214,59 +340,7 @@ function BodyShorthandExample(crews) {
           </Modal.Footer>
         </Modal>
       </div>
-
-      {/* <div className="container">
-        <div className="my_info_container">
-          <span className="myInfo">MyInfo</span>
-          <div className="my_info">
-            <div className="info_pic">
-              <ul>
-                <li>이름 {result.name}</li>
-                <li>닉네임 {result.nickName}</li>
-                <li>아이디 {result.id}</li>
-                <li>지역 {result.city}</li>
-              </ul>
-            </div>
-          </div>
-          <Button variant="light" onClick={handleShow} className="edit_profile">
-            정보 수정
-          </Button> */}
-      {/* <Button
-            variant="light"
-            onClick={() => deleteInfo()}
-            className="del_profile"
-          >
-            탈퇴하기
-          </Button> */}
-      {/* </div> */}
-      {/* <div className="crew_container">
-          <span className="crew">CREW</span>
-          <div className="crew_card">
-            <ul>
-              {crew.map((el, i) => (
-                <div className="crew_info" key={i}>
-                  <img alt="img" src={el.image} />
-                  <p>{el.title}</p>
-                  <p>{el.info}</p>
-                </div>
-              ))}
-
-              <li></li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="challenge_container">
-          <div className="challenge">CHALLENGE</div>
-          <div className="challenge_card">
-            <ul>
-              <li className="amount">모금 금액 {amount}원</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div> */}
-    </div>
+    </>
   );
 }
 
