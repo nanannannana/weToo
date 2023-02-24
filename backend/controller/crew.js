@@ -36,7 +36,7 @@ exports.putCrew = async (req, res) => {
     address: req.body.city,
   });
 
-  await MatePost.addUsers(req.decoded.id);
+  await newCrew.addUsers(req.decoded.id);
   console.log(newCrew);
   res.send(newCrew.dataValues);
 };
