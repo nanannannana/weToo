@@ -35,6 +35,8 @@ exports.putCrew = async (req, res) => {
     image: '/img/' + req.file.filename,
     address: req.body.city,
   });
+
+  await MatePost.addUsers(req.decoded.id);
   console.log(newCrew);
   res.send(newCrew.dataValues);
 };
