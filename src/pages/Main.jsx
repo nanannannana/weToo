@@ -12,9 +12,10 @@ const Fdiv = styled.div`
   left: 50%;
   transform: translate(-50%, -10%);
   width: 90%;
+  /* background-color: beige; */
   max-width: 1930px;
   height: 85%;
-  @media (max-width: 820px) {
+  @media (max-width: 912px) {
   height: 30%;
   }
 `;
@@ -26,8 +27,8 @@ const Div = styled.div`
   top: 50%;
   transform: translate(0%, -50%);
   text-align: center;
-  /* background-color: red; */
-  @media (max-width: 820px) {
+  /* background-color: blue; */
+  @media (max-width: 912px) {
   position: relative;
   width: 80%;
   height: 70%;
@@ -48,7 +49,7 @@ const Ldiv = styled.div`
   top: 50%;
   transform: translate(0%, -50%);
   /* background-color: yellow; */
-  @media (max-width: 820px) {
+  @media (max-width: 912px) {
   width: 80%;
   top: 15vh;
   left: 50%;
@@ -65,11 +66,12 @@ const CrBox = styled.div`
   position: absolute;
   padding-left : 10%;
   width: 100%;
-  height: 50%;
+  height: 30%;
   font-size:2vw;
-  @media (max-width: 820px) {
+  /* background-color: red; */
+  @media (max-width: 912px) {
     /* background-color: #FAF9F9; */
-    height: 25vh;
+    height: 10vh;
     padding: unset;
   }
   `;
@@ -77,15 +79,17 @@ const CrBox = styled.div`
 const ChBox = styled.div`
   position: relative;
   padding-left : 10%;
+  padding-top : 5%;
   width: 100%;
-  height: 50%;
-  top: 50%;
+  height: 30vm;
+  top: 16vw;
   font-size: 2vw;
-  @media (max-width: 820px) {
-    padding: unset;
-    background-color: #FAF9F9;
-    height: 25vh;
-    top: 25vh;
+  background-color: #FAF9F9;
+  @media (max-width: 912px) {
+    padding-left: unset;
+    /* background-color: #FAF9F9; */
+    height: 30vw;
+    top: 15vh;
   }
 `;
 // -------------------------------------------------------------
@@ -116,7 +120,7 @@ const ChallengeItems = styled.div`
   @media (max-width: 1200px) {
     font-size: 2vw;
   }
-  @media (max-width: 820px) {
+  @media (max-width: 912px) {
     font-size: 3vw;
     display: inline;
   }
