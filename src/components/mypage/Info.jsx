@@ -6,6 +6,18 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import { Collapse } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Space } from 'antd';
+import { Col, Row, Statistic } from 'antd';
+
+const { Panel } = Collapse;
+const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
+
 function BodyShorthandExample(crews) {
   const navigate = useNavigate();
   // const myCrew = useSelector(state => state.myCrew)
@@ -106,8 +118,50 @@ function BodyShorthandExample(crews) {
   };
 
   return (
-    <>
-      <>
+    <div className="total_container">
+      <div className="user_container">
+        <Space direction="vertical" size={16} className="avatar">
+          <Space wrap size={16}>
+            <Avatar size={64} icon={<UserOutlined />} />
+          </Space>
+        </Space>
+        <div className="my_info">
+          <div>{result.name}</div>
+          <div>{result.nickName}</div>
+          {/* <div>{result.id}</div> */}
+          <div>{result.city}</div>
+          {/* <Row gutter={16}> */}
+          <Col span={12}>
+            <Statistic title="donation" value={amount} />
+          </Col>
+          {/* </Row> */}
+        </div>
+        <Button variant="light" onClick={handleShow} className="edit_profile">
+          정보 수정
+        </Button>
+      </div>
+      {/* <div className="challenge_box">dfasd</div> */}
+      {/* <Row gutter={16}>
+        <Col span={12}>
+          <Statistic title="challenge" value={amount} />
+        </Col>
+      </Row> */}
+
+      <Collapse accordion className="accordion">
+        <Panel header="CREW" key="1">
+          <p>
+            {crew.map((el, i) => (
+              <div className="crew_info" key={i}>
+                <img alt="img" src={el.image} className="crew_img" />
+                <p>{el.title}</p>
+                <p>{el.info}</p>
+              </div>
+            ))}
+          </p>
+        </Panel>
+      </Collapse>
+
+      <div>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>회원정보 수정</Modal.Title>
@@ -158,9 +212,9 @@ function BodyShorthandExample(crews) {
             </Button>
           </Modal.Footer>
         </Modal>
-      </>
+      </div>
 
-      <div className="container">
+      {/* <div className="container">
         <div className="my_info_container">
           <span className="myInfo">MyInfo</span>
           <div className="my_info">
@@ -175,16 +229,16 @@ function BodyShorthandExample(crews) {
           </div>
           <Button variant="light" onClick={handleShow} className="edit_profile">
             정보 수정
-          </Button>
-          {/* <Button
+          </Button> */}
+      {/* <Button
             variant="light"
             onClick={() => deleteInfo()}
             className="del_profile"
           >
             탈퇴하기
           </Button> */}
-        </div>
-        <div className="crew_container">
+      {/* </div> */}
+      {/* <div className="crew_container">
           <span className="crew">CREW</span>
           <div className="crew_card">
             <ul>
@@ -210,7 +264,8 @@ function BodyShorthandExample(crews) {
           </div>
         </div>
       </div>
-    </>
+    </div> */}
+    </div>
   );
 }
 

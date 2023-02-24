@@ -84,11 +84,16 @@
 .crew {
   margin-bottom: 20px;
 }
+.crew_img {
+  width: 100%;
+  height: 40%;
+}
 .crew_info {
   border: 1px solid #d8d8d8;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+  align-items: center;
 }
 ul {
   margin: 0;
@@ -144,4 +149,33 @@ li {
   .my_info_container {
     margin: 50px 0;
   }
+}
+.accordion {
+  width: 50vh;
+}
+.total_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.user_container {
+  border: 1px solid #d8d8d8;
+  background-color: #faf9f9;
+  border-radius: 10px;
+  padding: 30px 30px;
+  margin: 50px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.my_info {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+.challenge_box {
+  border: 1px solid black;
+  float: left;
 }
