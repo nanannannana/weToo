@@ -162,6 +162,12 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
     inputValue.current.value = '';
   };
   // const SelectOnChange = (e) => setTo(e.target.value);
+  const enter = (e) => {
+    if (e.keyCode == 13) {
+      sendMessage();
+      e.preventDefault();
+    }
+  };
   return (
     <div className="relative">
       <div ref={room} className="room">
@@ -199,7 +205,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
             ref={inputValue}
             type="text"
             id="msg_box"
-            // onkeyDown="enter()"
+            onKeyDown={(e) => enter(e)}
           />
           <button type="button" onClick={() => sendMessage()}>
             입력

@@ -6,12 +6,12 @@ const { tokenCheck } = require('../middleware/tokenCheck');
 
 router.post('/signup', async (req, res, next) => {
   const { id, nickName, pw, city, name, phone } = req.body;
-  console.log('들어온정보',req.body);
+  console.log('들어온정보', req.body);
 
   try {
     const exUser = await User.findOne({ where: { id: id } });
     const exnickName = await User.findOne({ where: { nickName: nickName } });
-    
+
     if (exUser) {
       return res.status(403).send('존재하는 ID입니다.');
     }
@@ -66,7 +66,7 @@ router.post('/login', async (req, res, next) => {
       },
       process.env.ACCESS_SECRET,
       {
-        expiresIn: '15m', // 만료시간 15분
+        expiresIn: '45m', // 만료시간 15분
         issuer: 'we',
       }
     );

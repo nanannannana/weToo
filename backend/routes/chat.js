@@ -38,7 +38,7 @@ router.post('/load', tokenCheck, async (req, res, next) => {
   );
   // console.log('38', userCrewJoinTime);
   //유저가 방에 언제 입장한지 알아낸 후 그 이후의 대화만 보여주기 위해
-  let offsetId = offset || 300; //300은 임시다. chat데이터의 가장 마지막 id값 가져오기
+  let offsetId = offset || 3000; //300은 임시다. chat데이터의 가장 마지막 id값 가져오기
   const chatList = await Chat.findAll({
     where: {
       createdAt: { [Op.gt]: userCrewJoinTime.createdAt },
