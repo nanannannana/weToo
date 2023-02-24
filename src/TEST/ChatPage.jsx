@@ -30,7 +30,7 @@ export default function ChatPage() {
   const dispatch = useDispatch();
   const changeNum = (e) => dispatch(crewPagination(e - 1));
   const change = useSelector((state) => state.crew.crewChange);
-  console.log('user 확인: ', user.city.split('/')[1]);
+  console.log('user 확인: ', user.city?.split('/')[1]);
   console.log('change', change);
 
   useEffect(() => {
