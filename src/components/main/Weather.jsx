@@ -16,9 +16,11 @@ const Outer = styled.div`
   position: relative;
   top: 50%;
   left: 50%;
+  height: 100%;
   transform: translate(-50%, -50%);
-  background-color: yellow;
-  @media (max-width: 820px) {
+  /* background-color: yellow; */
+  @media (max-width: 912px) {
+    height: unset;
     display: inline-block;
     width: 100%;
     align-content: initial;
@@ -32,7 +34,7 @@ const Title = styled.span`
   font-family: 'Port Lligat Slab';
   font-style: normal;
   font-weight: 400;
-  @media (max-width: 820px) {
+  @media (max-width: 912px) {
     display: none;
   }
 `;
@@ -47,9 +49,9 @@ const WeatherBox = styled.div`
   font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
-  @media (max-width: 820px) {
+  @media (max-width: 912px) {
     width: 40%;
-    height: 20vh;
+    height: 18vh;
     position: absolute;
   }
 `;
@@ -67,9 +69,9 @@ const FitnessBox = styled.div`
   font-size: 1vw;
   font-family: 'Poppins';
   font-weight: 700;
-  @media (max-width: 820px) {
+  @media (max-width: 912px) {
     position: absolute;
-    height: 20vh;
+    height: 18vh;
     width: 40%;
     left: 45%;
     top: 100%;
@@ -155,7 +157,7 @@ export default function Weather() {
     const weatherShow = async () => {
       const data = await axios({
         method: 'post',
-        url: 'http://3.35.48.121:8000/weather/today_weather',
+        url: 'http://localhost:8000/weather/today_weather',
         data: {
           city: city,
         },
