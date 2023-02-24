@@ -14,9 +14,9 @@ const Outer = styled.div`
   align-content: center;
   display: block;
   position: relative;
-  top: 50%;
+  top: 45%;
   left: 50%;
-  height: 100%;
+  height: 90%;
   transform: translate(-50%, -50%);
   /* background-color: yellow; */
   @media (max-width: 912px) {
@@ -42,7 +42,7 @@ const Title = styled.span`
 const WeatherBox = styled.div`
   position: relative;
   text-align: center;
-  margin: 0 10% 0 10%;
+  margin: 0 10%;
   width: 80%;
   border: 1px solid #d8d8d8;
   background-color: #faf9f9;
@@ -50,9 +50,15 @@ const WeatherBox = styled.div`
   font-family: 'Poppins';
   font-weight: 700;
   @media (max-width: 912px) {
-    width: 40%;
-    height: 18vh;
+    margin: unset;
+    width: 50%;
+    height: 28vh;
     position: absolute;
+    font-size: 3vw;
+  }
+  @media (max-width: 426px) {
+    height: 56vw;
+    font-size: 4vw;
   }
 `;
 
@@ -71,64 +77,75 @@ const FitnessBox = styled.div`
   font-weight: 700;
   @media (max-width: 912px) {
     position: absolute;
-    height: 18vh;
-    width: 40%;
-    left: 45%;
+    height: 28vh;
+    width: 50%;
+    left: 40%;
     top: 100%;
+    font-size: 3vw;
+  }
+  @media (max-width: 426px) {
+    height: 56vw;
+    font-size: 4vw;
   }
 `;
 const Fitimg = styled.img`
   margin: 15%;
   width: 8vh;
   height: 8vh;
+  @media (max-width: 912px) {
+    margin-top: 20%;
+  }
+  @media (max-width: 426px) {
+    margin-top: 30%;
+  }
 `;
 
 const WeatherCases = {
   Rain: {
     title: 'Raining',
-    subtitle: '필라테스하기 좋은 날이에요.',
+    subtitle: '필라테스하기',
     icon: 'ios-rainy',
     img: pilates,
   },
   Clear: {
     title: 'Sunny',
-    subtitle: '러닝하기 좋은 날이에요.',
+    subtitle: '러닝하기',
     icon: 'ios-sunny',
     img: running,
   },
   Thunderstorm: {
     title: 'Thunderstrom',
-    subtitle: '천둥이 쳐요. 헬스장에 가볼까요?',
+    subtitle: '헬스장가기',
     icon: 'ios-thunderstorm',
     img: health,
   },
   Clouds: {
     title: 'Clouds',
-    subtitle: '흐리지만 테니스를 쳐볼까요?',
+    subtitle: '테니스치기',
     icon: 'ios-cloudy',
     img: tennis,
   },
   Snow: {
     title: 'Snow',
-    subtitle: '스키나 보드를 타기 좋은 날이에요.',
+    subtitle: '보드타기',
     icon: 'ios-snow',
     img: board,
   },
   Drizzle: {
     title: 'Drizzle',
-    subtitle: '요가하기 좋은 날이에요.',
+    subtitle: '요가하기',
     icon: 'ios-rainy-outline',
     img: yoga,
   },
   Haze: {
     title: 'Haze',
-    subtitle: '요가하기 좋은 날이에요.',
+    subtitle: '요가하기',
     icon: 'ios-rainy-outline',
     img: yoga,
   },
   Mist: {
     title: 'Mist',
-    subtitle: '습하니 수영장에 가볼까요?',
+    subtitle: '수영하기',
     icon: 'ios-rainy-outline',
     img: swim,
   },
@@ -179,10 +196,12 @@ export default function Weather() {
             <Title>Weather</Title>
             <WeatherBox>
               <br />
-              <p>우리 지역 날씨는?</p>
+              <p>우리 지역
+                <br />
+                날씨는?</p>
               <State src={iconurl} alt="날씨" />
               <div className="temperature">
-                현재 기온{' '}
+                기온{' '}
                 {Math.round((result.data.main.temp - 273.15) * 10) / 10}℃
                 <div className="sky">{WeatherCases[weather].title}</div>
                 <br />
@@ -191,7 +210,8 @@ export default function Weather() {
             <Title>Today Fitness</Title>
             <FitnessBox>
               <br />
-              <div className="sky">{WeatherCases[weather].subtitle}</div>
+              <div className="sky">{WeatherCases[weather].subtitle}
+              <br />좋은 날씨에요.</div>
               <Fitimg src={WeatherCases[weather].img} />
             </FitnessBox>
           </div>
