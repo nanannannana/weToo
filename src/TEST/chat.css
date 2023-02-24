@@ -15,8 +15,7 @@
   width: 100%;
   height: 600px;
   overflow-y: scroll;
-  background: #94b1c5;
-  border-radius: 15px;
+  background: #fff7f7;
   padding: 60px 20px 40px 20px;
   /* position: relative; */
 }
@@ -39,7 +38,7 @@ li.yourMessage {
 
 .yourProfile + p {
   padding: 5px;
-  background: #eff0ea;
+  background: #e7e7e7;
   word-break: break-all;
   display: inline-block;
   border-radius: 20px;
@@ -50,7 +49,7 @@ li.yourMessage {
 }
 .yourMessage p:nth-child(1) {
   padding: 5px;
-  background: #eff0ea;
+  background: #e7e7e7;
   word-break: break-all;
   display: inline-block;
   border-radius: 20px;
@@ -67,7 +66,7 @@ li.yourMessage {
 
 .myMessage p {
   text-align: left;
-  background: #fff157;
+  background: #ffffff;
   word-break: break-all;
   display: inline-block;
   border-radius: 20px;
@@ -99,22 +98,25 @@ li.myMessage {
   border-radius: 0 0 15px 15px;
   width: 100%;
   height: 50px;
-  background: #95b6d5;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .room input {
   width: 80%;
-  padding: 5px;
+  padding: 4px;
+  margin-bottom: 15px;
   border: none;
+  font-family: 'ONE-Mobile-Title';
+  outline: none;
 }
 form button {
   padding: 4px 10px;
-  background: #546fd1;
-  border: 1px solid #546fd1;
-  border-radius: 0 50px 50px 0;
+  background: #5575e8;
+  margin-bottom: 15px;
+  border: none;
   color: #fff;
+  font-family: 'ONE-Mobile-Title';
 }
 .room ul > p {
   text-align: center;
@@ -131,16 +133,20 @@ form button {
 }
 
 .roomTitle {
-  background: #fff7f7;
-  height: 50px;
-  display: flex;
-  align-items: center;
+  background: #ffe9e9;
+  height: 40px;
   padding: 10px;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  border-radius: 10px;
+  top: 0.1px;
+  left: 0.2%;
+  width: 99.6%;
+  font-size: 2vh;
+  font-weight: bold;
+  /* text-align: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'ONE-Mobile-Title';
 }
 
 /* crew */
@@ -148,7 +154,8 @@ form button {
   display: flex;
   justify-content: space-between;
   max-width: 1920px;
-  margin: 0 5%;
+  margin: 0 auto;
+  padding: 0 5%;
 }
 
 .AllCrewPost {
@@ -210,7 +217,7 @@ form button {
 }
 
 .crewDiv {
-  width: 25%;
+  width: 27.3%;
   display: flex;
   flex-direction: column;
   margin: 0 6% 30px 0;
