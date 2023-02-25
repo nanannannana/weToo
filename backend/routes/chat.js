@@ -52,5 +52,23 @@ router.post('/load', tokenCheck, async (req, res, next) => {
 
   res.send(chatList);
 });
+router.post('/recent', tokenCheck, async (req, res, next) => {
+  // console.log(req.body);
+  try {
+    const recentChat = await Chat.findOne({
+      where:{
+        User_nickName: req.decoded.nickName
+      },
+      order: [['id', 'DESC']],
+      attributes: ["MatePost_id"]
+    })
+    console.log(recentChat)
+    res.status(200).json(recentChat)
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+  
+});
 
 module.exports = router;

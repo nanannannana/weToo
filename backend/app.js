@@ -18,15 +18,25 @@ const io = require('socket.io')(http, {
 });
 let users = {};
 let room = {};
+let crew = {};
 io.on('connection', (socket) => {
   // 채팅방 입장
 
   socket.on('notice', (data) => {
     console.log('notice1', data);
     users[socket.id] = data.nickName;
+    if(!crew[data.currentCrew.id]){
+      crew[data.currentCrew.id] = 1
+    } else {
+      console.log('121111')
+      crew[data.currentCrew.id] += 1;
+    }
     io.to(data.currentCrew.id).emit('notice', {
       type: 'notice',
       chat: data.nickName + '님이 입장하였습니다.',
+    });
+    io.emit('numberInChat', {
+      numberInChat: crew
     });
   });
 
@@ -43,8 +53,11 @@ io.on('connection', (socket) => {
   });
   socket.on('outCrew', (data) => {
     console.log('outCrew', data);
-
     io.emit('outCrew', data);
+  });
+  socket.on('removeCrew', (data) => {
+    console.log('removeCrew', data);
+    io.emit('removeCrew', data);
   });
 
   console.log('server open ' + socket.id);
@@ -60,16 +73,28 @@ io.on('connection', (socket) => {
     console.log('roomOut', data);
     // console.log(room[socket.id]);
     socket.leave(data.currentCrewId);
+    crew[data.currentCrewId] -= 1;
     io.to(data.currentCrewId).emit('notice', {
       type: 'notice',
       chat: data.nickName + '님이 대화창을 나갔습니다.',
+      
     });
+    io.emit('numberInChat', {
+      numberInChat: crew
+    });
+
   });
   socket.on('disconnect', () => {
     console.log('disconnect');
+
+    crew[room[socket.id]] ? crew[room[socket.id]] -= 1 : null;
     io.to(room[socket.id]).emit('notice', {
       type: 'notice',
       chat: users[socket.id] + '님이 대화창을 나갔습니다.',
+      
+    });
+    io.emit('numberInChat', {
+      numberInChat : crew
     });
     // delete users[socket.id];
     // io.emit('users', users);

@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import './chat.css';
 
-export default function Chat({ user, setDisplay, currentCrew, socket }) {
+export default function Chat({ user, setDisplay, currentCrew, socket, numberInChatSet }) {
   console.log('user', user);
   console.log('ChatComponent');
   console.log(socket, socket.id); //왜 소켓아이디는 안뜨냐
@@ -115,6 +115,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket }) {
     setScrollHeight(room.current.scrollHeight);
     socket.emit('notice', { nickName: user.nickName, currentCrew });
     socket.on('notice', (data) => {
+     
       console.log('notice', data);
       if (data.chat.split('님')[0] != 'undefined') {
         // data['User_nickName'] = user.nickName;
