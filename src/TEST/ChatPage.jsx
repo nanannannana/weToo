@@ -30,11 +30,10 @@ export default function ChatPage() {
   const dispatch = useDispatch();
   const changeNum = (e) => dispatch(crewPagination(e - 1));
   const change = useSelector((state) => state.crew.crewChange);
-  const [numberInChat, numberInChatSet] = useState(0)
-  console.log(numberInChat)
+  const [numberInChat, numberInChatSet] = useState(0);
+  console.log(numberInChat);
   console.log('user 확인: ', user.city?.split('/')[1]);
   console.log('change', change);
-  
 
   useEffect(() => {
     dispatch(crewPagination(0));
@@ -57,8 +56,10 @@ export default function ChatPage() {
 
   async function joinCrew() {
     console.log('현재 크루', currentCrew);
-    console.log('아이디상태',sessionStorage.id);
-    if(!sessionStorage.id){return alert('로그인 후 이용해주세요.') }
+    console.log('아이디상태', sessionStorage.id);
+    if (!sessionStorage.id) {
+      return alert('로그인 후 이용해주세요.');
+    }
     if (currentCrew.users?.find((e) => e.nickName == user.nickName)) {
       //데미더이터
       //내 유저 아이디와 같은게 있다면
@@ -108,15 +109,15 @@ export default function ChatPage() {
         nickName: user.nickName,
       });
       numberInChatSet((state) => {
-        state[currentCrew.id] -= 1
-        return state
-      })
+        state[currentCrew.id] -= 1;
+        return state;
+      });
     }
   }
 
   useEffect(() => {
     AllmatePostLoad();
-    
+
     socket.on('joinCrew', (data) => {
       //인원 제한시 실시간으로 반영하기 위해 사용
       console.log('socket join crew');
@@ -132,11 +133,11 @@ export default function ChatPage() {
           return e;
         });
       });
-      if(data.currentCrew.id == currentCrew.id){
-        currentCrewSet(state => {
-           state.users = [...state.users, { nickName: data.nickName }]
-           return state
-        })
+      if (data.currentCrew.id == currentCrew.id) {
+        currentCrewSet((state) => {
+          state.users = [...state.users, { nickName: data.nickName }];
+          return state;
+        });
       }
       // currentCrewSet((state) => {
       //   if (state.id == data.currentCrew.id) {
@@ -152,32 +153,31 @@ export default function ChatPage() {
     });
     socket.on('removeCrew', (data) => {
       //인원 제한시 실시간으로 반영하기 위해 사용
-      console.log(data)
+      console.log(data);
       setCrew((state) => {
-        return state.filter((e) => e.id != data.crewId)
-      })
+        return state.filter((e) => e.id != data.crewId);
+      });
     });
     socket.on('numberInChat', (data) => {
-      console.log(data)
-      numberInChatSet((state) => data.numberInChat)
-      
-      //인원 제한시 실시간으로 반영하기 위해 사용
+      console.log(data);
+      numberInChatSet((state) => data.numberInChat);
 
+      //인원 제한시 실시간으로 반영하기 위해 사용
     });
 
     socket.on('removeCrew', (data) => {
       //인원 제한시 실시간으로 반영하기 위해 사용
-      console.log(data)
+      console.log(data);
       setCrew((state) => {
-        return state.filter((e) => e.id != data.crewId)
-      })
+        return state.filter((e) => e.id != data.crewId);
+      });
     });
     socket.on('outCrew', (data) => {
       //인원 제한시 실시간으로 반영하기 위해 사용
       console.log('socket outCrew');
       console.log(crew);
       console.log(data);
-    
+
       setCrew((state) => {
         return state.map((e) => {
           console.log(e.id, data.currentCrew.id);
@@ -191,9 +191,8 @@ export default function ChatPage() {
           return e;
         });
       });
-      alert(`${data.nickName}님이 탈퇴하셨습니다.`)
+      alert(`${data.nickName}님이 탈퇴하셨습니다.`);
     });
-   
 
     return () => {
       socket.off('joinCrew');
@@ -204,7 +203,12 @@ export default function ChatPage() {
   }, [currentCrew, change]);
 
   // 크루 생성 모달 나타나게 하기
-  const ModalShow = () => dispatch(modalShow(true));
+  const ModalShow = () => {
+    if (!user.id) {
+      return alert('로그인 후 이용하세요');
+    }
+    dispatch(modalShow(true));
+  };
 
   // 크루 삭제
   const crewDel = (v) => {
@@ -218,34 +222,34 @@ export default function ChatPage() {
       .then(() => {
         alert('삭제가 완료되었습니다!');
         dispatch(crewChange(true));
-        socket.emit("removeCrew", {crewId: v.id})
+        socket.emit('removeCrew', { crewId: v.id });
       });
   };
   const recentChat = () => {
-    axios
-      .post('/chat/recent', {
-      
-      })
-      .then((res) => {
-        console.log(res)
-        if(!res.data?.MatePost_id){
-          return alert("최근 대화가 없습니다")
-        }
-        
-        console.log(crew.filter((e) => e.id == res.data.MatePost_id))
-        currentCrewSet(...crew.filter((e) => e.id == res.data.MatePost_id))
-        setDisplay(2)
-      });
+    if (!user.id) {
+      return alert('로그인 후 이용하세요');
+    }
+    axios.post('/chat/recent', {}).then((res) => {
+      console.log(res);
+
+      if (!res.data?.MatePost_id) {
+        return alert('최근 대화가 없습니다');
+      }
+
+      console.log(crew.filter((e) => e.id == res.data.MatePost_id));
+      currentCrewSet(...crew.filter((e) => e.id == res.data.MatePost_id));
+      setDisplay(2);
+    });
   };
 
   return (
     <>
       <NavBar />
       <CrewModal />
-      <div className='btnDiv'>
-      <Button variant="light" onClick={ModalShow}>
-        +crew
-      </Button>
+      <div className="btnDiv">
+        <Button variant="light" onClick={ModalShow}>
+          +crew
+        </Button>
       </div>
 
       <div className="chatPage">
@@ -253,7 +257,10 @@ export default function ChatPage() {
           {crewPagi.map((e, i) => (
             <div className="crewDiv" key={i}>
               <div
-                style={{ backgroundImage: `url(${e.image})`,backgroundPosition:"center" }}
+                style={{
+                  backgroundImage: `url(${e.image})`,
+                  backgroundPosition: 'center',
+                }}
                 className="crewPost"
                 key={i}
                 onClick={() => selectCrew(e)}
@@ -262,10 +269,9 @@ export default function ChatPage() {
                 {/* <h3>{e.title}</h3> */}
 
                 <InfoTitle key={i}>{e.title}</InfoTitle>
-{
-  e.User_nickName == user.nickName ? <div onClick={() => crewDel(e)}>❎</div> : null
-}
-                
+                {e.User_nickName == user.nickName ? (
+                  <div onClick={() => crewDel(e)}>❎</div>
+                ) : null}
               </div>
             </div>
           ))}
@@ -274,27 +280,44 @@ export default function ChatPage() {
         {display == 0 ? (
           <div className="defaultChat">
             <div>
-              <h2 style={{textAlign:"center"}}>Weto</h2>
+              <h2 style={{ textAlign: 'center' }}>Weto</h2>
               <p> Welcome to the Weto!!😊</p>
-              <p className='p' >친구들과 함께 크루를 만들거나 나에게 맞는 크루를 찾아 가입해보세요.</p>
-              <p className='p2'>가입한 크루 : { crew.filter(e => e.users.filter(ee=> ee.nickName == user.nickName).length == 1 ).length } CREW</p>
-              <div className='recentCrew'>
-              <button onClick={() => recentChat()}>최근 대화</button>
+              <p className="p">
+                친구들과 함께 크루를 만들거나 나에게 맞는 크루를 찾아
+                가입해보세요.
+              </p>
+              <p className="p2">
+                가입한 크루 :{' '}
+                {
+                  crew.filter(
+                    (e) =>
+                      e.users.filter((ee) => ee.nickName == user.nickName)
+                        .length == 1
+                  ).length
+                }{' '}
+                CREW
+              </p>
+              <div className="recentCrew">
+                <button onClick={() => recentChat()}>최근 대화</button>
               </div>
-              
             </div>
           </div>
         ) : display == 1 ? (
           <div className="CrewInfoBox">
             <h4>{currentCrew.title}</h4>
             {/* <div className='currentCrewImg'  style={{borderRadius: "10px", backgroundImage: `url(${currentCrew.image})`, backgroundSize: "cover" }}></div> */}
-            <img src={currentCrew.image} style={{width:"65%"}} alt="" />
+            <img src={currentCrew.image} style={{ width: '65%' }} alt="" />
             <p>{currentCrew.info}</p>
-            <p>가입 인원수 : {currentCrew.users.length}/{currentCrew.max}</p>
-            <p>채팅 참여중인 인원수 : {numberInChat[currentCrew.id] || 0}/{currentCrew.max}</p>
+            <p>
+              가입 인원수 : {currentCrew.users.length}/{currentCrew.max}
+            </p>
+            <p>
+              채팅 참여중인 인원수 : {numberInChat[currentCrew.id] || 0}/
+              {currentCrew.max}
+            </p>
             <div>
-            <button onClick={() => joinCrew()}>입장</button>
-            <button onClick={() => outCrew()}>탈퇴</button>
+              <button onClick={() => joinCrew()}>입장</button>
+              <button onClick={() => outCrew()}>탈퇴</button>
             </div>
           </div>
         ) : (
@@ -303,7 +326,7 @@ export default function ChatPage() {
             currentCrew={currentCrew}
             socket={socket}
             user={user}
-            numberInChatSet = {numberInChatSet}
+            numberInChatSet={numberInChatSet}
           />
         )}
       </div>
@@ -312,7 +335,7 @@ export default function ChatPage() {
         defaultPageSize={6}
         total={crew.length}
         onChange={(e) => changeNum(e)}
-        style={{width: "70%", textAlign: "center"}}
+        style={{ width: '70%', textAlign: 'center' }}
       />
 
       {/* {crew.map((e, i) => (
