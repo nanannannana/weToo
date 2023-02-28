@@ -63,7 +63,7 @@ exports.upLoadData = async (req, res) => {
 
 exports.deleteData = async (req, res) => {
   // console.log('img: ', req.body.img);
-  fs.unlinkSync(`../public${req.body.img}`);
+  fs.unlinkSync(`../build${req.body.img}`);
   await Proof.destroy({
     where: { img: req.body.img },
   });

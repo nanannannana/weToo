@@ -224,7 +224,7 @@ export default function Info({ imgWidth }) {
         pay_method: 'card',
         merchant_uid: new Date().getTime(),
         name: infoObj.name,
-        amount: 200,
+        amount: infoObj.price,
         buyer_email: '',
         buyer_name: `${sessionStorage.id}`,
         buyer_tel: `${sessionStorage.phone}` || '01012341212',

@@ -36,6 +36,8 @@ router.post('/load', tokenCheck, async (req, res, next) => {
       attributes: ['createdAt'],
     }
   );
+
+  console.log(userCrewJoinTime);
   // console.log('38', userCrewJoinTime);
   //유저가 방에 언제 입장한지 알아낸 후 그 이후의 대화만 보여주기 위해
   let offsetId = offset || 3000; //300은 임시다. chat데이터의 가장 마지막 id값 가져오기
@@ -56,19 +58,18 @@ router.post('/recent', tokenCheck, async (req, res, next) => {
   // console.log(req.body);
   try {
     const recentChat = await Chat.findOne({
-      where:{
-        User_nickName: req.decoded.nickName
+      where: {
+        User_nickName: req.decoded.nickName,
       },
       order: [['id', 'DESC']],
-      attributes: ["MatePost_id"]
-    })
-    console.log(recentChat)
-    res.status(200).json(recentChat)
+      attributes: ['MatePost_id'],
+    });
+
+    res.status(200).json(recentChat);
   } catch (error) {
-    console.error(error)
-    next(error)
+    console.error(error);
+    next(error);
   }
-  
 });
 
 module.exports = router;

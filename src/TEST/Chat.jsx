@@ -2,11 +2,17 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import './chat.css';
 
-export default function Chat({ user, setDisplay, currentCrew, socket, numberInChatSet }) {
+export default function Chat({
+  user,
+  setDisplay,
+  currentCrew,
+  socket,
+  numberInChatSet,
+}) {
   console.log('user', user);
   console.log('ChatComponent');
-  console.log(socket, socket.id); //왜 소켓아이디는 안뜨냐
-  const socketId = socket.id;
+  console.log(socket, socket?.id); //왜 소켓아이디는 안뜨냐
+  const socketId = socket?.id;
   const [chatting, setChatting] = useState([]);
   console.log(chatting);
   const inputValue = useRef(null);
@@ -113,9 +119,8 @@ export default function Chat({ user, setDisplay, currentCrew, socket, numberInCh
     ChattingListLoad();
     console.log('notice useEffet');
     setScrollHeight(room.current.scrollHeight);
-    socket.emit('notice', { nickName: user.nickName, currentCrew });
-    socket.on('notice', (data) => {
-     
+    socket?.emit('notice', { nickName: user.nickName, currentCrew });
+    socket?.on('notice', (data) => {
       console.log('notice', data);
       if (data.chat.split('님')[0] != 'undefined') {
         // data['User_nickName'] = user.nickName;
@@ -123,8 +128,10 @@ export default function Chat({ user, setDisplay, currentCrew, socket, numberInCh
       }
       //chat페이지에서 새로고침시에 disconnect가 발생하는데 화면에 그리지 않기 위해 조건사용
     });
-    socket.emit('join', { currentCrew: currentCrew.id });
-    socket.on('newMsg', (data) => {
+    socket?.emit('join', { currentCrew: currentCrew.id });
+    socket?.on('newMsg', (data) => {
+      console.log(121212321);
+      console.log(data);
       if (socketId == data.from) {
         data['liClassName'] = 'myMessage';
       } else {
@@ -139,17 +146,17 @@ export default function Chat({ user, setDisplay, currentCrew, socket, numberInCh
     });
     //room을 선택해 입장을 누르면 컴포넌트가 마운트 되면서 방에 입장
     return () => {
-      socket.off('notice');
-      socket.off('newMsg');
+      socket?.off('notice');
+      socket?.off('newMsg');
     };
   }, []);
   //소켓이 변한다는건 다른 유저가 들어왔다는 거다 그래서 변할 때마다 공지를 해준다.
 
   const sendMessage = async () => {
-    if (inputValue.current.value == ''){
-      return 
+    if (inputValue.current.value == '') {
+      return;
     }
-    socket.emit('sendMsg', {
+    socket?.emit('sendMsg', {
       chat: inputValue.current.value,
       nickName: user.nickName,
       currentCrew,
@@ -224,7 +231,7 @@ export default function Chat({ user, setDisplay, currentCrew, socket, numberInCh
           console.log(currentCrew.id);
           console.log(user.nickName);
           setDisplay((state) => !state);
-          socket.emit('roomOut', {
+          socket?.emit('roomOut', {
             currentCrewId: currentCrew.id,
             nickName: user.nickName,
           });
