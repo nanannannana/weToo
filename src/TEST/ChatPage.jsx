@@ -18,11 +18,11 @@ const InfoTitle = styled.div`
 `;
 
 export default function ChatPage() {
-  // console.log('Chatpage, 크루정보불러와서 2번 렌더링일어남')
-  let socket = io.connect('http://localhost:8000');
+  let socket = io.connect('http://3.35.48.121:8000');
+
   const user = sessionStorage;
   const [crew, setCrew] = useState([]);
-  console.log('크루게시물', crew);
+
   const [display, setDisplay] = useState(0);
   const [currentCrew, currentCrewSet] = useState('');
   const page = useSelector((state) => state.crew.page);
@@ -31,9 +31,6 @@ export default function ChatPage() {
   const changeNum = (e) => dispatch(crewPagination(e - 1));
   const change = useSelector((state) => state.crew.crewChange);
   const [numberInChat, numberInChatSet] = useState(0);
-  console.log(numberInChat);
-  console.log('user 확인: ', user.city?.split('/')[1]);
-  console.log('change', change);
 
   useEffect(() => {
     dispatch(crewPagination(0));
@@ -55,8 +52,6 @@ export default function ChatPage() {
   }
 
   async function joinCrew() {
-    console.log('현재 크루', currentCrew);
-    console.log('아이디상태', sessionStorage.id);
     if (!sessionStorage.id) {
       return alert('로그인 후 이용해주세요.');
     }
@@ -78,7 +73,7 @@ export default function ChatPage() {
         },
       });
       alert('가입을 축하드립니다.');
-      socket.emit('joinCrew', { nickName: user.nickName, currentCrew });
+      socket?.emit('joinCrew', { nickName: user.nickName, currentCrew });
 
       setDisplay(2);
     }
@@ -95,7 +90,7 @@ export default function ChatPage() {
         crewId: currentCrew.id,
       },
     });
-    socket.emit('outCrew', { nickName: user.nickName, currentCrew });
+    socket?.emit('outCrew', { nickName: user.nickName, currentCrew });
     setDisplay(1);
     // setDisplay((state) => !state);
   }
@@ -104,7 +99,7 @@ export default function ChatPage() {
     currentCrewSet(e);
     setDisplay(1);
     if (display == 2) {
-      socket.emit('roomOut', {
+      socket?.emit('roomOut', {
         currentCrewId: currentCrew.id,
         nickName: user.nickName,
       });
@@ -118,15 +113,11 @@ export default function ChatPage() {
   useEffect(() => {
     AllmatePostLoad();
 
-    socket.on('joinCrew', (data) => {
+    socket?.on('joinCrew', (data) => {
       //인원 제한시 실시간으로 반영하기 위해 사용
-      console.log('socket join crew');
-      console.log(crew);
-      console.log(data);
 
       setCrew((state) => {
         return state.map((e) => {
-          console.log(e.id, data.currentCrew.id);
           if (e.id == data.currentCrew.id) {
             e.users = [...e.users, { nickName: data.nickName }];
           }
@@ -146,59 +137,75 @@ export default function ChatPage() {
       //   return state;
       // });
       // const currentCrew = crew.filter(e => e.id == currentCrew.id)
-      // console.log(currentCrew.users)
       // currentCrew.users = [...currentCrew.users, {nickName: data.nickName}]
-      // console.log(crewAdded)
       // setCrew((state => ({...state, currentCrew})))
     });
-    socket.on('removeCrew', (data) => {
+    socket?.on('removeCrew', (data) => {
       //인원 제한시 실시간으로 반영하기 위해 사용
-      console.log(data);
+
       setCrew((state) => {
         return state.filter((e) => e.id != data.crewId);
       });
     });
-    socket.on('numberInChat', (data) => {
-      console.log(data);
+    socket?.on('numberInChat', (data) => {
       numberInChatSet((state) => data.numberInChat);
 
       //인원 제한시 실시간으로 반영하기 위해 사용
     });
 
-    socket.on('removeCrew', (data) => {
+    socket?.on('removeCrew', (data) => {
       //인원 제한시 실시간으로 반영하기 위해 사용
-      console.log(data);
+
       setCrew((state) => {
         return state.filter((e) => e.id != data.crewId);
       });
     });
-    socket.on('outCrew', (data) => {
+    socket?.on('outCrew', (data) => {
       //인원 제한시 실시간으로 반영하기 위해 사용
-      console.log('socket outCrew');
-      console.log(crew);
-      console.log(data);
 
       setCrew((state) => {
         return state.map((e) => {
-          console.log(e.id, data.currentCrew.id);
           if (e.id == data.currentCrew.id) {
             const users = e.users.filter((ee) => ee.nickName != data.nickName);
-            console.log(e.users);
-            console.log(users);
+
             delete e.users;
             e['users'] = users;
           }
           return e;
         });
       });
-      alert(`${data.nickName}님이 탈퇴하셨습니다.`);
+      setCrew((state) => {
+        state.some((e) => {
+          if (e.id == data.currentCrew.id) {
+            e.users.some((ee) => {
+              if (ee.nickName == user.nickName) {
+                alert(
+                  `${data.currentCrew.id}번방의${data.nickName}님이 탈퇴하셨습니다.`
+                );
+                return true;
+              }
+              return false;
+            });
+          }
+          // e.users.some((ee) => {
+          //   if (ee.nickName == user.nickName) {
+          //     alert(
+          //       `${data.currentCrew.id}번방의${data.nickName}님이 탈퇴하셨습니다.`
+          //     );
+          //     return true;
+          //   }
+          //   return false;
+          // });
+        });
+        return state;
+      });
     });
 
     return () => {
-      socket.off('joinCrew');
-      socket.off('numberInChat');
-      socket.off('outCrew');
-      socket.off('removeCrew');
+      socket?.off('joinCrew');
+      socket?.off('numberInChat');
+      socket?.off('outCrew');
+      socket?.off('removeCrew');
     };
   }, [currentCrew, change]);
 
@@ -222,7 +229,7 @@ export default function ChatPage() {
       .then(() => {
         alert('삭제가 완료되었습니다!');
         dispatch(crewChange(true));
-        socket.emit('removeCrew', { crewId: v.id });
+        socket?.emit('removeCrew', { crewId: v.id });
       });
   };
   const recentChat = () => {
@@ -230,13 +237,10 @@ export default function ChatPage() {
       return alert('로그인 후 이용하세요');
     }
     axios.post('/chat/recent', {}).then((res) => {
-      console.log(res);
-
       if (!res.data?.MatePost_id) {
         return alert('최근 대화가 없습니다');
       }
 
-      console.log(crew.filter((e) => e.id == res.data.MatePost_id));
       currentCrewSet(...crew.filter((e) => e.id == res.data.MatePost_id));
       setDisplay(2);
     });

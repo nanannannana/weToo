@@ -174,7 +174,7 @@ export default function Weather() {
     const weatherShow = async () => {
       const data = await axios({
         method: 'post',
-        url: 'http://localhost:8000/weather/today_weather',
+        url: 'http://3.35.48.121:8000/weather/today_weather',
         data: {
           city: city,
         },
@@ -196,13 +196,14 @@ export default function Weather() {
             <Title>Weather</Title>
             <WeatherBox>
               <br />
-              <p>우리 지역
+              <p>
+                우리 지역
                 <br />
-                날씨는?</p>
+                날씨는?
+              </p>
               <State src={iconurl} alt="날씨" />
               <div className="temperature">
-                기온{' '}
-                {Math.round((result.data.main.temp - 273.15) * 10) / 10}℃
+                기온 {Math.round((result.data.main.temp - 273.15) * 10) / 10}℃
                 <div className="sky">{WeatherCases[weather].title}</div>
                 <br />
               </div>
@@ -210,8 +211,11 @@ export default function Weather() {
             <Title>Today Fitness</Title>
             <FitnessBox>
               <br />
-              <div className="sky">{WeatherCases[weather].subtitle}
-              <br />좋은 날씨에요.</div>
+              <div className="sky">
+                {WeatherCases[weather].subtitle}
+                <br />
+                좋은 날씨에요.
+              </div>
               <Fitimg src={WeatherCases[weather].img} />
             </FitnessBox>
           </div>

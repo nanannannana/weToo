@@ -12,8 +12,8 @@ import axios from 'axios';
 import Challenge from './pages/Challenge';
 import 'antd/dist/reset.css';
 
-axios.defaults.baseURL = 'http://localhost:8000';
-// axios.defaults.baseURL = 'http://3.35.48.121:8000';
+// axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'http://3.35.48.121:8000';
 axios.defaults.withCredentials = true;
 
 function App() {

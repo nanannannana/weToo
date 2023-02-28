@@ -75,7 +75,7 @@ router.delete('/outcrew', tokenCheck, async (req, res, next) => {
       await MatePost.destroy({
         where: { id: crewId },
       });
-      fs.unlinkSync(`../public${matePost.dataValues.image}`);
+      fs.unlinkSync(`../build${matePost.dataValues.image}`);
     }
     await matePost.removeUsers(req.decoded.id);
     res.send('탈퇴성공');
