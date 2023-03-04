@@ -174,7 +174,7 @@ export default function Weather() {
     const weatherShow = async () => {
       const data = await axios({
         method: 'post',
-        url: 'http://3.35.48.121:8000/weather/today_weather',
+        url: process.env.REACT_APP_URL + '/weather/today_weather',
         data: {
           city: city,
         },

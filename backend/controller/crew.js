@@ -46,6 +46,6 @@ exports.crewDel = async (req, res) => {
   await MatePost.destroy({
     where: { id: req.body.id },
   });
-  fs.unlinkSync(`../build${req.body.image}`);
+  fs.unlinkSync(`../${process.env.ROUTE}${req.body.image}`);
   res.send(true);
 };
